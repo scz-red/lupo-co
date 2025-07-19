@@ -1,0 +1,15 @@
+
+:root {
+    --yellow: #FCD116;
+    --blue: #003893;
+    --red: #CE1126;
+    --dark: #2E2E2E;
+    --light: #F8F9FA;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+/* The rest of the CSS rules follow... (omitted here for brevity) */
