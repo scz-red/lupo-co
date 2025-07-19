@@ -1,10 +1,6 @@
 {
-  "name": "Lupo Envíos",
-  "short_name": "Lupo",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#003366",
+  "name": "Lupo Envia",
+  "short_name": "Envio a Colombia",
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -16,5 +12,9 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
 }
