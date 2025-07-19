@@ -853,5 +853,97 @@ if ('serviceWorker' in navigator) {
     installBtn.style.display = 'none';
   });
 </script>
+<!-- Botón flotante moderno -->
+<button id="ios-install-btn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #003893, #0051d4);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 9999;
+  display: none;
+  transition: transform 0.3s ease;
+">
+  📲 Instalar App
+</button>
+
+<!-- Modal flotante moderno -->
+<div id="ios-modal" style="
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 300px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  font-family: 'Segoe UI', sans-serif;
+  animation: slideUp 0.4s ease-out;
+  z-index: 9999;
+  border: 2px solid #003893;
+">
+  <h3 style="margin: 0 0 10px 0; color: #003893;">¿Cómo instalar esta App?</h3>
+  <ul style="padding-left: 18px; margin: 0 0 10px 0; font-size: 0.95rem;">
+    <li>1. Toca el ícono <strong>Compartir</strong> (cuadro con flecha ↑)</li>
+    <li>2. Selecciona <strong>"Agregar a pantalla de inicio"</strong></li>
+    <li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
+  </ul>
+  <button onclick="document.getElementById('ios-modal').style.display='none'" style="
+    background-color: #003893;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+  ">
+    Entendido
+  </button>
+</div>
+
+<style>
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #ios-install-btn:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+
+  if (isIOS && isSafari && !isInStandaloneMode) {
+    const iosBtn = document.getElementById('ios-install-btn');
+    const iosModal = document.getElementById('ios-modal');
+
+    iosBtn.style.display = 'block';
+    iosBtn.addEventListener('click', () => {
+      iosModal.style.display = 'block';
+    });
+  }
+</script>
+
+
 </body>
 </html>
