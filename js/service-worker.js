@@ -1,9 +1,6 @@
 const CACHE_NAME = 'lupo-cache-v3';
+const EXCLUDE_FROM_CACHE = ['main.js', 'manifest.json'];
 
-// Excluir archivos que no quieres que se cacheen
-const EXCLUDE_FROM_CACHE = ['manifest.json'];
-
-// Solo cachear lo necesario (index.html e íconos)
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -42,25 +39,21 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
 
-  // No cachear archivos excluidos
   if (EXCLUDE_FROM_CACHE.some(path => requestUrl.pathname.endsWith(path))) {
     return event.respondWith(fetch(event.request));
   }
 
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then(networkResponse => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
-      });
-    }).catch(() => {
-      // Si falla todo, intenta cargar offline básico (puedes poner aquí un fallback.html si quieres)
-      return caches.match('/index.html');
-    })
+      return (
+        cachedResponse ||
+        fetch(event.request).then(networkResponse => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        })
+      );
+    }).catch(() => fetch(event.request))
   );
 });
