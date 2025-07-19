@@ -776,12 +776,82 @@
             }
         });
     </script>
+    <!-- Botón de instalación PWA -->
+<button id="install-btn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #003893;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 9999;
+  display: none;
+">
+  📲 Instalar App
+</button>
+
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/js/service-worker.js')
     .then(reg => console.log('✅ Service Worker registrado:', reg))
     .catch(err => console.error('❌ Error registrando el Service Worker:', err));
 }
+</script>
+    <!-- Botón de instalación PWA -->
+<button id="install-btn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #003893;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 9999;
+  display: none;
+">
+  📲 Instalar App
+</button>
+
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('install-btn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Evita que el navegador muestre su propio prompt
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('✅ Usuario aceptó instalar la app');
+        installBtn.style.display = 'none';
+      } else {
+        console.log('❌ Usuario rechazó instalar la app');
+      }
+      deferredPrompt = null;
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    console.log('🎉 App instalada');
+    installBtn.style.display = 'none';
+  });
 </script>
 </body>
 </html>
