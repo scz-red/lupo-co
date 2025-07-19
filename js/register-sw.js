@@ -1,4 +1,3 @@
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -6,7 +5,7 @@ if ('serviceWorker' in navigator) {
         registration.unregister();
       }
     }).finally(() => {
-      navigator.serviceWorker.register('/service-worker.js?v=' + Date.now())
+      navigator.serviceWorker.register('/js/service-worker.js?v=' + Date.now())
         .then(reg => console.log('[SW] Registrado:', reg.scope))
         .catch(err => console.error('[SW] Error:', err));
     });
