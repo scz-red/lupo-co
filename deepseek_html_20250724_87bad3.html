@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Envíos de remesas de Colombia a Bolivia sin comisiones al mejor tipo de cambio. Calcula y envía de forma rápida y segura.">
+    <meta name="keywords" content="envío dinero, remesas, Bolivia, tipo de cambio, sin comisiones, Lupo Transfer">
+    
+    <!-- Preconexiones para mejorar rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://flagcdn.com">
+    
+    <!-- Meta para PWA -->
+    <link rel="manifest" href="/icons/manifest.json">
+    <meta name="theme-color" content="#003893">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LUPO">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    
+    <!-- Favicons optimizados -->
+    <link rel="icon" href="https://lupo.lat/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+    
+    <title>Bolivianos a Pesos | Envío Rápido a Colombia | LUPO Envíos</title>
+    
+    <!-- CSS moderno con identidad colombiana -->
+    <style>
+        :root {
+            --yellow: #FCD116; /* Amarillo bandera Colombia */
+            --blue: #003893;   /* Azul bandera Colombia */
+            --red: #CE1126;    /* Rojo bandera Colombia */
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --gray-100: #F8FAFC;
+            --gray-200: #F1F5F9;
+            --gray-500: #64748B;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --app-max-width: 480px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--gray-100);
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            flex-direction: column;
+            max-width: var(--app-max-width);
+            margin: 0 auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            background-image: linear-gradient(to bottom, rgba(252, 209, 22, 0.03) 0%, rgba(0, 56, 147, 0.03) 50%, rgba(206, 17, 38, 0.03) 100%);
+        }
+        
+        /* Barra de estado tipo app con colores Colombia */
+        .status-bar {
+            height: 24px;
+            background: linear-gradient(to right, 
+                var(--yellow) 33%, 
+                var(--blue) 33%, 
+                var(--blue) 66%, 
+                var(--red) 66%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 16px;
+        }
+        
+        .status-bar::after {
+            content: "";
+            width: 40%;
+            height: 4px;
+            background-color: var(--light);
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+        
+        /* Header moderno con efecto bandera */
+        header {
+            background-color: var(--light);
+            padding: 12px 16px;
+            position: sticky;
+            top: 24px;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .logo-flag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-flag img {
+            width: 28px;
+            height: 28px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .logo-flag img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .login-btn {
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0, 56, 147, 0.2);
+        }
+        
+        .login-btn:hover {
+            background-color: #002b7a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 56, 147, 0.3);
+        }
+        
+        /* Hero section con bandera Colombia sutil */
+        .hero {
+            background: linear-gradient(135deg, var(--blue), #002b7a);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, 
+                var(--yellow) 33%, 
+                transparent 33%, 
+                transparent 66%, 
+                var(--red) 66%);
+        }
+        
+        .hero-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(252, 209, 22, 0.1) 0%, 
+                rgba(0, 56, 147, 0.3) 50%, 
+                rgba(206, 17, 38, 0.1) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 span {
+            color: var(--yellow);
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            max-width: 100%;
+        }
+        
+        /* Contenedor principal */
+        .container {
+            flex: 1;
+            padding: 16px;
+            background-color: transparent;
+        }
+        
+        /* Tarjeta de calculadora elegante */
+        .calculator-card {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            margin: -32px auto 24px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid var(--gray-200);
+            background-image: linear-gradient(to bottom, var(--light) 0%, var(--gray-100) 100%);
+        }
+        
+        .calculator-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, 
+                var(--yellow) 33%, 
+                var(--blue) 33%, 
+                var(--blue) 66%, 
+                var(--red) 66%);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        .calculator-card h2 {
+            color: var(--blue);
+            margin-bottom: 24px;
+            font-size: 1.25rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .calculator-card h2::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--yellow), var(--blue), var(--red));
+            border-radius: 3px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light);
+            font-weight: 500;
+        }
+        
+        .form-control:focus {
+            border-color: var(--blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 56, 147, 0.1);
+        }
+        
+        .btn-primary {
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 56, 147, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: #002b7a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 56, 147, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .result-card {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--blue);
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .result-title {
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .result-date {
+            color: var(--gray-500);
+            font-size: 0.8rem;
+        }
+        
+        .result-amount {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 16px 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .result-amount span {
+            color: var(--red);
+        }
+        
+        .result-details {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .result-details p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .result-url {
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .result-url a {
+            color: var(--blue);
+            font-size: 0.8rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .result-url a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Botón de compartir/captura elegante */
+        .share-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--blue);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .share-btn:hover {
+            background-color: rgba(0, 56, 147, 0.1);
+            color: #002b7a;
+        }
+        
+        .currency-input-container {
+            position: relative;
+        }
+        
+        .currency-flag {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .currency-input {
+            padding-left: 45px !important;
+        }
+        
+        .exchange-info {
+            text-align: center;
+            margin: 12px 0;
+            color: var(--blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        /* Sección de características moderna */
+        .features-section {
+            margin: 32px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .section-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--yellow), var(--blue), var(--red));
+            border-radius: 3px;
+        }
+        
+        .section-title p {
+            color: var(--gray-500);
+            max-width: 100%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0, 56, 147, 0.1), rgba(252, 209, 22, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--blue);
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .feature-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+        }
+        
+        /* Testimonios modernos */
+        .testimonials {
+            background-color: var(--light);
+            padding: 24px 16px;
+            margin: 32px -16px;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .testimonial-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 16px;
+            border-left: 4px solid var(--red);
+            transition: var(--transition);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 16px;
+            color: var(--dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 2px solid var(--gray-200);
+        }
+        
+        .author-info h4 {
+            color: var(--blue);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .author-info p {
+            color: var(--gray-500);
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            color: var(--yellow);
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Mapa moderno */
+        .map-section {
+            margin: 32px 0;
+        }
+        
+        .map-container {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-top: 16px;
+        }
+        
+        .map-container iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+        
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            color: var(--blue);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .map-link:hover {
+            color: #002b7a;
+            text-decoration: underline;
+        }
+        
+        /* Footer moderno con bandera Colombia */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 32px 16px 16px;
+            position: relative;
+            margin-top: auto;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, 
+                var(--yellow) 33%, 
+                var(--blue) 33%, 
+                var(--blue) 66%, 
+                var(--red) 66%);
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 24px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 32px;
+            height: 2px;
+            background-color: var(--yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--yellow);
+            transform: translateX(4px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-links a:hover {
+            color: var(--yellow);
+            background-color: rgba(252, 209, 22, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Botones PWA modernos */
+        #install-btn, #ios-install-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--blue), #0051d4);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 9999;
+            display: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        #install-btn:hover, #ios-install-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Modal iOS moderno */
+        #ios-modal {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            max-width: 300px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            font-family: 'Inter', sans-serif;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+            border: 1px solid var(--gray-200);
+        }
+        
+        #ios-modal h3 {
+            margin: 0 0 12px 0;
+            color: var(--blue);
+            font-size: 1.1rem;
+        }
+        
+        #ios-modal ul {
+            padding-left: 20px;
+            margin: 0 0 16px 0;
+            font-size: 0.9rem;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        #ios-modal li {
+            margin-bottom: 8px;
+        }
+        
+        #ios-modal button {
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+        }
+        
+        #ios-modal button:hover {
+            background-color: #002b7a;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .calculator-card {
+                margin: -24px auto 24px;
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Efectos de carga modernos */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        /* Toast para captura */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none;
+            animation: fadeInOut 2.5s ease-in-out;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de estado tipo app -->
+    <div class="status-bar"></div>
+    
+    <header>
+        <div class="logo">
+            <img src="https://lupo.lat/img/lupo01.png" alt="LUPO Envía">
+            <div class="logo-flag">
+                <a href="https://co.lupo.lat/cop/"><img src="https://flagcdn.com/w40/co.png" alt="Colombia"></a>
+                <a href="https://co.lupo.lat/"><img src="https://flagcdn.com/w40/bo.png" alt="Bolivia"></a>
+            </div>
+        </div>
+        <button class="login-btn">
+            <i class="fas fa-user"></i> Ingresar
+        </button>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span></h1>
+            <p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="calculator-card">
+            <h2><i class="fas fa-exchange-alt"></i> Calculadora de envío</h2>
+            
+            <div class="form-group">
+                <label for="amount">Monto a enviar (BOB)</label>
+                <div class="currency-input-container">
+                    <div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/bo.png')"></div>
+                    <input type="number" id="amount" class="form-control currency-input" placeholder="Ej. 500" min="1">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="received-amount">Recibirás en COP</label>
+                <div class="currency-input-container">
+                    <div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/co.png')"></div>
+                    <input type="text" id="received-amount" class="form-control currency-input" placeholder="0" readonly>
+                </div>
+            </div>
+            
+            <button class="btn-primary" id="calculate-btn">
+                <i class="fas fa-paper-plane"></i> Enviar Dinero
+            </button>
+            
+            <div class="result-card" id="result-card">
+                <button class="share-btn" id="share-btn" title="Compartir resultado">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <div class="result-header">
+                    <div class="result-title">Detalles del envío</div>
+                    <div class="result-date" id="result-date"></div>
+                </div>
+                <div class="result-amount">
+                    $<span id="result-amount">0</span> <small>COP</small>
+                </div>
+                <div class="result-details">
+                    <p><i class="fas fa-coins" style="color: var(--blue);"></i> <strong>Sin comisiones</strong> - 0% de tarifa</p>
+                    <p id="delivery-time"><i class="fas fa-clock" style="color: var(--red);"></i> Tiempo de entrega: 10-20 minutos</p>
+                </div>
+                <div class="result-url">
+                    <a href="https://www.lupo.lat/cop" target="_blank">www.lupo.lat/cop</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <div class="section-title">
+                <h2>¿Por qué enviar con LUPO?</h2>
+                <p>Ofrecemos el servicio más confiable para enviar dinero a Colombia desde Bolivia</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Mejor tasa de cambio</h3>
+                    <p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Envíos rápidos</h3>
+                    <p>El dinero llega en minutos a cuentas bancarias.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Seguridad garantizada</h3>
+                    <p>Tus transferencias están 100% protegidas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Tarifas Cero</h3>
+                    <p>Las comisiones más económicas del mercado.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonials">
+            <div class="section-title">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Miles de personas confían en nosotros para enviar dinero a Colombia</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Envío dinero para poder pagar a mi proveedores. y todo fue muy facil y rapido."</p>
+                <div class="testimonial-author">
+                    <img src="https://co.lupo.lat/img/yiya.jpg" alt="Yiya Muñoz">
+                    <div class="author-info">
+                        <h4>Yiya Muñoz</h4>
+                        <p>Santa Cruz, Bolivia</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Ningun problema, ya e realizado 2 envios y me fue muy bien. son muy rapidos y profecionales."</p>
+                <div class="testimonial-author">
+                    <a href="https://www.facebook.com/khatia.valentina.morales"><img src="https://co.lupo.lat/img/kathia.jpg" alt="Khatia Valentina Morales"></a>
+                    <div class="author-info">
+                        <h4>Khatia Valentina Morales</h4>
+                        <p>Cochabamba, Bolivia</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Envío dinero cada mes a mi familia en cali y siempre llega en minutos. La mejor tasa que he encontrado y el proceso es super sencillo."</p>
+                <div class="testimonial-author">
+                    <a href="Oscar Uriel"><img src="https://co.lupo.lat/img/oscar.jpg" alt="Oscar Uriel Bustos Garcia"></a>
+                    <div class="author-info">
+                        <h4>Oscar Uriel Bustos Garcia</h4>
+                        <p>Cali, Colombia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección del Mapa -->
+        <div class="map-section">
+            <div class="section-title">
+                <h2>Nuestra ubicación</h2>
+                <p>Visítanos en nuestro punto de atención en Santa Cruz de la Sierra</p>
+                <p>Centro Comercial Cañoro #k2</p>
+            </div>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.235717362279!2d-63.189774699999994!3d-17.780615600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1e808c5e5a803%3A0x3e8bdd290d73f9ea!2sComercial%20Ca%C3%B1oto!5e0!3m2!1ses-419!2sbo!4v1747264199250!5m2!1ses-419!2sbo" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div style="text-align: center;">
+                <a href="https://maps.app.goo.gl/8rhtvAL3ZHxzMxcL9" target="_blank" class="map-link">
+                    <i class="fas fa-map-marker-alt"></i> Ver en Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>LUPO ENVÍA</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-bottom: 16px;">El puente financiero entre Bolivia y Colombia.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Lupo.envia" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/59171077231" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Envío de dinero</a></li>
+                    <li><a href="#">Tasas de cambio</a></li>
+                    <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank">Puntos de pago</a></li>
+                    <li><a href="#">Empresas</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Ayuda</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Guías de usuario</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/59171077231" target="_blank"><i class="fas fa-phone"></i> +591 71077231</a></li>
+                    <li><a href="mailto:hola@lupo.lat"><i class="fas fa-envelope"></i> hola@lupo.lat</a></li>
+                    <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank"><i class="fas fa-map-marker-alt"></i> Centro Comercial Cañoto #k2</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2024 LUPO Envía. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <!-- Toast para captura -->
+    <div class="toast" id="toast">
+        Captura guardada en tu galería
+    </div>
+    
+    <!-- Scripts PWA -->
+    <button id="install-btn">
+        <i class="fas fa-download"></i> Instalar App
+    </button>
+
+    <button id="ios-install-btn">
+        <i class="fas fa-download"></i> Instalar App
+    </button>
+
+    <div id="ios-modal">
+        <h3>¿Cómo instalar esta App?</h3>
+        <ul>
+            <li>1. Toca el ícono <strong>Compartir</strong> (cuadro con flecha ↑)</li>
+            <li>2. Selecciona <strong>"Agregar a pantalla de inicio"</strong></li>
+            <li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
+        </ul>
+        <button onclick="document.getElementById('ios-modal').style.display='none'">
+            Entendido
+        </button>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountInput = document.getElementById('amount');
+            const receivedInput = document.getElementById('received-amount');
+            const resultCard = document.getElementById('result-card');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const shareBtn = document.getElementById('share-btn');
+            const resultDate = document.getElementById('result-date');
+            const toast = document.getElementById('toast');
+            
+            // Configuración
+            const EXCHANGE_RATE = 251.57; // 1 BOB = 251.57 COP
+            const WHATSAPP_NUMBER = '59171077231';
+            
+            // Función para formatear fecha y hora
+            function formatDateTime() {
+                const now = new Date();
+                const options = { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric',
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false
+                };
+                return now.toLocaleDateString('es-ES', options).replace(',', '');
+            }
+            
+            // Calcular automáticamente al escribir
+            amountInput.addEventListener('input', function() {
+                calculateTransfer();
+            });
+            
+            // Función principal
+            function calculateTransfer() {
+                const amount = parseFloat(amountInput.value);
+                
+                if (!isNaN(amount) && amount > 0) {
+                    const receivedAmount = Math.round(amount * EXCHANGE_RATE * 100) / 100; // 2 decimales
+                    receivedInput.value = receivedAmount.toLocaleString('es-CO');
+                    document.getElementById('result-amount').textContent = receivedAmount.toLocaleString('es-CO');
+                    resultDate.textContent = formatDateTime();
+                    resultCard.style.display = 'block';
+                } else {
+                    receivedInput.value = '';
+                    resultCard.style.display = 'none';
+                }
+            }
+            
+            // Manejar el clic en el botón de enviar
+            calculateBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(amountInput.value);
+                
+                if (!isNaN(amount) && amount > 0) {
+                    const receivedAmount = Math.round(amount * EXCHANGE_RATE * 100) / 100;
+                    const message = `Hola, quiero enviar ${amount} BOB (${receivedAmount.toLocaleString('es-CO')} COP) a Colombia. ¿Me ayudan con el envío?`;
+                    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                    
+                    // Animación del botón
+                    calculateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+                    calculateBtn.style.backgroundColor = '#28a745';
+                    
+                    // Redirigir después de 1 segundo
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                        
+                        // Restaurar el botón después de 3 segundos
+                        setTimeout(() => {
+                            calculateBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Dinero';
+                            calculateBtn.style.backgroundColor = '';
+                        }, 3000);
+                    }, 1000);
+                } else {
+                    // Animación de error
+                    calculateBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Monto inválido';
+                    calculateBtn.style.backgroundColor = '#dc3545';
+                    
+                    setTimeout(() => {
+                        calculateBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Dinero';
+                        calculateBtn.style.backgroundColor = '';
+                    }, 2000);
+                }
+            });
+            
+            // Función para compartir/capturar el resultado
+            shareBtn.addEventListener('click', function() {
+                if (resultCard.style.display === 'block') {
+                    // Crear un canvas para la captura
+                    const canvas = document.createElement('canvas');
+                    const resultCard = document.getElementById('result-card');
+                    const scale = 2; // Calidad de la imagen
+                    
+                    // Configurar el canvas
+                    canvas.width = resultCard.offsetWidth * scale;
+                    canvas.height = resultCard.offsetHeight * scale;
+                    canvas.style.width = resultCard.offsetWidth + 'px';
+                    canvas.style.height = resultCard.offsetHeight + 'px';
+                    
+                    // Dibujar en el canvas
+                    const ctx = canvas.getContext('2d');
+                    ctx.scale(scale, scale);
+                    
+                    // Usar html2canvas para capturar el elemento
+                    html2canvas(resultCard, {
+                        canvas: canvas,
+                        scale: scale,
+                        logging: false,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null
+                    }).then(canvas => {
+                        // Convertir canvas a imagen
+                        const image = canvas.toDataURL('image/png');
+                        
+                        // Crear enlace de descarga
+                        const link = document.createElement('a');
+                        link.download = 'lupo-envio-' + new Date().getTime() + '.png';
+                        link.href = image;
+                        link.click();
+                        
+                        // Mostrar toast
+                        toast.style.display = 'block';
+                        setTimeout(() => {
+                            toast.style.display = 'none';
+                        }, 2500);
+                    });
+                }
+            });
+            
+            // Calcular al cargar si hay un valor
+            if (amountInput.value) {
+                calculateTransfer();
+            }
+        });
+
+        // Scripts PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/js/service-worker.js')
+                .then(reg => console.log('✅ Service Worker registrado:', reg))
+                .catch(err => console.error('❌ Error registrando el Service Worker:', err));
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+        const iosBtn = document.getElementById('ios-install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'flex';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('✅ Usuario aceptó instalar la app');
+                    installBtn.style.display = 'none';
+                } else {
+                    console.log('❌ Usuario rechazó instalar la app');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('🎉 App instalada');
+            installBtn.style.display = 'none';
+            iosBtn.style.display = 'none';
+        });
+
+        // Detección iOS
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+
+        if (isIOS && isSafari && !isInStandaloneMode) {
+            iosBtn.style.display = 'flex';
+            iosBtn.addEventListener('click', () => {
+                document.getElementById('ios-modal').style.display = 'block';
+            });
+        }
+    </script>
+    
+    <!-- Biblioteca para captura de pantalla -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
