@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://flagcdn.com">
     
     <!-- Meta para PWA -->
-    <link rel="manifest" href="/icons/manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#003893">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -70,6 +70,41 @@
             position: relative;
             box-shadow: var(--shadow-lg);
             background-image: linear-gradient(to bottom, rgba(252, 209, 22, 0.03) 0%, rgba(0, 56, 147, 0.03) 50%, rgba(206, 17, 38, 0.03) 100%);
+        }
+        
+        /* WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 8px 12px;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        .whatsapp-float i {
+            font-size: 16px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         /* Barra de estado tipo app con colores Colombia */
@@ -879,6 +914,13 @@
             .hero h1 {
                 font-size: 1.3rem;
             }
+            
+            .whatsapp-float {
+                bottom: 80px;
+                left: 10px;
+                font-size: 11px;
+                padding: 6px 10px;
+            }
         }
         
         /* Efectos de carga modernos */
@@ -916,6 +958,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/59171077231" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i> Contactar
+    </a>
+    
     <!-- Barra de estado tipo app -->
     <div class="status-bar"></div>
     
@@ -1244,7 +1291,11 @@
                     
                     // Redirigir después de 1 segundo
                     setTimeout(() => {
-                        window.open(whatsappUrl, '_blank');
+                        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                            window.location.href = whatsappUrl;
+                        } else {
+                            window.open(whatsappUrl, '_blank');
+                        }
                         
                         // Restaurar el botón después de 3 segundos
                         setTimeout(() => {
@@ -1317,7 +1368,7 @@
 
         // Scripts PWA
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/js/service-worker.js')
+            navigator.serviceWorker.register('/service-worker.js')
                 .then(reg => console.log('✅ Service Worker registrado:', reg))
                 .catch(err => console.error('❌ Error registrando el Service Worker:', err));
         }
