@@ -709,47 +709,53 @@
     </footer>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const amountInput = document.getElementById('amount');
-            const receivedInput = document.getElementById('received-amount');
-            const resultCard = document.getElementById('result-card');
-            const calculateBtn = document.getElementById('calculate-btn');
-            
-            // Configuración
-const amountInput = document.getElementById('amount-input');  // tu input
-const resultElement = document.getElementById('result-cop'); // tu span/div
+document.addEventListener('DOMContentLoaded', function() {
+    const amountInput = document.getElementById('amount');
+    const receivedInput = document.getElementById('received-amount');
+    const resultAmount = document.getElementById('result-amount');
+    const resultCard = document.getElementById('result-card');
+    const calculateBtn = document.getElementById('calculate-btn');
 
-function getBobToCopRate() {
-    return fetch('https://api.lupo.lat/cambio_a_bob?moneda=cop&monto=100')
-        .then(res => res.json())
-        .then(data => 100 / data.resultado); // tasa invertida: 1 BOB en COP
-}
+    // --- CACHÉ de 1 minuto ---
+    let cachedRate = null;
+    let cachedTime = 0;
+    const CACHE_TIME = 60 * 1000; // 1 minuto
 
-function calculateTransfer() {
-    getBobToCopRate().then(EXCHANGE_RATE => {
-        const bob = parseFloat(amountInput.value) || 0;
-        const cop = bob * EXCHANGE_RATE * 0.90; // menos el 10%
-        resultElement.textContent = `${cop.toLocaleString()} COP`;
-    });
-}
+    function getBobToCopRate() {
+        const now = Date.now();
+        if (cachedRate && (now - cachedTime < CACHE_TIME)) {
+            return Promise.resolve(cachedRate);
+        }
+        return fetch('https://api.lupo.lat/cambio_a_bob?moneda=cop&monto=100')
+            .then(res => res.json())
+            .then(data => {
+                cachedRate = 100 / data.resultado;
+                cachedTime = now;
+                return cachedRate;
+            });
+    }
 
-amountInput.addEventListener('input', calculateTransfer);
-calculateTransfer();
-            // Función principal
-            function calculateTransfer() {
-                const amount = parseFloat(amountInput.value);
-                
-                if (!isNaN(amount) && amount > 0) {
-                    const receivedAmount = Math.round(amount * EXCHANGE_RATE);
-                    receivedInput.value = receivedAmount.toLocaleString('es-CO');
-                    document.getElementById('result-amount').textContent = receivedAmount.toLocaleString('es-CO');
-                    resultCard.style.display = 'block';
-                } else {
-                    receivedInput.value = '';
-                    resultCard.style.display = 'none';
-                }
+    function calculateTransfer() {
+        getBobToCopRate().then(EXCHANGE_RATE => {
+            const amount = parseFloat(amountInput.value);
+            if (!isNaN(amount) && amount > 0) {
+                const cop = Math.round(amount * EXCHANGE_RATE * 0.90); // menos el 10%
+                receivedInput.value = cop.toLocaleString('es-CO');
+                resultAmount.textContent = cop.toLocaleString('es-CO');
+                resultCard.style.display = 'block';
+            } else {
+                receivedInput.value = '';
+                resultAmount.textContent = '0';
+                resultCard.style.display = 'none';
             }
-            
+        });
+    }
+
+    amountInput.addEventListener('input', calculateTransfer);
+    calculateTransfer();
+});
+</script>
+
             // Manejar el clic en el botón de enviar
             calculateBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -956,4 +962,5 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+
 
