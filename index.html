@@ -547,19 +547,23 @@
                 <i class="fas fa-paper-plane"></i> Enviar Dinero
             </button>
             
-            <div class="result-card" id="result-card">
-                <div class="result-header">
-                    <div class="result-title">Detalles del envío</div>
-                    <i class="fas fa-check-circle" style="color: var(--yellow);"></i>
-                </div>
-                <div class="result-amount">
-                    $<span id="result-amount">0</span> <small>COP</small>
-                </div>
-                <div class="result-details">
-                    <p><i class="fas fa-coins" style="color: var(--blue);"></i> <strong>Sin comisiones</strong> - 0% de tarifa</p>
-                    <p id="delivery-time"><i class="fas fa-clock" style="color: var(--red);"></i> Tiempo de entrega: 10-20 minutos</p>
-                </div>
-            </div>
+<div class="result-card" id="result-card">
+    <div class="result-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="result-title">Detalles del envío</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-check-circle" style="color: var(--yellow);"></i>
+            <span id="cotiz-datetime" style="font-size: 13px; color: #888;"></span>
+        </div>
+    </div>
+    <div class="result-amount">
+        $<span id="result-amount">0</span> <small>COP</small>
+    </div>
+    <div class="result-details">
+        <p><i class="fas fa-coins" style="color: var(--blue);"></i> <strong>Sin comisiones</strong> - 0% de tarifa</p>
+        <p id="delivery-time"><i class="fas fa-clock" style="color: var(--red);"></i> Tiempo de entrega: 10-20 minutos</p>
+    </div>
+</div>
+
         </div>
         
         <div class="features-section">
@@ -736,6 +740,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    function updateCotizDatetime() {
+        const fechaEl = document.getElementById('cotiz-datetime');
+        if (!fechaEl) return;
+        const now = new Date();
+        let h = now.getHours().toString().padStart(2, '0');
+        let m = now.getMinutes().toString().padStart(2, '0');
+        let d = now.getDate();
+        let mo = now.getMonth() + 1;
+        let y = now.getFullYear();
+        fechaEl.textContent = `${h}:${m} ${d}/${mo}/${y}`;
+    }
+
     function calculateTransfer() {
         getBobToCopRate().then(EXCHANGE_RATE => {
             const amount = parseFloat(amountInput.value);
@@ -744,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 receivedInput.value = cop.toLocaleString('es-CO');
                 resultAmount.textContent = cop.toLocaleString('es-CO');
                 resultCard.style.display = 'block';
+                updateCotizDatetime();
             } else {
                 receivedInput.value = '';
                 resultAmount.textContent = '0';
@@ -964,6 +981,7 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+
 
 
 
