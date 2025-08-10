@@ -779,7 +779,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!isNaN(amount) && amount > 0) {
             getBobToCopRate().then(EXCHANGE_RATE => {
-                const cop = Math.round(amount * EXCHANGE_RATE * 0.70); // menos el 10%
+                const cop = Math.round(amount * EXCHANGE_RATE * 0.90); // menos el 10%
                 const message = `Hola, quiero enviar ${amount} BOB (${cop.toLocaleString('es-CO')} COP) a Colombia. ¿Me ayudan con el envío?`;
                 const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
                 
@@ -981,6 +981,7 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+
 
 
 
