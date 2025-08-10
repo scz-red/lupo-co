@@ -756,7 +756,7 @@ document.addEventListener('DOMContentLoaded', function() {
         getBobToCopRate().then(EXCHANGE_RATE => {
             const amount = parseFloat(amountInput.value);
             if (!isNaN(amount) && amount > 0) {
-                const cop = Math.round(amount * EXCHANGE_RATE * 0.90); // menos el 10%
+                const cop = Math.round(amount * EXCHANGE_RATE * 0.85); // menos el 10%
                 receivedInput.value = cop.toLocaleString('es-CO');
                 resultAmount.textContent = cop.toLocaleString('es-CO');
                 resultCard.style.display = 'block';
@@ -981,6 +981,7 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+
 
 
 
