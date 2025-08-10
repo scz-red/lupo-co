@@ -713,100 +713,101 @@
     </footer>
     
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const amountInput = document.getElementById('amount');
-    const receivedInput = document.getElementById('received-amount');
-    const resultAmount = document.getElementById('result-amount');
-    const resultCard = document.getElementById('result-card');
-    const calculateBtn = document.getElementById('calculate-btn');
-    const WHATSAPP_NUMBER = '59171077231';
+document.addEventListener('DOMContentLoaded', function () {
+  const amountInput   = document.getElementById('amount');
+  const receivedInput = document.getElementById('received-amount');
+  const resultAmount  = document.getElementById('result-amount');
+  const resultCard    = document.getElementById('result-card');
+  const calculateBtn  = document.getElementById('calculate-btn');
+  const WHATSAPP_NUMBER = '59171077231';
 
-    // --- CACHÉ de 1 minuto ---
-    let cachedRate = null;
-    let cachedTime = 0;
-    const CACHE_TIME = 60 * 1000; // 1 minuto
+  // ===== % de descuento (frontend) =====
+  const FRONTEND_DISCOUNT = 0.10;              // 10%
+  const MULT = 1 - FRONTEND_DISCOUNT;          // 0.90
 
-    function getBobToCopRate() {
-        const now = Date.now();
-        if (cachedRate && (now - cachedTime < CACHE_TIME)) {
-            return Promise.resolve(cachedRate);
-        }
-        return fetch('https://api.lupo.lat/cambio_a_bob?moneda=cop&monto=100')
-            .then(res => res.json())
-            .then(data => {
-                cachedRate = 100 / data.resultado;
-                cachedTime = now;
-                return cachedRate;
-            });
+  // --- CACHÉ de 1 minuto ---
+  let cachedRate = null; // COP por 1 BOB
+  let cachedTime = 0;
+  const CACHE_TIME = 60 * 1000;
+
+  async function getBobToCopRate() {
+    const now = Date.now();
+    if (cachedRate && (now - cachedTime < CACHE_TIME)) return cachedRate;
+
+    try {
+      const res = await fetch('https://api.lupo.lat/cambio_a_bob?moneda=cop&monto=100');
+      const data = await res.json();
+      // data.resultado = BOB por 100 COP  -> BOB/COP
+      if (!data || !data.resultado || data.resultado <= 0) throw new Error('API inválida');
+      cachedRate = 100 / data.resultado;      // COP/BOB
+      cachedTime = now;
+      return cachedRate;
+    } catch (e) {
+      console.error('Error tasa COP:', e);
+      return cachedRate || 0; // fallback a lo último válido
     }
+  }
 
-    function updateCotizDatetime() {
-        const fechaEl = document.getElementById('cotiz-datetime');
-        if (!fechaEl) return;
-        const now = new Date();
-        let h = now.getHours().toString().padStart(2, '0');
-        let m = now.getMinutes().toString().padStart(2, '0');
-        let d = now.getDate();
-        let mo = now.getMonth() + 1;
-        let y = now.getFullYear();
-        fechaEl.textContent = `${h}:${m} ${d}/${mo}/${y}`;
+  function updateCotizDatetime() {
+    const fechaEl = document.getElementById('cotiz-datetime');
+    if (!fechaEl) return;
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const d = now.getDate();
+    const mo = now.getMonth() + 1;
+    const y = now.getFullYear();
+    fechaEl.textContent = `${h}:${m} ${d}/${mo}/${y}`;
+  }
+
+  async function calculateTransfer() {
+    const amount = parseFloat(amountInput.value);
+    if (isNaN(amount) || amount <= 0) {
+      receivedInput.value = '';
+      resultAmount.textContent = '0';
+      resultCard.style.display = 'none';
+      return;
     }
+    const rate = await getBobToCopRate();      // COP/BOB
+    if (!rate) return;
 
-    function calculateTransfer() {
-        getBobToCopRate().then(EXCHANGE_RATE => {
-            const amount = parseFloat(amountInput.value);
-            if (!isNaN(amount) && amount > 0) {
-                const cop = Math.round(amount * EXCHANGE_RATE * 0.87); // menos el 10%
-                receivedInput.value = cop.toLocaleString('es-CO');
-                resultAmount.textContent = cop.toLocaleString('es-CO');
-                resultCard.style.display = 'block';
-                updateCotizDatetime();
-            } else {
-                receivedInput.value = '';
-                resultAmount.textContent = '0';
-                resultCard.style.display = 'none';
-            }
-        });
+    const cop = Math.round(amount * rate * MULT); // aplica descuento único
+    receivedInput.value = cop.toLocaleString('es-CO');
+    resultAmount.textContent = cop.toLocaleString('es-CO');
+    resultCard.style.display = 'block';
+    updateCotizDatetime();
+  }
+
+  amountInput.addEventListener('input', calculateTransfer);
+  calculateTransfer();
+
+  // --- Botón Enviar Dinero ---
+  calculateBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+    const amount = parseFloat(amountInput.value);
+    if (isNaN(amount) || amount <= 0) {
+      alert('Por favor ingresa un monto válido en Bolivianos (BOB)');
+      return;
     }
+    const rate = await getBobToCopRate();
+    const cop = Math.round(amount * rate * MULT); // mismo descuento
 
-    amountInput.addEventListener('input', calculateTransfer);
-    calculateTransfer();
+    const message = `Hola, quiero enviar ${amount} BOB (${cop.toLocaleString('es-CO')} COP) a Colombia. ¿Me ayudan con el envío?`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-    // --- Botón Enviar Dinero ---
-    calculateBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const amount = parseFloat(amountInput.value);
+    calculateBtn.style.backgroundColor = '#28a745';
+    calculateBtn.innerHTML = '<i class="fas fa-check"></i> Redirigiendo a WhatsApp...';
 
-        if (!isNaN(amount) && amount > 0) {
-            getBobToCopRate().then(EXCHANGE_RATE => {
-                const cop = Math.round(amount * EXCHANGE_RATE * 0.90); // menos el 10%
-                const message = `Hola, quiero enviar ${amount} BOB (${cop.toLocaleString('es-CO')} COP) a Colombia. ¿Me ayudan con el envío?`;
-                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-                
-                // Cambiar el botón a verde para indicar éxito
-                calculateBtn.style.backgroundColor = '#28a745';
-                calculateBtn.innerHTML = '<i class="fas fa-check"></i> Redirigiendo a WhatsApp...';
-                
-                // Redirigir después de 1 segundo
-                setTimeout(() => {
-                    window.open(whatsappUrl, '_blank');
-                    
-                    // Restaurar el botón después de 3 segundos
-                    setTimeout(() => {
-                        calculateBtn.style.backgroundColor = '';
-                        calculateBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Dinero';
-                    }, 3000);
-                }, 1000);
-            });
-        } else {
-            alert('Por favor ingresa un monto válido en Bolivianos (BOB)');
-        }
-    });
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setTimeout(() => {
+        calculateBtn.style.backgroundColor = '';
+        calculateBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Dinero';
+      }, 3000);
+    }, 1000);
+  });
 
-    // Calcular al cargar si hay un valor
-    if (amountInput.value) {
-        calculateTransfer();
-    }
+  if (amountInput.value) calculateTransfer();
 });
 </script>
 
@@ -981,6 +982,7 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+
 
 
 
