@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const WHATSAPP_NUMBER = '59171077231';
 
   // ===== % de descuento (frontend) =====
-  const FRONTEND_DISCOUNT = 0.10;              // 10%
+  const FRONTEND_DISCOUNT = 0.12;              // 10%
   const MULT = 1 - FRONTEND_DISCOUNT;          // 0.90
 
   // --- CACHÉ de 1 minuto ---
