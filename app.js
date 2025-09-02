@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const resultAmount  = document.getElementById('result-amount');
   const resultCard    = document.getElementById('result-card');
   const calculateBtn  = document.getElementById('calculate-btn');
-  const WHATSAPP_NUMBER = '59171077231';
+  const WHATSAPP_NUMBER = '59175333489';
 
   // ===== % de descuento (frontend) =====
   const FRONTEND_DISCOUNT = 0.12;              // 10%
