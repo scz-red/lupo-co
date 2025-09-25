@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------- TIPO DE CAMBIO FIJO ----------
   // EDITA AQUÍ: COP por 1 BOB (ejemplo: 190 significa 1 BOB = 190 COP)
-  const COP_PER_BOB = 250; // ← pon tu valor
+  const COP_PER_BOB = 279; // ← pon tu valor
   // ---------- FIN TIPO DE CAMBIO ----------
 
   // % de margen/descuento en frontend (mantén si ya lo usabas)
