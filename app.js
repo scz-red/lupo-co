@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ---------- FIN TIPO DE CAMBIO ----------
 
   // % de margen/descuento en frontend (mantén si ya lo usabas)
-  const FRONTEND_DISCOUNT = 0.12;     // 12%
+  const FRONTEND_DISCOUNT = 0.10;     // 12%
   const MULT = 1 - FRONTEND_DISCOUNT; // 0.88
 
   function updateCotizDatetime() {
