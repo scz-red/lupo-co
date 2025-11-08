@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const resultCard = document.getElementById('result-card');
   const calculateBtn = document.getElementById('calculate-btn');
 
-  // Configuración
+  // Configuración de tipo de cambio
   const EXCHANGE_RATE = 0.00240; // 1 COP = 0.00240 BOB
   const WHATSAPP_NUMBER = '59175333489';
 
@@ -78,3 +78,4 @@ document.addEventListener('DOMContentLoaded', function () {
     calculateTransfer();
   }
 });
+
