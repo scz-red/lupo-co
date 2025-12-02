@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const calculateBtn = document.getElementById('calculate-btn');
 
   // Configuración (ajusta tasa cuando quieras)
-  const EXCHANGE_RATE = 0.00225;  // 1 COP = 0.00240 BOB
+  const EXCHANGE_RATE = 0.00223;  // 1 COP = 0.00240 BOB
   const WHATSAPP_NUMBER = '59175333489';
 
   // Fecha/hora
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Autocalcular si hay valor
   if (amountInput.value) calculate();
 });
+
 
 
 
