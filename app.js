@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------- TIPO DE CAMBIO FIJO ----------
   // EDITA AQUÍ: COP por 1 BOB (ejemplo: 190 significa 1 BOB = 190 COP)
-  const COP_PER_BOB = 358; // ← pon tu valor
+  const COP_PER_BOB = 385; // ← pon tu valor
   // ---------- FIN TIPO DE CAMBIO ----------
 
   // % de margen/descuento en frontend (mantén si ya lo usabas)
-  const FRONTEND_DISCOUNT = 0.11;     // 12%
+  const FRONTEND_DISCOUNT = 0.12;     // 12%
   const MULT = 1 - FRONTEND_DISCOUNT; // 0.88
 
   function updateCotizDatetime() {
