@@ -146,6 +146,5 @@ body::after{
   animation: snow 18s linear infinite;
   pointer-events: none;
 }
-/* PRUEBA DEFINITIVA */
-html, body { background: #ff00ff !important; }
+
 
