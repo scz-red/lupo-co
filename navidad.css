@@ -1,0 +1,165 @@
+/* ===============================
+   LUPO Navidad (overlay)
+   Mantiene identidad Colombiana:
+   usa --yellow, --blue, --red del CSS base
+   =============================== */
+
+:root{
+  /* acentos navideños suaves (no reemplazan la paleta CO) */
+  --xmas-green: #0f7a3a;
+  --xmas-red: #c5162b;
+  --xmas-gold: var(--yellow);
+  --xmas-ice: rgba(255,255,255,.85);
+  --xmas-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+/* Fondo navideño sutil (brillitos + nieve) */
+body{
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(252,209,22,.22), transparent 60%),
+    radial-gradient(900px 450px at 95% 5%, rgba(0,56,147,.18), transparent 55%),
+    radial-gradient(800px 500px at 50% 110%, rgba(206,17,38,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,249,250,.96));
+}
+
+/* capa nieve/brillo */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.55) 0 2px, transparent 3px),
+    radial-gradient(circle at 30% 10%, rgba(255,255,255,.45) 0 2px, transparent 3px),
+    radial-gradient(circle at 60% 25%, rgba(255,255,255,.55) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 15%, rgba(255,255,255,.40) 0 2px, transparent 3px),
+    radial-gradient(circle at 15% 70%, rgba(255,255,255,.35) 0 2px, transparent 3px),
+    radial-gradient(circle at 55% 80%, rgba(255,255,255,.40) 0 2px, transparent 3px);
+  opacity: .9;
+  filter: blur(.2px);
+  animation: xmasSparkle 6s ease-in-out infinite;
+}
+
+/* capa nieve cayendo */
+body::after{
+  content:"";
+  position: fixed;
+  inset: -20% 0 0 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.65) 0 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.45) 0 1.2px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.35) 0 1px, transparent 2px);
+  background-size: 140px 140px, 220px 220px, 320px 320px;
+  background-position: 0 0, 60px -40px, -30px -90px;
+  opacity: .45;
+  animation: snowFall 10s linear infinite;
+}
+
+/* Asegura que el contenido quede arriba de las capas */
+header, .hero, .container, footer, .colombia-flag{
+  position: relative;
+  z-index: 1;
+}
+
+/* Luces navideñas arriba del header */
+header::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height: 22px;
+  background:
+    radial-gradient(circle at 18px 12px, var(--xmas-red) 0 6px, transparent 7px),
+    radial-gradient(circle at 48px 12px, var(--xmas-green) 0 6px, transparent 7px),
+    radial-gradient(circle at 78px 12px, var(--xmas-gold) 0 6px, transparent 7px),
+    radial-gradient(circle at 108px 12px, var(--blue) 0 6px, transparent 7px);
+  background-size: 120px 22px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+  opacity: .95;
+  animation: lightsFlicker 2.6s ease-in-out infinite;
+}
+
+/* Tarjetas con “borde festivo” sin perder look moderno */
+.calculator-card,
+.feature-card,
+.testimonial-card{
+  box-shadow: var(--xmas-shadow);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+.calculator-card{
+  border-top: 4px solid var(--xmas-gold);
+}
+
+.feature-card:nth-child(odd){
+  border-top: 4px solid rgba(15,122,58,.85);
+}
+.feature-card:nth-child(even){
+  border-top: 4px solid rgba(197,22,43,.85);
+}
+
+/* Botón principal con brillo navideño */
+.btn-primary{
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.btn-primary::after{
+  content:"";
+  position:absolute;
+  top:-30%;
+  left:-60%;
+  width: 60%;
+  height: 160%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,.35),
+    transparent
+  );
+  transform: rotate(20deg);
+  animation: xmasShine 3.2s ease-in-out infinite;
+}
+
+/* Título hero con “glow” suave */
+.hero h1 span{
+  text-shadow: 0 8px 18px rgba(0,0,0,.10);
+}
+
+/* Footer más “calentito” */
+footer{
+  background:
+    radial-gradient(900px 300px at 20% 0%, rgba(252,209,22,.18), transparent 60%),
+    radial-gradient(900px 300px at 80% 0%, rgba(206,17,38,.10), transparent 60%),
+    linear-gradient(180deg, rgba(0,56,147,.06), rgba(0,0,0,.02));
+}
+
+/* Accesibilidad: si el usuario no quiere animaciones */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+  body::before, body::after{ display:none; }
+}
+
+/* Animaciones */
+@keyframes snowFall{
+  from{ transform: translateY(-10%); }
+  to{ transform: translateY(25%); }
+}
+@keyframes xmasSparkle{
+  0%,100%{ opacity:.85; }
+  50%{ opacity:.55; }
+}
+@keyframes xmasShine{
+  0%{ transform: translateX(-30%) rotate(20deg); opacity: 0; }
+  20%{ opacity: .9; }
+  50%{ transform: translateX(240%) rotate(20deg); opacity: 0; }
+  100%{ opacity: 0; }
+}
+@keyframes lightsFlicker{
+  0%,100%{ opacity:.95; }
+  50%{ opacity:.70; }
+}
