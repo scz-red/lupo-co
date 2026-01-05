@@ -578,3 +578,67 @@ footer::before {
     max-width: 100%;
   }
 }
+
+/* ===== Result meta (quita inline en HTML) ===== */
+.result-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.result-meta i{
+  color: var(--yellow);
+}
+
+#cotiz-datetime{
+  font-size: 13px;
+  color: #888;
+}
+
+/* ===== iOS Modal (sin inline styles) ===== */
+.ios-modal{
+  display:none;
+  position:fixed;
+  bottom:100px;
+  right:20px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 320px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  animation: slideUp 0.4s ease-out;
+  z-index: 9999;
+  border: 2px solid var(--blue);
+}
+
+.ios-modal h3{
+  margin: 0 0 10px 0;
+  color: var(--blue);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.ios-modal ul{
+  padding-left: 18px;
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+
+.ios-modal-btn{
+  background: linear-gradient(135deg, var(--blue), var(--blue-soft));
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0 12px 25px rgba(0,56,147,.18);
+}
+
+.ios-modal-btn:hover{
+  transform: translateY(-1px);
+}
