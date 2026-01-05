@@ -1,319 +1,249 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<!-- Meta para iOS y Android como app -->
-<link href="/icons/manifest.json" rel="manifest"/>
-<meta content="#003893" name="theme-color"/>
-<meta content="yes" name="apple-mobile-web-app-capable"/>
-<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-<meta content="LUPO" name="apple-mobile-web-app-title"/>
-<link href="/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
-<!-- Favicons y App Icons -->
-<link href="/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
-<link href="/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="/icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
-<link href="/icons/icon-512.png" rel="icon" sizes="512x512" type="image/png"/>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Envíos de remesas de Colombia a Bolivia sin comisiones al mejor tipo de cambio. Calcula y envía de forma rápida y segura." name="description"/>
-<meta content="envío dinero, remesas, Bolivia, tipo de cambio, sin comisiones, Lupo Transfer" name="keywords"/>
-<link href="https://lupo.lat/img/favicon.ico" rel="icon" type="image/x-icon"/>
-<title>Bolivianos a Pesos | Envío Rápido a Colombia | LUPO Envíos</title>
+  <!-- Meta para iOS y Android como app -->
+  <link href="/icons/manifest.json" rel="manifest"/>
+  <meta content="#003893" name="theme-color"/>
+  <meta content="yes" name="apple-mobile-web-app-capable"/>
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+  <meta content="LUPO" name="apple-mobile-web-app-title"/>
+  <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="app.css" rel="stylesheet"/>
+  <!-- Favicons y App Icons -->
+  <link href="/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+  <link href="/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+  <link href="/icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+  <link href="/icons/icon-512.png" rel="icon" sizes="512x512" type="image/png"/>
+
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Envíos de remesas de Colombia a Bolivia sin comisiones al mejor tipo de cambio. Calcula y envía de forma rápida y segura." name="description"/>
+  <meta content="envío dinero, remesas, Bolivia, tipo de cambio, sin comisiones, Lupo Transfer" name="keywords"/>
+  <link href="https://lupo.lat/img/favicon.ico" rel="icon" type="image/x-icon"/>
+
+  <title>Bolivianos a Pesos | Envío Rápido a Colombia | LUPO Envíos</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="app.css" rel="stylesheet"/>
 </head>
 
-            
 <body>
-<div class="colombia-flag"></div>
-<header>
-<div class="nav-container">
-<div class="logo">
-<img alt="LUPO Envía" src="https://lupo.lat/img/lupo01.png"/>
-<div class="logo-flag">
-<a href="https://co.lupo.lat/cop/"><img alt="Colombia" src="https://flagcdn.com/w40/co.png"/></a> <a href="#"><img alt="Bolivia" src="https://flagcdn.com/w40/bo.png"/></a> </div>
-</div>
-</div>
-</header>
-<section class="hero">
-<h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span></h1>
-<p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado</p>
-</section>
-<div class="container">
-<div class="calculator-card">
-<h2><i class="fas fa-calculator"></i> Calculadora de envío</h2>
-<div class="form-group">
-<label for="amount">Monto a enviar (BOB)</label>
-<div class="currency-input-container">
-<div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/bo.png')"></div>
-<input class="form-control currency-input" id="amount" min="1" placeholder="Ej. 500" type="number"/>
-</div>
-</div>
-<div class="form-group">
-<label for="received-amount">Recibirás en COP</label>
-<div class="currency-input-container">
-<div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/co.png')"></div>
-<input class="form-control currency-input" id="received-amount" placeholder="0" readonly="" type="text"/>
-</div>
-</div>
-<button class="btn-primary" id="calculate-btn">
-<i class="fas fa-paper-plane"></i> Enviar Dinero
-            </button>
-<div class="result-card" id="result-card">
-<div class="result-header" style="display: flex; justify-content: space-between; align-items: center;">
-<div class="result-title">Detalles del envío</div>
-<div style="display: flex; align-items: center; gap: 8px;">
-<i class="fas fa-check-circle" style="color: var(--yellow);"></i>
-<span id="cotiz-datetime" style="font-size: 13px; color: #888;"></span>
-</div>
-</div>
-<div class="result-amount">
-        $<span id="result-amount">0</span> <small>COP</small>
-</div>
-<div class="result-details">
-<p><i class="fas fa-coins" style="color: var(--blue);"></i> <strong>Sin comisiones</strong> - 0% de tarifa</p>
-<p id="delivery-time"><i class="fas fa-clock" style="color: var(--red);"></i> Tiempo de entrega: 10-20 minutos</p>
-</div>
-</div>
-</div>
-<div class="features-section">
-<div class="section-title">
-<h2>¿Por qué enviar con LUPO?</h2>
-<p>Ofrecemos el servicio más confiable para enviar dinero a Colombia desde Bolivia</p>
-</div>
-<div class="features-grid">
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-money-bill-wave"></i>
-</div>
-<h3>Mejor tasa de cambio</h3>
-<p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-bolt"></i>
-</div>
-<h3>Envíos rápidos</h3>
-<p>El dinero llega en minutos a cuentas bancarias.</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-shield-alt"></i>
-</div>
-<h3>Seguridad garantizada</h3>
-<p>Tus transferencias están 100% protegidas.</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-percentage"></i>
-</div>
-<h3>Tarifas Cero</h3>
-<p>Las comisiones más económicas del mercado.</p>
-</div>
-</div>
-</div>
-<div class="testimonials">
-<div class="section-title">
-<h2>Lo que dicen nuestros clientes</h2>
-<p>Miles de personas confían en nosotros para enviar dinero a Colombia</p>
-</div>
-<div class="testimonials-container">
-<div class="testimonial-card">
-<div class="rating">
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-</div>
-<p class="testimonial-text">"Envío dinero para poder pagar a mi proveedores. y todo fue muy facil y rapido."</p>
-<div class="testimonial-author">
-<img alt="Yiya Muñoz" src="https://co.lupo.lat/img/yiya.jpg"/>
-<div class="author-info">
-<h4>Yiya Muñoz</h4>
-<p>Santa Cruz, Bolivia</p>
-</div>
-</div>
-</div>
-<div class="testimonial-card">
-<div class="rating">
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-</div>
-<p class="testimonial-text">"Ningun problema, ya e realizado 2 envios y me fue muy bien. son muy rapidos y profecionales."</p>
-<div class="testimonial-author">
-<a href="https://www.facebook.com/khatia.valentina.morales"><img alt="Khatia Valentina Morales" src="https://co.lupo.lat/img/kathia.jpg"/></a>
-<div class="author-info">
-<h4>Khatia Valentina Morales</h4>
-<p>Cochabamba, Bolivia</p>
-</div>
-</div>
-</div>
-<div class="testimonial-card">
-<div class="rating">
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-</div>
-<p class="testimonial-text">"Envío dinero cada mes a mi familia en cali y siempre llega en minutos. La mejor tasa que he encontrado y el proceso es super sencillo."</p>
-<div class="testimonial-author">
-<a href="Oscar Uriel"><img <div="" class="author-info" src="https://co.lupo.lat/img/oscar.jpg"/>
-<h4>Oscar Uriel Bustos Garcia</h4>
-<p>Cali, Colombia</p>
-</a></div>
-</div>
-</div>
-</div>
-</div>
+  <div class="colombia-flag"></div>
 
-<footer>
-<div class="footer-container">
-<div class="footer-column">
-<h3>LUPO ENVÍA</h3>
-<p>El puente financiero entre Bolivia y Colombia.</p>
-<div class="social-links">
-<a href="https://www.facebook.com/Lupo.envia" target="_blank"><i class="fab fa-facebook-f"></i></a>
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="https://wa.me/59171077231" target="_blank"><i class="fab fa-whatsapp"></i></a>
-</div>
-</div>
-<div class="footer-column">
-<h3>Servicios</h3>
-<ul class="footer-links">
-<li><a href="#">Envío de dinero</a></li>
-<li><a href="#">Tasas de cambio</a></li>
-<li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank">Puntos de pago</a></li>
-<li><a href="#">Empresas</a></li>
-</ul>
-</div>
-<div class="footer-column">
-<h3>Ayuda</h3>
-<ul class="footer-links">
-<li><a href="#">Preguntas frecuentes</a></li>
-<li><a href="#">Guías de usuario</a></li>
-<li><a href="#">Términos y condiciones</a></li>
-<li><a href="#">Política de privacidad</a></li>
-</ul>
-</div>
-<div class="footer-column">
-<h3>Contacto</h3>
-<ul class="footer-links">
-<li><a href="https://wa.me/59172656809" target="_blank"><i class="fas fa-phone"></i> +591 72656809</a></li>
-<li><a href="mailto:hola@lupo.lat"><i class="fas fa-envelope"></i> hola@lupo.lat</a></li>
-<li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank"><i class="fas fa-map-marker-alt"></i> Centro Comercial Cañoto #k2</a></li>
-</ul>
-</div>
-</div>
-<div class="copyright">
-<p>© 2024 LUPO Envía. Todos los derechos reservados.</p>
-</div>
-</footer>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <img alt="LUPO Envía" src="https://lupo.lat/img/lupo01.png"/>
+        <div class="logo-flag">
+          <a href="https://co.lupo.lat/cop/"><img alt="Colombia" src="https://flagcdn.com/w40/co.png"/></a>
+          <a href="#"><img alt="Bolivia" src="https://flagcdn.com/w40/bo.png"/></a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<!-- Botón de instalación PWA -->
-<button id="install-btn" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #003893;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  cursor: pointer;
-  z-index: 9999;
-  display: none;
-">
-  📲 Instalar App
-</button>
+  <section class="hero">
+    <h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span></h1>
+    <p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado</p>
+  </section>
 
-<!-- Botón de instalación PWA -->
-<button id="install-btn" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #003893;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  cursor: pointer;
-  z-index: 9999;
-  display: none;
-">
-  📲 Instalar App
-</button>
+  <div class="container">
+    <div class="calculator-card">
+      <h2><i class="fas fa-calculator"></i> Calculadora de envío</h2>
 
-<!-- Botón flotante moderno -->
-<button id="ios-install-btn" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #003893, #0051d4);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  cursor: pointer;
-  z-index: 9999;
-  display: none;
-  transition: transform 0.3s ease;
-">
-  📲 Instalar App
-</button>
-<!-- Modal flotante moderno -->
-<div id="ios-modal" style="
-  display: none;
-  position: fixed;
-  bottom: 100px;
-  right: 20px;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  max-width: 300px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-  font-family: 'Segoe UI', sans-serif;
-  animation: slideUp 0.4s ease-out;
-  z-index: 9999;
-  border: 2px solid #003893;
-">
-<h3 style="margin: 0 0 10px 0; color: #003893;">¿Cómo instalar esta App?</h3>
-<ul style="padding-left: 18px; margin: 0 0 10px 0; font-size: 0.95rem;">
-<li>1. Toca el ícono <strong>Compartir</strong> (cuadro con flecha ↑)</li>
-<li>2. Selecciona <strong>"Agregar a pantalla de inicio"</strong></li>
-<li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
-</ul>
-<button onclick="document.getElementById('ios-modal').style.display='none'" style="
-    background-color: #003893;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-  ">
-    Entendido
-  </button>
-</div>
+      <div class="form-group">
+        <label for="amount">Monto a enviar (BOB)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/bo.png')"></div>
+          <input class="form-control currency-input" id="amount" min="1" placeholder="Ej. 500" type="number"/>
+        </div>
+      </div>
 
+      <div class="form-group">
+        <label for="received-amount">Recibirás en COP</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image: url('https://flagcdn.com/w40/co.png')"></div>
+          <input class="form-control currency-input" id="received-amount" placeholder="0" readonly type="text"/>
+        </div>
+      </div>
 
-<script defer="True" src="app.js?ver=19"></script></body>
+      <button class="btn-primary" id="calculate-btn">
+        <i class="fas fa-paper-plane"></i> Enviar Dinero
+      </button>
+
+      <div class="result-card" id="result-card">
+        <div class="result-header">
+          <div class="result-title">Detalles del envío</div>
+          <div class="result-meta">
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
+            <span id="cotiz-datetime"></span>
+          </div>
+        </div>
+
+        <div class="result-amount">
+          $<span id="result-amount">0</span> <small>COP</small>
+        </div>
+
+        <div class="result-details">
+          <p><i class="fas fa-coins" style="color: var(--blue);"></i> <strong>Sin comisiones</strong> - 0% de tarifa</p>
+          <p id="delivery-time"><i class="fas fa-clock" style="color: var(--red);"></i> Tiempo de entrega: 10-20 minutos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <div class="section-title">
+        <h2>¿Por qué enviar con LUPO?</h2>
+        <p>Ofrecemos el servicio más confiable para enviar dinero a Colombia desde Bolivia</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-money-bill-wave"></i></div>
+          <h3>Mejor tasa de cambio</h3>
+          <p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Envíos rápidos</h3>
+          <p>El dinero llega en minutos a cuentas bancarias.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Seguridad garantizada</h3>
+          <p>Tus transferencias están 100% protegidas.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-percentage"></i></div>
+          <h3>Tarifas Cero</h3>
+          <p>Las comisiones más económicas del mercado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonials">
+      <div class="section-title">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Miles de personas confían en nosotros para enviar dinero a Colombia</p>
+      </div>
+
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Envío dinero para poder pagar a mi proveedores. y todo fue muy facil y rapido."</p>
+          <div class="testimonial-author">
+            <img alt="Yiya Muñoz" src="https://co.lupo.lat/img/yiya.jpg"/>
+            <div class="author-info">
+              <h4>Yiya Muñoz</h4>
+              <p>Santa Cruz, Bolivia</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Ningun problema, ya e realizado 2 envios y me fue muy bien. son muy rapidos y profecionales."</p>
+          <div class="testimonial-author">
+            <img alt="Khatia Valentina Morales" src="https://co.lupo.lat/img/kathia.jpg"/>
+            <div class="author-info">
+              <h4>Khatia Valentina Morales</h4>
+              <p>Cochabamba, Bolivia</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIX Oscar (estaba roto) -->
+        <div class="testimonial-card">
+          <div class="rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Envío dinero cada mes a mi familia en cali y siempre llega en minutos. La mejor tasa que he encontrado y el proceso es super sencillo."</p>
+          <div class="testimonial-author">
+            <img alt="Oscar Uriel" src="https://co.lupo.lat/img/oscar.jpg"/>
+            <div class="author-info">
+              <h4>Oscar Uriel Bustos Garcia</h4>
+              <p>Cali, Colombia</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>LUPO ENVÍA</h3>
+        <p>El puente financiero entre Bolivia y Colombia.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/59171077231" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Servicios</h3>
+        <ul class="footer-links">
+          <li><a href="#">Envío de dinero</a></li>
+          <li><a href="#">Tasas de cambio</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener">Puntos de pago</a></li>
+          <li><a href="#">Empresas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Ayuda</h3>
+        <ul class="footer-links">
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Guías de usuario</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Contacto</h3>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/59172656809" target="_blank" rel="noopener"><i class="fas fa-phone"></i> +591 72656809</a></li>
+          <li><a href="mailto:hola@lupo.lat"><i class="fas fa-envelope"></i> hola@lupo.lat</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Centro Comercial Cañoto #k2</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>© 2024 LUPO Envía. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Solo 1 install-btn (id único) -->
+  <button id="install-btn" class="floating-btn">📲 Instalar App</button>
+
+  <!-- iOS -->
+  <button id="ios-install-btn" class="floating-btn">📲 Instalar App</button>
+
+  <!-- Modal iOS (sin estilos inline) -->
+  <div id="ios-modal" class="ios-modal" role="dialog" aria-modal="true" aria-labelledby="ios-modal-title">
+    <h3 id="ios-modal-title">¿Cómo instalar esta App?</h3>
+    <ul>
+      <li>1. Toca el ícono <strong>Compartir</strong> (cuadro con flecha ↑)</li>
+      <li>2. Selecciona <strong>"Agregar a pantalla de inicio"</strong></li>
+      <li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
+    </ul>
+    <button class="ios-modal-btn" onclick="document.getElementById('ios-modal').style.display='none'">Entendido</button>
+  </div>
+
+  <script defer="true" src="app.js?ver=19"></script>
+</body>
 </html>
