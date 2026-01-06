@@ -1,62 +1,48 @@
-// ================================
-// LUPO - app.js (V2 PRO UX Pack)
-// ================================
-
 (() => {
-  // ---------- CONFIG ----------
+  // ===== CONFIG =====
   const WHATSAPP_NUMBER = "59175333489";
-  const COP_PER_BOB = 384;
-  const FRONTEND_DISCOUNT = 0.10; // 10%
+  const COP_PER_BOB = 384;        // Ajusta si cambia
+  const FRONTEND_DISCOUNT = 0.10; // Ajusta si quieres (0.00 si no deseas descuento)
   const MULT = 1 - FRONTEND_DISCOUNT;
 
-  // ---------- HELPERS ----------
+  // ===== HELPERS =====
   const fmtCOP = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
   const fmtBOB = new Intl.NumberFormat("es-BO", { maximumFractionDigits: 0 });
   const $ = (id) => document.getElementById(id);
 
-  function nowStampCompact() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2, "0");
-    const m = String(now.getMinutes()).padStart(2, "0");
-    return `${h}:${m}`;
+  function nowStamp() {
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mm = String(d.getMinutes()).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mo = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = d.getFullYear();
+    return `${hh}:${mm} · ${dd}/${mo}/${yy}`;
   }
 
-  function nowStampDate() {
-    const now = new Date();
-    const d = String(now.getDate()).padStart(2, "0");
-    const mo = String(now.getMonth() + 1).padStart(2, "0");
-    const y = now.getFullYear();
-    return `${d}/${mo}/${y}`;
+  function computeCOP(bob) {
+    return Math.round(bob * COP_PER_BOB * MULT);
   }
 
-  function computeCOP(amountBob) {
-    return Math.round(amountBob * COP_PER_BOB * MULT);
-  }
-
-  // ---------- PRO: Counter animation ----------
   function animateNumber(el, from, to, duration = 520) {
-    if (!el) return;
     const start = performance.now();
     const diff = to - from;
 
     const tick = (t) => {
       const p = Math.min(1, (t - start) / duration);
-      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - p, 3);
       const value = Math.round(from + diff * eased);
       el.textContent = fmtCOP.format(value);
       if (p < 1) requestAnimationFrame(tick);
     };
-
     requestAnimationFrame(tick);
   }
 
-  // ---------- PRO: Ripple ----------
   function addRipple(btn, ev) {
-    if (!btn) return;
     const rect = btn.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
-    const x = (ev?.clientX ?? rect.left + rect.width / 2) - rect.left - size / 2;
-    const y = (ev?.clientY ?? rect.top + rect.height / 2) - rect.top - size / 2;
+    const x = (ev?.clientX ?? rect.left + rect.width/2) - rect.left - size/2;
+    const y = (ev?.clientY ?? rect.top + rect.height/2) - rect.top - size/2;
 
     const ripple = document.createElement("span");
     ripple.className = "ripple";
@@ -68,160 +54,145 @@
     setTimeout(() => ripple.remove(), 650);
   }
 
-  // ---------- CALC ----------
-  function calculateTransfer({ animate = true } = {}) {
-    const amountInput = $("amount");
-    const receivedInput = $("received-amount");
-    const resultAmountEl = $("result-amount");
+  // ===== CALC =====
+  function calculate({ animate = true } = {}) {
+    const amount = $("amount");
+    const received = $("received-amount");
     const resultCard = $("result-card");
-    const cotizDatetime = $("cotiz-datetime");
-    const ratePillValue = $("rate-pill-value");
+    const resultAmount = $("result-amount");
+    const rateEl = $("rate-pill-value");
+    const dateEl = $("cotiz-datetime");
 
-    if (!amountInput || !receivedInput || !resultAmountEl || !resultCard) return;
+    const bob = Number(amount.value);
 
-    const amount = Number(amountInput.value);
-    if (!Number.isFinite(amount) || amount <= 0) {
-      receivedInput.value = "";
-      resultAmountEl.textContent = "0";
+    if (!Number.isFinite(bob) || bob <= 0) {
+      received.value = "";
+      resultAmount.textContent = "0";
       resultCard.style.display = "none";
-      if (cotizDatetime) cotizDatetime.textContent = "";
-      if (ratePillValue) ratePillValue.textContent = "—";
+      if (rateEl) rateEl.textContent = "—";
+      if (dateEl) dateEl.textContent = "—";
       return;
     }
 
-    const cop = computeCOP(amount);
+    const cop = computeCOP(bob);
+    received.value = fmtCOP.format(cop);
 
-    receivedInput.value = fmtCOP.format(cop);
     resultCard.style.display = "block";
+    const prev = Number(String(resultAmount.textContent).replace(/[^\d]/g, "")) || 0;
+    if (animate) animateNumber(resultAmount, prev, cop);
+    else resultAmount.textContent = fmtCOP.format(cop);
 
-    const prev = Number(String(resultAmountEl.textContent).replace(/[^\d]/g, "")) || 0;
-    if (animate) animateNumber(resultAmountEl, prev, cop);
-    else resultAmountEl.textContent = fmtCOP.format(cop);
-
-    // Texto más humano + marcado CO
-    if (cotizDatetime) {
-      cotizDatetime.textContent =
-        `Destino: Colombia · Tipo de cambio ${fmtCOP.format(COP_PER_BOB)} COP/BOB · ${nowStampCompact()} · ${nowStampDate()}`;
-    }
-
-    if (ratePillValue) {
-      ratePillValue.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
-    }
+    if (rateEl) rateEl.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
+    if (dateEl) dateEl.textContent = nowStamp();
   }
 
-  // ---------- Send button ----------
-  function setupSendButton() {
-    const amountInput = $("amount");
+  // ===== SEND =====
+  function setupSend() {
+    const amount = $("amount");
     const btn = $("calculate-btn");
-    if (!amountInput || !btn) return;
-
-    const originalHTML = btn.innerHTML; // queda "Enviar dinero"
+    if (!amount || !btn) return;
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       addRipple(btn, e);
 
-      const amount = Number(amountInput.value);
-      if (!Number.isFinite(amount) || amount <= 0) {
-        alert("Por favor ingresa un monto válido en Bolivianos (BOB).");
-        amountInput.focus();
+      const bob = Number(amount.value);
+      if (!Number.isFinite(bob) || bob <= 0) {
+        alert("Por favor ingresa un monto válido en BOB.");
+        amount.focus();
         return;
       }
 
-      calculateTransfer({ animate: true });
+      calculate({ animate: true });
 
-      const cop = computeCOP(amount);
-      const msg = `Hola, quiero enviar ${fmtBOB.format(amount)} BOB (${fmtCOP.format(cop)} COP) a Colombia. ¿Me ayudan con el envío?`;
+      const cop = computeCOP(bob);
+      const msg = `Hola, quiero enviar ${fmtBOB.format(bob)} BOB (${fmtCOP.format(cop)} COP) a Colombia. ¿Me ayudan con el envío?`;
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
-      // loading pro
       btn.classList.add("is-loading");
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-
-      try { navigator.vibrate?.(18); } catch {}
+      const content = btn.querySelector(".cta-content");
+      content.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Procesando...`;
 
       setTimeout(() => {
         window.open(url, "_blank", "noopener,noreferrer");
-
         btn.classList.remove("is-loading");
-        btn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+        content.innerHTML = `<i class="fa-solid fa-check"></i> Enviado`;
 
         setTimeout(() => {
-          btn.innerHTML = originalHTML;
-        }, 1600);
-      }, 450);
+          content.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar dinero`;
+        }, 1400);
+      }, 420);
     });
   }
 
-  // ---------- PWA ----------
-  function setupPWAInstall() {
-    let deferredPrompt = null;
-    const installBtn = $("install-btn");
+  // ===== LOGO CAROUSEL AUTOPLAY =====
+  function setupLogoAutoplay() {
+    const track = $("logoTrack");
+    if (!track) return;
 
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (installBtn) installBtn.style.display = "block";
+    let paused = false;
+    let rafId = null;
+    let last = performance.now();
+    const speed = 0.35; // px por frame aprox (suave)
+
+    const pause = () => {
+      paused = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    };
+
+    const resume = () => {
+      if (!paused) return;
+      paused = false;
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Pausa cuando el usuario interactúa
+    ["pointerdown", "touchstart", "mouseenter", "focus"].forEach(ev => {
+      track.addEventListener(ev, pause, { passive: true });
     });
 
-    if (installBtn) {
-      installBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        if (choice?.outcome === "accepted") installBtn.style.display = "none";
-        deferredPrompt = null;
-      });
+    // Reanuda al soltar / salir
+    ["pointerup", "touchend", "mouseleave", "blur"].forEach(ev => {
+      track.addEventListener(ev, () => {
+        // reanuda después de un ratito (más pro)
+        setTimeout(() => {
+          paused = true; // fuerza resume
+          resume();
+        }, 900);
+      }, { passive: true });
+    });
+
+    // Autoplay loop
+    function tick(now) {
+      if (paused) return;
+
+      const dt = now - last;
+      last = now;
+
+      track.scrollLeft += speed * (dt / 16);
+
+      const max = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= max - 2) {
+        track.scrollLeft = 0; // loop
+      }
+
+      rafId = requestAnimationFrame(tick);
     }
 
-    window.addEventListener("appinstalled", () => {
-      if (installBtn) installBtn.style.display = "none";
-    });
+    // Arranca
+    paused = false;
+    rafId = requestAnimationFrame(tick);
   }
 
-  function setupIOSHelper() {
-    const iosBtn = $("ios-install-btn");
-    const iosModal = $("ios-modal");
-    if (!iosBtn || !iosModal) return;
-
-    const ua = navigator.userAgent.toLowerCase();
-    const isIOS = /iphone|ipad|ipod/.test(ua);
-    const isSafari = /safari/.test(ua) && !/crios|fxios|edgios|chrome/.test(ua);
-    const isStandalone = window.navigator.standalone === true;
-
-    if (isIOS && isSafari && !isStandalone) {
-      iosBtn.style.display = "block";
-      iosBtn.addEventListener("click", () => (iosModal.style.display = "block"));
-    }
-  }
-
-  // ---------- Reveal on scroll ----------
-  function setupReveal() {
-    const nodes = document.querySelectorAll(".step, .info-card, .hero-card");
-    nodes.forEach(n => n.classList.add("reveal"));
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) en.target.classList.add("is-in");
-      });
-    }, { threshold: 0.12 });
-
-    nodes.forEach(n => io.observe(n));
-  }
-
-  // ---------- INIT ----------
+  // ===== INIT =====
   document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("is-loaded");
+    const amount = $("amount");
+    if (amount) amount.addEventListener("input", () => calculate({ animate: false }));
 
-    const amountInput = $("amount");
-    if (amountInput) {
-      amountInput.addEventListener("input", () => calculateTransfer({ animate: false }));
-    }
-
-    calculateTransfer({ animate: false });
-    setupSendButton();
-    setupReveal();
-    setupPWAInstall();
-    setupIOSHelper();
+    calculate({ animate: false });
+    setupSend();
+    setupLogoAutoplay();
   });
 })();
