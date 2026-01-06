@@ -24,7 +24,7 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="app.css?ver=v2" rel="stylesheet"/>
+  <link href="app.css?ver=v2-pro" rel="stylesheet"/>
 </head>
 
 <body>
@@ -55,9 +55,16 @@
       <div class="hero-left">
         <div class="kicker">
           <span class="dot"></span>
-          <span>Remesas BO → CO</span>
+          <span>Destino: Colombia</span>
           <span class="sep">•</span>
           <span class="zero">0% comisión</span>
+        </div>
+
+        <!-- Sello Colombia (bien marcado y pro) -->
+        <div class="co-stamp" aria-label="Identidad Colombia">
+          <span class="co-badge">🇨🇴 Colombia</span>
+          <span class="co-line"></span>
+          <span class="co-mini">Envíos a Colombia</span>
         </div>
 
         <h1>
@@ -71,15 +78,16 @@
           Diseñado para familias y negocios.
         </p>
 
+        <!-- ✅ Unificados como pediste -->
         <div class="trust-row" role="list">
           <div class="trust" role="listitem"><i class="fas fa-shield-alt"></i> Seguridad</div>
-          <div class="trust" role="listitem"><i class="fas fa-bolt"></i> Rápido</div>
-          <div class="trust" role="listitem"><i class="fas fa-headset"></i> Soporte</div>
+          <div class="trust" role="listitem"><i class="fas fa-bolt"></i> Velocidad</div>
+          <div class="trust" role="listitem"><i class="fas fa-percentage"></i> 0 comisiones</div>
         </div>
 
         <div class="rate-pill" aria-label="Tipo de cambio">
           <i class="fas fa-chart-line"></i>
-          <span><strong>TC fijo</strong> <span id="rate-pill-value">—</span></span>
+          <span><strong>Tipo de cambio</strong> <span id="rate-pill-value">—</span></span>
         </div>
       </div>
 
@@ -114,9 +122,10 @@
           </div>
         </div>
 
+        <!-- ✅ Botón con texto nuevo -->
         <button class="cta" id="calculate-btn">
           <i class="fas fa-paper-plane"></i>
-          Enviar por WhatsApp
+          Enviar dinero
         </button>
 
         <div class="meta">
@@ -159,7 +168,7 @@
         <article class="step">
           <div class="num">2</div>
           <h3>Envía</h3>
-          <p>Presiona “Enviar por WhatsApp” y un asesor te guía en segundos.</p>
+          <p>Presiona “Enviar dinero” y un asesor te guía en segundos.</p>
         </article>
 
         <article class="step">
@@ -225,6 +234,6 @@
     <button class="ios-modal-btn" onclick="document.getElementById('ios-modal').style.display='none'">Entendido</button>
   </div>
 
-  <script defer="true" src="app.js?ver=v2"></script>
+  <script defer="true" src="app.js?ver=v2-pro"></script>
 </body>
 </html>
