@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- PWA -->
-  <link href="/icons/manifest.json" rel="manifest"/>
-  <meta content="#003893" name="theme-color"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
-  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-  <meta content="LUPO" name="apple-mobile-web-app-title"/>
-  <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LUPO | Enviar dinero a Colombia</title>
+  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO." />
+
+  <!-- PWA (mantén tus rutas si ya existen) -->
+  <link rel="manifest" href="/icons/manifest.json" />
+  <meta name="theme-color" content="#003893" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LUPO" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
   <!-- Icons -->
-  <link href="/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
-  <link href="/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-  <link href="/icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
-  <link href="/icons/icon-512.png" rel="icon" sizes="512x512" type="image/png"/>
+  <link rel="icon" sizes="16x16" type="image/png" href="/icons/favicon-16x16.png" />
+  <link rel="icon" sizes="32x32" type="image/png" href="/icons/favicon-32x32.png" />
+  <link rel="icon" sizes="192x192" type="image/png" href="/icons/icon-192.png" />
+  <link rel="icon" sizes="512x512" type="image/png" href="/icons/icon-512.png" />
 
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="Remesas de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO." name="description"/>
-  <meta content="remesas, bolivia, colombia, tipo de cambio, envío dinero, lupo" name="keywords"/>
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
 
-  <title>LUPO | Enviar Dinero de Bolivia a Colombia</title>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="app.css?ver=v2-pro" rel="stylesheet"/>
+  <link rel="stylesheet" href="app.css?v=3" />
 </head>
 
 <body>
-  <!-- Barra Colombia (firma minimal) -->
+  <!-- Firma CO -->
   <div class="co-stripe" aria-hidden="true"></div>
 
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="#" aria-label="LUPO Inicio">
-        <img src="https://lupo.lat/img/lupo01.png" alt="LUPO"/>
+      <a class="brand" href="#" aria-label="Inicio LUPO">
+        <img class="brand-logo" src="https://lupo.lat/img/lupo01.png" alt="LUPO" />
       </a>
 
       <nav class="country-switch" aria-label="País">
         <a class="pill" href="https://co.lupo.lat/cop/" aria-label="Colombia">
-          <img src="https://flagcdn.com/w40/co.png" alt="Colombia"/>
+          <img src="https://flagcdn.com/w40/co.png" alt="Colombia">
           <span>Colombia</span>
         </a>
         <a class="pill active" href="#" aria-current="page" aria-label="Bolivia">
-          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia"/>
+          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia">
           <span>Bolivia</span>
         </a>
       </nav>
@@ -51,66 +51,27 @@
   </header>
 
   <main class="wrap">
+    <!-- HERO ORDENADO: Calculadora arriba + texto compacto -->
     <section class="hero">
-      <div class="hero-left">
-        <div class="kicker">
-          <span class="dot"></span>
-          <span>Destino: Colombia</span>
-          <span class="sep">•</span>
-          <span class="zero">0% comisión</span>
-        </div>
-
-        <!-- Sello Colombia (bien marcado y pro) -->
-        <div class="co-stamp" aria-label="Identidad Colombia">
-          <span class="co-badge">🇨🇴 Colombia</span>
-          <span class="co-line"></span>
-          <span class="co-mini">Envíos a Colombia</span>
-        </div>
-
-        <h1>
-          Envía dinero de <span class="hl">Bolivia</span> a <span class="hl2">Colombia</span>
-          <br/>
-          en minutos, sin costos ocultos.
-        </h1>
-
-        <p class="sub">
-          Cotización clara, proceso rápido y soporte por WhatsApp.
-          Diseñado para familias y negocios.
-        </p>
-
-        <!-- ✅ Unificados como pediste -->
-        <div class="trust-row" role="list">
-          <div class="trust" role="listitem"><i class="fas fa-shield-alt"></i> Seguridad</div>
-          <div class="trust" role="listitem"><i class="fas fa-bolt"></i> Velocidad</div>
-          <div class="trust" role="listitem"><i class="fas fa-percentage"></i> 0 comisiones</div>
-        </div>
-
-        <div class="rate-pill" aria-label="Tipo de cambio">
-          <i class="fas fa-chart-line"></i>
-          <span><strong>Tipo de cambio</strong> <span id="rate-pill-value">—</span></span>
-        </div>
-      </div>
-
-      <section class="hero-card" aria-label="Calculadora">
+      <!-- Calculadora: protagonista -->
+      <section class="card calc-card" aria-label="Calculadora">
         <div class="card-head">
           <div class="card-title">
-            <i class="fas fa-calculator"></i>
+            <span class="iconbox"><i class="fa-solid fa-calculator"></i></span>
             <div>
               <strong>Calculadora</strong>
               <small>cotiza antes de enviar</small>
             </div>
           </div>
-          <div class="chip">
-            <span class="chip-dot"></span>
-            Activo
-          </div>
+
+          <span class="status"><span class="dot"></span> Activo</span>
         </div>
 
         <div class="field">
           <label for="amount">Tú envías (BOB)</label>
           <div class="money">
             <span class="flag bo" aria-hidden="true"></span>
-            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric"/>
+            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric" />
           </div>
         </div>
 
@@ -118,40 +79,86 @@
           <label for="received-amount">Recibe (COP)</label>
           <div class="money">
             <span class="flag co" aria-hidden="true"></span>
-            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0"/>
+            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0" />
           </div>
         </div>
 
-        <!-- ✅ Botón con texto nuevo -->
+        <!-- Botón impactante -->
         <button class="cta" id="calculate-btn">
-          <i class="fas fa-paper-plane"></i>
-          Enviar dinero
+          <span class="cta-bg" aria-hidden="true"></span>
+          <span class="cta-glow" aria-hidden="true"></span>
+          <span class="cta-content">
+            <i class="fa-solid fa-paper-plane"></i>
+            Enviar dinero
+          </span>
         </button>
 
         <div class="meta">
-          <div class="meta-left">
-            <i class="fas fa-lock"></i>
-            Transferencias protegidas
-          </div>
+          <div class="meta-left"><i class="fa-solid fa-lock"></i> Transferencias protegidas</div>
           <div class="meta-right" id="cotiz-datetime"></div>
         </div>
 
         <div class="result" id="result-card">
           <div class="result-top">
             <span>Recibirás</span>
-            <span class="badge">Sin comisión</span>
+            <span class="badge">0 comisiones</span>
           </div>
           <div class="result-amount">
             $<span id="result-amount">0</span> <small>COP</small>
           </div>
           <div class="result-bottom">
-            <span><i class="fas fa-clock"></i> 10–20 min</span>
-            <span><i class="fas fa-check-circle"></i> Confirmación</span>
+            <span><i class="fa-regular fa-clock"></i> 10–20 min</span>
+            <span><i class="fa-solid fa-check-circle"></i> Confirmación</span>
           </div>
+        </div>
+      </section>
+
+      <!-- Texto compacto (para reducir scroll) -->
+      <section class="hero-text" aria-label="Info">
+        <div class="kicker">
+          <span class="kdot"></span>
+          <span>Destino: Colombia</span>
+          <span class="sep">•</span>
+          <span class="zero">0% comisiones</span>
+        </div>
+
+        <h1>
+          Envía de <span class="hl">Bolivia</span> a <span class="hl2">Colombia</span>
+          <span class="break">en minutos</span>
+        </h1>
+
+        <div class="trust-row" role="list">
+          <div class="trust" role="listitem"><i class="fa-solid fa-shield-halved"></i> Seguridad</div>
+          <div class="trust" role="listitem"><i class="fa-solid fa-bolt"></i> Velocidad</div>
+          <div class="trust" role="listitem"><i class="fa-solid fa-percent"></i> 0 comisiones</div>
+        </div>
+
+        <div class="rate-pill" aria-label="Tipo de cambio">
+          <i class="fa-solid fa-chart-line"></i>
+          <span><strong>Tipo de cambio</strong> <span id="rate-pill-value">—</span></span>
         </div>
       </section>
     </section>
 
+    <!-- Carrusel logos (bancos/empresas) -->
+    <section class="logos" aria-label="Bancos y empresas">
+      <div class="logos-head">
+        <h2>Depositamos en</h2>
+        <p>Bancos/empresas donde realizamos depósitos</p>
+      </div>
+
+      <div class="logo-track" id="logoTrack" tabindex="0" aria-label="Carrusel de logos">
+        <!-- Cambia los src por tus logos reales (png/svg/webp) -->
+        <div class="logo-item"><img src="/img/bancos/banco1.png" alt="Banco 1" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+1'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco2.png" alt="Banco 2" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+2'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco3.png" alt="Banco 3" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+3'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco4.png" alt="Banco 4" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+4'"></div>
+        <div class="logo-item"><img src="/img/bancos/empresa1.png" alt="Empresa 1" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+1'"></div>
+        <div class="logo-item"><img src="/img/bancos/empresa2.png" alt="Empresa 2" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+2'"></div>
+      </div>
+    </section>
+
+    <!-- Cómo funciona (2 por fila en móvil) -->
     <section class="steps" aria-label="Cómo funciona">
       <div class="section-title">
         <h2>Cómo funciona</h2>
@@ -162,13 +169,13 @@
         <article class="step">
           <div class="num">1</div>
           <h3>Cotiza</h3>
-          <p>Ingresa el monto en BOB y mira cuánto llega en COP al instante.</p>
+          <p>Ingresa el monto y mira cuánto llega en COP al instante.</p>
         </article>
 
         <article class="step">
           <div class="num">2</div>
           <h3>Envía</h3>
-          <p>Presiona “Enviar dinero” y un asesor te guía en segundos.</p>
+          <p>Presiona “Enviar dinero” y un asesor te guía por WhatsApp.</p>
         </article>
 
         <article class="step">
@@ -178,62 +185,31 @@
         </article>
       </div>
     </section>
-
-    <section class="grid2" aria-label="Beneficios">
-      <article class="info-card">
-        <div class="icon blue"><i class="fas fa-money-bill-wave"></i></div>
-        <h3>Tasa clara</h3>
-        <p>Sin comisiones ocultas. Lo que ves es lo que llega.</p>
-      </article>
-
-      <article class="info-card">
-        <div class="icon yellow"><i class="fas fa-bolt"></i></div>
-        <h3>En minutos</h3>
-        <p>Operación rápida con confirmación y soporte humano.</p>
-      </article>
-
-      <article class="info-card">
-        <div class="icon red"><i class="fas fa-shield-alt"></i></div>
-        <h3>Confiable</h3>
-        <p>Proceso seguro y comunicación directa por WhatsApp.</p>
-      </article>
-
-      <article class="info-card">
-        <div class="icon blue"><i class="fas fa-headset"></i></div>
-        <h3>Soporte</h3>
-        <p>Asistencia para familias, negocios y pagos recurrentes.</p>
-      </article>
-    </section>
   </main>
 
+  <!-- Footer con GPS/dirección (mantener) -->
   <footer class="foot">
     <div class="wrap foot-inner">
       <div class="foot-left">
         <strong>LUPO</strong>
-        <span>El puente financiero entre Bolivia y Colombia.</span>
+        <span>Remesas BO → CO</span>
+      </div>
+
+      <div class="foot-mid">
+        <i class="fa-solid fa-location-dot"></i>
+        <a class="gps" href="https://maps.google.com/?q=Santa+Cruz+Bolivia" target="_blank" rel="noopener">
+          Ver ubicación (GPS)
+        </a>
       </div>
 
       <div class="foot-right">
-        <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
       </div>
     </div>
     <div class="foot-copy">© 2026 LUPO. Todos los derechos reservados.</div>
   </footer>
 
-  <button id="install-btn" class="floating-btn">📲 Instalar App</button>
-  <button id="ios-install-btn" class="floating-btn">📲 Instalar App</button>
-
-  <div id="ios-modal" class="ios-modal" role="dialog" aria-modal="true" aria-labelledby="ios-modal-title">
-    <h3 id="ios-modal-title">¿Cómo instalar esta App?</h3>
-    <ul>
-      <li>1. Toca <strong>Compartir</strong> (↑)</li>
-      <li>2. Selecciona <strong>“Agregar a pantalla de inicio”</strong></li>
-      <li>3. Presiona <strong>Agregar</strong> 🎉</li>
-    </ul>
-    <button class="ios-modal-btn" onclick="document.getElementById('ios-modal').style.display='none'">Entendido</button>
-  </div>
-
-  <script defer="true" src="app.js?ver=v2-pro"></script>
+  <script src="app.js?v=3" defer></script>
 </body>
 </html>
