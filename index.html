@@ -1,212 +1,198 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO."/>
-  <title>LUPO | Enviar dinero a Colombia</title>
+(() => {
+  // ===== CONFIG =====
+  const WHATSAPP_NUMBER = "59175333489";
+  const COP_PER_BOB = 384;        // Ajusta si cambia
+  const FRONTEND_DISCOUNT = 0.10; // Ajusta si quieres (0.00 si no deseas descuento)
+  const MULT = 1 - FRONTEND_DISCOUNT;
 
-  <!-- PWA -->
-  <link rel="manifest" href="/icons/manifest.json"/>
-  <meta name="theme-color" content="#003893"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="LUPO"/>
-  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
+  // ===== HELPERS =====
+  const fmtCOP = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
+  const fmtBOB = new Intl.NumberFormat("es-BO", { maximumFractionDigits: 0 });
+  const $ = (id) => document.getElementById(id);
 
-  <!-- Favicons -->
-  <link rel="icon" sizes="16x16" type="image/png" href="/icons/favicon-16x16.png"/>
-  <link rel="icon" sizes="32x32" type="image/png" href="/icons/favicon-32x32.png"/>
-  <link rel="icon" sizes="192x192" type="image/png" href="/icons/icon-192.png"/>
-  <link rel="icon" sizes="512x512" type="image/png" href="/icons/icon-512.png"/>
+  function nowStamp() {
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mm = String(d.getMinutes()).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mo = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = d.getFullYear();
+    return `${hh}:${mm} · ${dd}/${mo}/${yy}`;
+  }
 
-  <!-- Icons + Font -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"/>
+  function computeCOP(bob) {
+    return Math.round(bob * COP_PER_BOB * MULT);
+  }
 
-  <link rel="stylesheet" href="app.css?v=4"/>
-</head>
+  function animateNumber(el, from, to, duration = 520) {
+    const start = performance.now();
+    const diff = to - from;
 
-<body>
-  <!-- Firma Colombia -->
-  <div class="co-stripe" aria-hidden="true"></div>
+    const tick = (t) => {
+      const p = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const value = Math.round(from + diff * eased);
+      el.textContent = fmtCOP.format(value);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
 
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#" aria-label="Inicio">
-        <img class="brand-logo" src="https://lupo.lat/img/lupo01.png" alt="LUPO"/>
-      </a>
+  function addRipple(btn, ev) {
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = (ev?.clientX ?? rect.left + rect.width/2) - rect.left - size/2;
+    const y = (ev?.clientY ?? rect.top + rect.height/2) - rect.top - size/2;
 
-      <nav class="country-switch" aria-label="País">
-        <a class="pill" href="https://co.lupo.lat/cop/" aria-label="Colombia">
-          <img src="https://flagcdn.com/w40/co.png" alt="Colombia"/>
-          <span>Colombia</span>
-        </a>
-        <a class="pill active" href="#" aria-current="page" aria-label="Bolivia">
-          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia"/>
-          <span>Bolivia</span>
-        </a>
-      </nav>
-    </div>
-  </header>
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
 
-  <main class="wrap">
-    <!-- HERO: serio, limpio -->
-    <section class="hero">
-      <!-- CALCULADORA (protagonista) -->
-      <section class="card calc-card" aria-label="Calculadora">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="iconbox"><i class="fa-solid fa-calculator"></i></span>
-            <div>
-              <strong>Calculadora</strong>
-              <small>cotiza antes de enviar</small>
-            </div>
-          </div>
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 650);
+  }
 
-          <span class="status"><span class="dot"></span> Activo</span>
-        </div>
+  // ===== CALC =====
+  function calculate({ animate = true } = {}) {
+    const amount = $("amount");
+    const received = $("received-amount");
+    const resultCard = $("result-card");
+    const resultAmount = $("result-amount");
+    const rateEl = $("rate-pill-value");
+    const dateEl = $("cotiz-datetime");
 
-        <!-- Barra compacta ÚNICA (seria) -->
-        <div class="compact-bar">
-          <div class="compact-left">
-            <span><b>Destino:</b> Colombia</span>
-            <span class="sep">•</span>
-            <span class="free"><b>0%</b> comisiones</span>
-          </div>
-          <div class="compact-right">
-            <div>TC <b id="rate-pill-value">—</b></div>
-            <div id="cotiz-datetime" class="compact-date">—</div>
-          </div>
-        </div>
+    const bob = Number(amount.value);
 
-        <div class="field">
-          <label for="amount">Tú envías (BOB)</label>
-          <div class="money">
-            <span class="flag bo" aria-hidden="true"></span>
-            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric"/>
-          </div>
-        </div>
+    if (!Number.isFinite(bob) || bob <= 0) {
+      received.value = "";
+      resultAmount.textContent = "0";
+      resultCard.style.display = "none";
+      if (rateEl) rateEl.textContent = "—";
+      if (dateEl) dateEl.textContent = "—";
+      return;
+    }
 
-        <div class="field">
-          <label for="received-amount">Recibe (COP)</label>
-          <div class="money">
-            <span class="flag co" aria-hidden="true"></span>
-            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0"/>
-          </div>
-        </div>
+    const cop = computeCOP(bob);
+    received.value = fmtCOP.format(cop);
 
-        <!-- CTA elegante (serio + impacto) -->
-        <button class="cta" id="calculate-btn">
-          <span class="cta-topline" aria-hidden="true"></span>
-          <span class="cta-glow" aria-hidden="true"></span>
-          <span class="cta-content">
-            <i class="fa-solid fa-paper-plane"></i>
-            Enviar dinero
-          </span>
-        </button>
+    resultCard.style.display = "block";
+    const prev = Number(String(resultAmount.textContent).replace(/[^\d]/g, "")) || 0;
+    if (animate) animateNumber(resultAmount, prev, cop);
+    else resultAmount.textContent = fmtCOP.format(cop);
 
-        <div class="meta">
-          <div class="meta-left"><i class="fa-solid fa-lock"></i> Transferencias protegidas</div>
-        </div>
+    if (rateEl) rateEl.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
+    if (dateEl) dateEl.textContent = nowStamp();
+  }
 
-        <div class="result" id="result-card">
-          <div class="result-top">
-            <span>Recibirás</span>
-            <span class="badge">0 comisiones</span>
-          </div>
-          <div class="result-amount">
-            $<span id="result-amount">0</span> <small>COP</small>
-          </div>
-          <div class="result-bottom">
-            <span><i class="fa-regular fa-clock"></i> 10–20 min</span>
-            <span><i class="fa-solid fa-check-circle"></i> Confirmación</span>
-          </div>
-        </div>
-      </section>
+  // ===== SEND =====
+  function setupSend() {
+    const amount = $("amount");
+    const btn = $("calculate-btn");
+    if (!amount || !btn) return;
 
-      <!-- Texto grande SOLO en desktop (serio) -->
-      <section class="hero-text" aria-label="Info">
-        <h1>
-          Envía de <span class="hl">Bolivia</span> a <span class="hl2">Colombia</span>
-          <span class="break">en minutos</span>
-        </h1>
-        <p class="sub">
-          Proceso claro, rápido y sin costos ocultos. Atención por WhatsApp.
-        </p>
-      </section>
-    </section>
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      addRipple(btn, e);
 
-    <!-- Carrusel logos -->
-    <section class="logos" aria-label="Bancos y empresas">
-      <div class="logos-head">
-        <h2>Depositamos en</h2>
-        <p>Bancos/empresas donde realizamos depósitos</p>
-      </div>
+      const bob = Number(amount.value);
+      if (!Number.isFinite(bob) || bob <= 0) {
+        alert("Por favor ingresa un monto válido en BOB.");
+        amount.focus();
+        return;
+      }
 
-      <div class="logo-track" id="logoTrack" tabindex="0" aria-label="Carrusel de logos">
-        <!-- Reemplaza por tus logos reales -->
-        <div class="logo-item"><img src="/img/bancos/banco1.png" alt="Banco 1" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+1'"></div>
-        <div class="logo-item"><img src="/img/bancos/banco2.png" alt="Banco 2" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+2'"></div>
-        <div class="logo-item"><img src="/img/bancos/banco3.png" alt="Banco 3" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+3'"></div>
-        <div class="logo-item"><img src="/img/bancos/banco4.png" alt="Banco 4" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+4'"></div>
-        <div class="logo-item"><img src="/img/bancos/empresa1.png" alt="Empresa 1" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+1'"></div>
-        <div class="logo-item"><img src="/img/bancos/empresa2.png" alt="Empresa 2" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+2'"></div>
-      </div>
-    </section>
+      calculate({ animate: true });
 
-    <!-- Cómo funciona -->
-    <section class="steps" aria-label="Cómo funciona">
-      <div class="section-title">
-        <h2>Cómo funciona</h2>
-        <p>En 3 pasos simples. Minimalista, directo y sin letras pequeñas.</p>
-      </div>
+      const cop = computeCOP(bob);
+      const msg = `Hola, quiero enviar ${fmtBOB.format(bob)} BOB (${fmtCOP.format(cop)} COP) a Colombia. ¿Me ayudan con el envío?`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
-      <div class="step-grid">
-        <article class="step">
-          <div class="num">1</div>
-          <h3>Cotiza</h3>
-          <p>Ingresa el monto y mira cuánto llega en COP al instante.</p>
-        </article>
+      btn.classList.add("is-loading");
+      const content = btn.querySelector(".cta-content");
+      content.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Procesando...`;
 
-        <article class="step">
-          <div class="num">2</div>
-          <h3>Envía</h3>
-          <p>Presiona “Enviar dinero” y un asesor te guía por WhatsApp.</p>
-        </article>
+      setTimeout(() => {
+        window.open(url, "_blank", "noopener,noreferrer");
+        btn.classList.remove("is-loading");
+        content.innerHTML = `<i class="fa-solid fa-check"></i> Enviado`;
 
-        <article class="step">
-          <div class="num">3</div>
-          <h3>Recibe</h3>
-          <p>El dinero se acredita en minutos según el método acordado.</p>
-        </article>
-      </div>
-    </section>
-  </main>
+        setTimeout(() => {
+          content.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar dinero`;
+        }, 1400);
+      }, 420);
+    });
+  }
 
-  <!-- Footer con GPS -->
-  <footer class="foot">
-    <div class="wrap foot-inner">
-      <div class="foot-left">
-        <strong>LUPO</strong>
-        <span>Remesas BO → CO</span>
-      </div>
+  // ===== LOGO CAROUSEL AUTOPLAY =====
+  function setupLogoAutoplay() {
+    const track = $("logoTrack");
+    if (!track) return;
 
-      <div class="foot-mid">
-        <i class="fa-solid fa-location-dot"></i>
-        <a class="gps" href="https://maps.google.com/?q=Santa+Cruz+Bolivia" target="_blank" rel="noopener">
-          Ver ubicación (GPS)
-        </a>
-      </div>
+    let paused = false;
+    let rafId = null;
+    let last = performance.now();
+    const speed = 0.35; // px por frame aprox (suave)
 
-      <div class="foot-right">
-        <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-      </div>
-    </div>
-    <div class="foot-copy">© 2026 LUPO. Todos los derechos reservados.</div>
-  </footer>
+    const pause = () => {
+      paused = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    };
 
-  <script src="app.js?v=4" defer></script>
-</body>
-</html>
+    const resume = () => {
+      if (!paused) return;
+      paused = false;
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Pausa cuando el usuario interactúa
+    ["pointerdown", "touchstart", "mouseenter", "focus"].forEach(ev => {
+      track.addEventListener(ev, pause, { passive: true });
+    });
+
+    // Reanuda al soltar / salir
+    ["pointerup", "touchend", "mouseleave", "blur"].forEach(ev => {
+      track.addEventListener(ev, () => {
+        // reanuda después de un ratito (más pro)
+        setTimeout(() => {
+          paused = true; // fuerza resume
+          resume();
+        }, 900);
+      }, { passive: true });
+    });
+
+    // Autoplay loop
+    function tick(now) {
+      if (paused) return;
+
+      const dt = now - last;
+      last = now;
+
+      track.scrollLeft += speed * (dt / 16);
+
+      const max = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= max - 2) {
+        track.scrollLeft = 0; // loop
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // Arranca
+    paused = false;
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // ===== INIT =====
+  document.addEventListener("DOMContentLoaded", () => {
+    const amount = $("amount");
+    if (amount) amount.addEventListener("input", () => calculate({ animate: false }));
+
+    calculate({ animate: false });
+    setupSend();
+    setupLogoAutoplay();
+  });
+})();
