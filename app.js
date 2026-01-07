@@ -1,11 +1,7 @@
 (() => {
   // ===== CONFIG =====
   const WHATSAPP_NUMBER = "59175333489";
-  const COP_PER_BOB = 384;        // Ajusta si cambia
-  const FRONTEND_DISCOUNT = 0.10; // Ajusta si quieres (0.00 si no deseas descuento)
-  const MULT = 1 - FRONTEND_DISCOUNT;
-
-  // ===== HELPERS =====
+  const COP_PER_BOB = 384; // ajusta si cambia
   const fmtCOP = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
   const fmtBOB = new Intl.NumberFormat("es-BO", { maximumFractionDigits: 0 });
   const $ = (id) => document.getElementById(id);
@@ -21,7 +17,7 @@
   }
 
   function computeCOP(bob) {
-    return Math.round(bob * COP_PER_BOB * MULT);
+    return Math.round(bob * COP_PER_BOB);
   }
 
   function animateNumber(el, from, to, duration = 520) {
@@ -41,20 +37,18 @@
   function addRipple(btn, ev) {
     const rect = btn.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
-    const x = (ev?.clientX ?? rect.left + rect.width/2) - rect.left - size/2;
-    const y = (ev?.clientY ?? rect.top + rect.height/2) - rect.top - size/2;
+    const x = (ev?.clientX ?? rect.left + rect.width / 2) - rect.left - size / 2;
+    const y = (ev?.clientY ?? rect.top + rect.height / 2) - rect.top - size / 2;
 
     const ripple = document.createElement("span");
     ripple.className = "ripple";
     ripple.style.width = ripple.style.height = `${size}px`;
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
-
     btn.appendChild(ripple);
     setTimeout(() => ripple.remove(), 650);
   }
 
-  // ===== CALC =====
   function calculate({ animate = true } = {}) {
     const amount = $("amount");
     const received = $("received-amount");
@@ -65,12 +59,14 @@
 
     const bob = Number(amount.value);
 
+    // rate + date siempre visibles (serio)
+    if (rateEl) rateEl.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
+    if (dateEl) dateEl.textContent = nowStamp();
+
     if (!Number.isFinite(bob) || bob <= 0) {
       received.value = "";
       resultAmount.textContent = "0";
       resultCard.style.display = "none";
-      if (rateEl) rateEl.textContent = "—";
-      if (dateEl) dateEl.textContent = "—";
       return;
     }
 
@@ -79,14 +75,11 @@
 
     resultCard.style.display = "block";
     const prev = Number(String(resultAmount.textContent).replace(/[^\d]/g, "")) || 0;
+
     if (animate) animateNumber(resultAmount, prev, cop);
     else resultAmount.textContent = fmtCOP.format(cop);
-
-    if (rateEl) rateEl.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
-    if (dateEl) dateEl.textContent = nowStamp();
   }
 
-  // ===== SEND =====
   function setupSend() {
     const amount = $("amount");
     const btn = $("calculate-btn");
@@ -108,91 +101,44 @@
       const cop = computeCOP(bob);
       const msg = `Hola, quiero enviar ${fmtBOB.format(bob)} BOB (${fmtCOP.format(cop)} COP) a Colombia. ¿Me ayudan con el envío?`;
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-
-      btn.classList.add("is-loading");
-      const content = btn.querySelector(".cta-content");
-      content.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Procesando...`;
-
-      setTimeout(() => {
-        window.open(url, "_blank", "noopener,noreferrer");
-        btn.classList.remove("is-loading");
-        content.innerHTML = `<i class="fa-solid fa-check"></i> Enviado`;
-
-        setTimeout(() => {
-          content.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar dinero`;
-        }, 1400);
-      }, 420);
+      window.open(url, "_blank", "noopener,noreferrer");
     });
   }
 
-  // ===== LOGO CAROUSEL AUTOPLAY =====
-  function setupLogoAutoplay() {
-    const track = $("logoTrack");
-    if (!track) return;
+  // Marquee PRO: duplicar contenido para loop perfecto
+  function setupMarquee() {
+    const marquee = document.getElementById("marquee");
+    const track = document.getElementById("marqueeTrack");
+    if (!marquee || !track) return;
 
-    let paused = false;
-    let rafId = null;
-    let last = performance.now();
-    const speed = 0.35; // px por frame aprox (suave)
-
-    const pause = () => {
-      paused = true;
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = null;
-    };
-
-    const resume = () => {
-      if (!paused) return;
-      paused = false;
-      last = performance.now();
-      rafId = requestAnimationFrame(tick);
-    };
-
-    // Pausa cuando el usuario interactúa
-    ["pointerdown", "touchstart", "mouseenter", "focus"].forEach(ev => {
-      track.addEventListener(ev, pause, { passive: true });
-    });
-
-    // Reanuda al soltar / salir
-    ["pointerup", "touchend", "mouseleave", "blur"].forEach(ev => {
-      track.addEventListener(ev, () => {
-        // reanuda después de un ratito (más pro)
-        setTimeout(() => {
-          paused = true; // fuerza resume
-          resume();
-        }, 900);
-      }, { passive: true });
-    });
-
-    // Autoplay loop
-    function tick(now) {
-      if (paused) return;
-
-      const dt = now - last;
-      last = now;
-
-      track.scrollLeft += speed * (dt / 16);
-
-      const max = track.scrollWidth - track.clientWidth;
-      if (track.scrollLeft >= max - 2) {
-        track.scrollLeft = 0; // loop
-      }
-
-      rafId = requestAnimationFrame(tick);
+    if (!track.dataset.duplicated) {
+      track.innerHTML += track.innerHTML;
+      track.dataset.duplicated = "1";
     }
 
-    // Arranca
-    paused = false;
-    rafId = requestAnimationFrame(tick);
+    let t = null;
+    const pause = () => {
+      marquee.classList.add("paused");
+      if (t) clearTimeout(t);
+    };
+    const resume = () => {
+      if (t) clearTimeout(t);
+      t = setTimeout(() => marquee.classList.remove("paused"), 900);
+    };
+
+    marquee.addEventListener("pointerdown", pause, { passive: true });
+    marquee.addEventListener("touchstart", pause, { passive: true });
+    marquee.addEventListener("pointerup", resume, { passive: true });
+    marquee.addEventListener("touchend", resume, { passive: true });
+    marquee.addEventListener("mouseleave", () => marquee.classList.remove("paused"), { passive: true });
   }
 
-  // ===== INIT =====
   document.addEventListener("DOMContentLoaded", () => {
     const amount = $("amount");
     if (amount) amount.addEventListener("input", () => calculate({ animate: false }));
 
     calculate({ animate: false });
     setupSend();
-    setupLogoAutoplay();
+    setupMarquee();
   });
 })();
