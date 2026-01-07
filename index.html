@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO."/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LUPO | Enviar dinero a Colombia</title>
+  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO." />
 
-  <!-- PWA -->
-  <link rel="manifest" href="/icons/manifest.json"/>
-  <meta name="theme-color" content="#003893"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="LUPO"/>
-  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
+  <!-- PWA (mantén tus rutas si ya existen) -->
+  <link rel="manifest" href="/icons/manifest.json" />
+  <meta name="theme-color" content="#003893" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LUPO" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
-  <!-- Favicons -->
-  <link rel="icon" sizes="16x16" type="image/png" href="/icons/favicon-16x16.png"/>
-  <link rel="icon" sizes="32x32" type="image/png" href="/icons/favicon-32x32.png"/>
-  <link rel="icon" sizes="192x192" type="image/png" href="/icons/icon-192.png"/>
-  <link rel="icon" sizes="512x512" type="image/png" href="/icons/icon-512.png"/>
+  <!-- Icons -->
+  <link rel="icon" sizes="16x16" type="image/png" href="/icons/favicon-16x16.png" />
+  <link rel="icon" sizes="32x32" type="image/png" href="/icons/favicon-32x32.png" />
+  <link rel="icon" sizes="192x192" type="image/png" href="/icons/icon-192.png" />
+  <link rel="icon" sizes="512x512" type="image/png" href="/icons/icon-512.png" />
 
-  <!-- Font + Icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"/>
+  <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
 
-  <link rel="stylesheet" href="app.css?v=6"/>
+  <link rel="stylesheet" href="app.css?v=3" />
 </head>
 
 <body>
-  <!-- Identidad Colombia (fina) -->
+  <!-- Firma CO -->
   <div class="co-stripe" aria-hidden="true"></div>
 
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="#" aria-label="Inicio">
-        <img class="brand-logo" src="https://lupo.lat/img/lupo01.png" alt="LUPO"/>
+      <a class="brand" href="#" aria-label="Inicio LUPO">
+        <img class="brand-logo" src="https://lupo.lat/img/lupo01.png" alt="LUPO" />
       </a>
 
       <nav class="country-switch" aria-label="País">
         <a class="pill" href="https://co.lupo.lat/cop/" aria-label="Colombia">
-          <img src="https://flagcdn.com/w40/co.png" alt="Colombia"/>
+          <img src="https://flagcdn.com/w40/co.png" alt="Colombia">
           <span>Colombia</span>
         </a>
         <a class="pill active" href="#" aria-current="page" aria-label="Bolivia">
-          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia"/>
+          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia">
           <span>Bolivia</span>
         </a>
       </nav>
@@ -51,53 +51,42 @@
   </header>
 
   <main class="wrap">
-    <section class="layout">
-      <!-- CALCULADORA -->
-      <section class="card calc" aria-label="Calculadora">
-        <div class="calc-head">
-          <div class="calc-title">
+    <!-- HERO ORDENADO: Calculadora arriba + texto compacto -->
+    <section class="hero">
+      <!-- Calculadora: protagonista -->
+      <section class="card calc-card" aria-label="Calculadora">
+        <div class="card-head">
+          <div class="card-title">
             <span class="iconbox"><i class="fa-solid fa-calculator"></i></span>
             <div>
               <strong>Calculadora</strong>
               <small>cotiza antes de enviar</small>
             </div>
           </div>
+
           <span class="status"><span class="dot"></span> Activo</span>
-        </div>
-
-        <!-- BARRA SERIA (una sola, sin chips raros) -->
-        <div class="info-bar">
-          <div class="info-left">
-            <span class="info-dot" aria-hidden="true"></span>
-            <span><b>Destino:</b> Colombia</span>
-          </div>
-
-          <div class="info-right">
-            <span>TC <b id="rate-pill-value">—</b></span>
-            <span class="sep">•</span>
-            <span id="cotiz-datetime" class="muted">—</span>
-          </div>
         </div>
 
         <div class="field">
           <label for="amount">Tú envías (BOB)</label>
-          <div class="inputrow">
+          <div class="money">
             <span class="flag bo" aria-hidden="true"></span>
-            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric"/>
+            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric" />
           </div>
         </div>
 
         <div class="field">
           <label for="received-amount">Recibe (COP)</label>
-          <div class="inputrow">
+          <div class="money">
             <span class="flag co" aria-hidden="true"></span>
-            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0"/>
+            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0" />
           </div>
         </div>
 
-        <!-- CTA PRO (serio, no “fiesta”) -->
+        <!-- Botón impactante -->
         <button class="cta" id="calculate-btn">
-          <span class="cta-tricolor" aria-hidden="true"></span>
+          <span class="cta-bg" aria-hidden="true"></span>
+          <span class="cta-glow" aria-hidden="true"></span>
           <span class="cta-content">
             <i class="fa-solid fa-paper-plane"></i>
             Enviar dinero
@@ -105,9 +94,8 @@
         </button>
 
         <div class="meta">
-          <i class="fa-solid fa-lock"></i>
-          <span>Transferencias protegidas</span>
-          <span class="meta-right">0% comisiones</span>
+          <div class="meta-left"><i class="fa-solid fa-lock"></i> Transferencias protegidas</div>
+          <div class="meta-right" id="cotiz-datetime"></div>
         </div>
 
         <div class="result" id="result-card">
@@ -115,11 +103,9 @@
             <span>Recibirás</span>
             <span class="badge">0 comisiones</span>
           </div>
-
           <div class="result-amount">
             $<span id="result-amount">0</span> <small>COP</small>
           </div>
-
           <div class="result-bottom">
             <span><i class="fa-regular fa-clock"></i> 10–20 min</span>
             <span><i class="fa-solid fa-check-circle"></i> Confirmación</span>
@@ -127,42 +113,52 @@
         </div>
       </section>
 
-      <!-- TEXTO (solo desktop) -->
-      <section class="side">
+      <!-- Texto compacto (para reducir scroll) -->
+      <section class="hero-text" aria-label="Info">
+        <div class="kicker">
+          <span class="kdot"></span>
+          <span>Destino: Colombia</span>
+          <span class="sep">•</span>
+          <span class="zero">0% comisiones</span>
+        </div>
+
         <h1>
-          Envía de <span class="b">Bolivia</span> a <span class="r">Colombia</span>
+          Envía de <span class="hl">Bolivia</span> a <span class="hl2">Colombia</span>
           <span class="break">en minutos</span>
         </h1>
-        <p>
-          Cotización clara, proceso rápido y soporte por WhatsApp.
-          Diseñado para familias y negocios.
-        </p>
+
+        <div class="trust-row" role="list">
+          <div class="trust" role="listitem"><i class="fa-solid fa-shield-halved"></i> Seguridad</div>
+          <div class="trust" role="listitem"><i class="fa-solid fa-bolt"></i> Velocidad</div>
+          <div class="trust" role="listitem"><i class="fa-solid fa-percent"></i> 0 comisiones</div>
+        </div>
+
+        <div class="rate-pill" aria-label="Tipo de cambio">
+          <i class="fa-solid fa-chart-line"></i>
+          <span><strong>Tipo de cambio</strong> <span id="rate-pill-value">—</span></span>
+        </div>
       </section>
     </section>
 
-    <!-- CARRUSEL (SIN IMÁGENES ROTAS) -->
+    <!-- Carrusel logos (bancos/empresas) -->
     <section class="logos" aria-label="Bancos y empresas">
       <div class="logos-head">
         <h2>Depositamos en</h2>
         <p>Bancos/empresas donde realizamos depósitos</p>
       </div>
 
-      <div class="marquee" id="marquee">
-        <div class="marquee-track" id="marqueeTrack">
-          <!-- Usa texto (si quieres img reales, cambia dentro de .logo por <img src="..."> ) -->
-          <div class="logo"><span class="logo-pill">Bancolombia</span></div>
-          <div class="logo"><span class="logo-pill">Davivienda</span></div>
-          <div class="logo"><span class="logo-pill">Nequi</span></div>
-          <div class="logo"><span class="logo-pill">Banco de Bogotá</span></div>
-          <div class="logo"><span class="logo-pill">BBVA</span></div>
-          <div class="logo"><span class="logo-pill">Efecty</span></div>
-        </div>
+      <div class="logo-track" id="logoTrack" tabindex="0" aria-label="Carrusel de logos">
+        <!-- Cambia los src por tus logos reales (png/svg/webp) -->
+        <div class="logo-item"><img src="/img/bancos/banco1.png" alt="Banco 1" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+1'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco2.png" alt="Banco 2" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+2'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco3.png" alt="Banco 3" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+3'"></div>
+        <div class="logo-item"><img src="/img/bancos/banco4.png" alt="Banco 4" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+4'"></div>
+        <div class="logo-item"><img src="/img/bancos/empresa1.png" alt="Empresa 1" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+1'"></div>
+        <div class="logo-item"><img src="/img/bancos/empresa2.png" alt="Empresa 2" onerror="this.src='https://via.placeholder.com/160x70?text=Empresa+2'"></div>
       </div>
-
-      <div class="hint">Se mueve automáticamente. Toca para pausar.</div>
     </section>
 
-    <!-- CÓMO FUNCIONA -->
+    <!-- Cómo funciona (2 por fila en móvil) -->
     <section class="steps" aria-label="Cómo funciona">
       <div class="section-title">
         <h2>Cómo funciona</h2>
@@ -191,7 +187,7 @@
     </section>
   </main>
 
-  <!-- FOOTER + GPS -->
+  <!-- Footer con GPS/dirección (mantener) -->
   <footer class="foot">
     <div class="wrap foot-inner">
       <div class="foot-left">
@@ -211,10 +207,9 @@
         <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
       </div>
     </div>
-
     <div class="foot-copy">© 2026 LUPO. Todos los derechos reservados.</div>
   </footer>
 
-  <script src="app.js?v=6" defer></script>
+  <script src="app.js?v=3" defer></script>
 </body>
 </html>
