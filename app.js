@@ -57,6 +57,57 @@
     setTimeout(() => ripple.remove(), 650);
   }
 
+  // ===== LOGOS AUTOPLAY (4 visibles, infinito) =====
+  function setupAutoLogoCarousel() {
+    const track = document.getElementById("logoTrack");
+    if (!track) return;
+
+    const SPEED = 0.35; // más lento: 0.25 | más rápido: 0.45
+    let paused = false;
+
+    // Quitar snap para movimiento fluido
+    track.style.scrollSnapType = "none";
+
+    // Duplicar solo una vez para loop
+    if (!track.dataset.cloned) {
+      const originals = Array.from(track.children);
+      originals.forEach((el) => track.appendChild(el.cloneNode(true)));
+      track.dataset.cloned = "1";
+    }
+
+    function measureHalfWidth() {
+      const items = Array.from(track.children);
+      const half = Math.floor(items.length / 2);
+      const gap = parseFloat(getComputedStyle(track).gap || "0") || 0;
+
+      let w = 0;
+      for (let i = 0; i < half; i++) w += items[i].getBoundingClientRect().width;
+      w += gap * Math.max(0, half - 1);
+      return w;
+    }
+
+    let halfWidth = measureHalfWidth();
+    window.addEventListener("resize", () => {
+      halfWidth = measureHalfWidth();
+    });
+
+    function tick() {
+      if (!paused && halfWidth > 0) {
+        track.scrollLeft += SPEED;
+        if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth; // loop sin salto
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Pausa al hover / touch
+    track.addEventListener("mouseenter", () => (paused = true));
+    track.addEventListener("mouseleave", () => (paused = false));
+    track.addEventListener("touchstart", () => (paused = true), { passive: true });
+    track.addEventListener("touchend", () => (paused = false), { passive: true });
+
+    requestAnimationFrame(tick);
+  }
+
   // ===== MAIN CALC =====
   function calculate({ animate = true } = {}) {
     const amount = $("amount");
@@ -138,5 +189,7 @@
     if (amount) amount.addEventListener("input", () => calculate({ animate: false }));
     calculate({ animate: false });
     setupSend();
+
+    setupAutoLogoCarousel(); // ✅ autoplay logos
   });
 })();
