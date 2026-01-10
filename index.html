@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>LUPO | Envía dinero de Bolivia a Colombia sin comisiones</title>
-  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Cotiza en segundos, bloquea tasa y envía por WhatsApp con LUPO." />
+  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Cotiza en segundos y recibe en minutos con LUPO." />
   <meta name="keywords" content="envío dinero, remesas, Bolivia, Colombia, tipo de cambio, sin comisiones, LUPO" />
   <link rel="canonical" href="https://co.lupo.lat/bo/" />
 
   <!-- Social preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="LUPO | Envía dinero de Bolivia a Colombia" />
-  <meta property="og:description" content="Cotiza al instante, bloquea tasa 5 min y envía por WhatsApp sin comisiones." />
+  <meta property="og:description" content="Envía sin comisiones. Cotiza al instante y recibe en minutos con la mejor tasa." />
   <meta property="og:url" content="https://co.lupo.lat/bo/" />
   <meta property="og:image" content="https://lupo.lat/img/og-lupo.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -39,6 +39,8 @@
   <!-- Perf: fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
@@ -48,11 +50,11 @@
       --blue:#003893;
       --red:#CE1126;
 
-      --ink:#0f172a;
-      --muted:#64748b;
+      --ink:#1f2937;
+      --muted:#6b7280;
       --bg:#f6f7fb;
 
-      --glass: rgba(255,255,255,.78);
+      --glass: rgba(255,255,255,.75);
       --glass2: rgba(255,255,255,.55);
 
       --shadow: 0 18px 50px rgba(0,0,0,.14);
@@ -140,7 +142,7 @@
       gap: 8px;
       padding: 8px 10px;
       border-radius: 999px;
-      font-weight: 800;
+      font-weight: 700;
       font-size: .92rem;
       color: var(--ink);
       transition: transform .2s ease, background .2s ease;
@@ -163,7 +165,7 @@
       cursor: pointer;
       padding: 10px 14px;
       border-radius: 12px;
-      font-weight: 900;
+      font-weight: 800;
       color: white;
       background: linear-gradient(135deg, var(--blue), #2a63ff);
       box-shadow: 0 10px 24px rgba(0,56,147,.22);
@@ -183,7 +185,7 @@
       position: relative;
       overflow: hidden;
       color: #fff;
-      padding: 52px 0 34px;
+      padding: 52px 0 28px;
       background:
         radial-gradient(1100px 520px at 18% 8%, rgba(252,209,22,.25), transparent 56%),
         radial-gradient(900px 500px at 90% 35%, rgba(206,17,38,.18), transparent 56%),
@@ -212,8 +214,6 @@
 
     .kicker{
       display:inline-flex;
-      flex-wrap: wrap;
-      justify-content:center;
       align-items:center;
       gap: 10px;
       padding: 8px 12px;
@@ -221,7 +221,7 @@
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.18);
       backdrop-filter: blur(10px);
-      font-weight: 800;
+      font-weight: 700;
       margin-bottom: 14px;
     }
     .kdot{
@@ -229,6 +229,7 @@
       background: var(--yellow);
       box-shadow: 0 0 0 4px rgba(252,209,22,.18);
     }
+    .kicker small{ opacity:.9; font-weight:700; }
 
     .hero h1{
       font-size: clamp(2rem, 3.1vw, 3rem);
@@ -242,10 +243,10 @@
       text-shadow: 0 10px 26px rgba(252,209,22,.18);
     }
     .hero p{
-      max-width: 820px;
+      max-width: 780px;
       margin: 0 auto;
       opacity: .92;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     /* Layout */
@@ -257,12 +258,12 @@
 
     /* Calculator card */
     .calculator-card{
-      margin: -46px auto 18px;
-      max-width: 560px;
+      margin: -46px auto 26px;
+      max-width: 520px;
       background: var(--glass);
       backdrop-filter: blur(14px);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 26px;
       box-shadow: var(--shadow);
       border: 1px solid rgba(255,255,255,.35);
       position: relative;
@@ -291,22 +292,21 @@
       align-items:center;
       justify-content:center;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       color: var(--blue);
-      font-size: 1.25rem;
-      font-weight: 900;
+      font-size: 1.35rem;
+      font-weight: 800;
     }
 
     .submeta{
       display:flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items:center;
       gap: 10px;
-      margin: 8px 0 14px;
+      margin: 10px 0 16px;
       color: var(--muted);
       font-size: .92rem;
-      font-weight: 700;
+      font-weight: 600;
     }
     .chip{
       display:inline-flex;
@@ -317,7 +317,7 @@
       background: rgba(0,56,147,.08);
       border: 1px solid rgba(0,56,147,.18);
       color: var(--blue);
-      font-weight: 900;
+      font-weight: 800;
       white-space: nowrap;
     }
     .chip .dot{
@@ -326,11 +326,11 @@
       box-shadow: 0 0 0 4px rgba(22,163,74,.16);
     }
 
-    .form-group{ margin-bottom: 12px; }
+    .form-group{ margin-bottom: 14px; }
     label{
       display:block;
       margin-bottom: 7px;
-      font-weight: 900;
+      font-weight: 800;
       color: #0f172a;
     }
 
@@ -362,7 +362,7 @@
       font-size: 1rem;
       outline: none;
       transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
-      font-weight: 800;
+      font-weight: 700;
     }
     .form-control:focus{
       border-color: rgba(0,56,147,.35);
@@ -370,28 +370,17 @@
       background: rgba(255,255,255,.85);
     }
 
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .btn-row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn{
+    .btn-primary{
       width: 100%;
       border: 0;
       cursor: pointer;
-      padding: 14px 14px;
+      padding: 15px 14px;
       border-radius: 14px;
-      font-weight: 950;
-      font-size: .98rem;
+      font-weight: 900;
+      font-size: 1rem;
       color: #fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 14px 28px rgba(0,56,147,.22);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -400,26 +389,22 @@
       position: relative;
       overflow:hidden;
     }
-    .btn::after{
+    .btn-primary::after{
       content:"";
       position:absolute; inset:0;
       background: radial-gradient(380px 180px at 30% 30%, rgba(255,255,255,.18), transparent 55%);
       opacity:.75;
       pointer-events:none;
     }
-    .btn:hover{ transform: translateY(-2px); filter: saturate(1.05); }
+    .btn-primary:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(0,56,147,.28);
+      filter: saturate(1.05);
+    }
+    .btn-primary.success{ background: linear-gradient(135deg, #16a34a, #22c55e); }
+    .btn-primary.error{ background: linear-gradient(135deg, #dc2626, #ef4444); }
 
-    .btn-primary{
-      background: linear-gradient(135deg, var(--blue), #2a63ff);
-      box-shadow: 0 14px 28px rgba(0,56,147,.22);
-    }
-    .btn-secondary{
-      background: linear-gradient(135deg, rgba(15,23,42,.92), rgba(15,23,42,.78));
-      box-shadow: 0 14px 28px rgba(0,0,0,.16);
-    }
-    .btn.success{ background: linear-gradient(135deg, #16a34a, #22c55e); }
-    .btn.error{ background: linear-gradient(135deg, #dc2626, #ef4444); }
-    .btn.calculating{ animation: pulse 1s infinite; }
+    .calculating{ animation: pulse 1s infinite; }
     @keyframes pulse{
       0% { transform: translateY(-2px) scale(1); }
       50% { transform: translateY(-2px) scale(1.03); }
@@ -433,29 +418,19 @@
       background: rgba(0,56,147,.08);
       border: 1px solid rgba(0,56,147,.18);
       display:flex;
-      flex-wrap: wrap;
-      gap: 8px 10px;
+      gap: 10px;
       align-items:center;
       justify-content:center;
       color: var(--blue);
-      font-weight: 900;
+      font-weight: 800;
       text-align:center;
     }
     .exchange-pill i{ color: var(--red); }
 
-    .mini{
-      font-size: .92rem;
-      color: var(--muted);
-      text-align:center;
-      font-weight: 700;
-      margin-top: 8px;
-    }
-    .mini strong{ color: var(--ink); }
-
     /* Result */
     .result-card{
-      margin-top: 14px;
-      padding: 14px;
+      margin-top: 16px;
+      padding: 16px;
       border-radius: 16px;
       background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,245,245,.85));
       border: 1px solid rgba(0,0,0,.06);
@@ -476,12 +451,12 @@
       gap: 10px;
       margin-bottom: 6px;
       color: var(--blue);
-      font-weight: 950;
+      font-weight: 900;
     }
     .result-amount{
       text-align:center;
-      font-size: 2.25rem;
-      font-weight: 950;
+      font-size: 2.35rem;
+      font-weight: 900;
       letter-spacing: -0.6px;
       margin: 10px 0 6px;
       background: linear-gradient(90deg, var(--blue), var(--red));
@@ -492,7 +467,7 @@
     .result-details{
       text-align:center;
       color: var(--muted);
-      font-weight: 800;
+      font-weight: 700;
       font-size: .95rem;
       display:grid;
       gap: 6px;
@@ -504,81 +479,122 @@
       gap: 8px;
     }
 
-    /* Checkout (3 pasos) */
-    .checkout{
-      max-width: 560px;
-      margin: 0 auto 34px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 16px 34px rgba(0,0,0,.08);
+    /* Sections */
+    .features-section{
+      margin: 34px 0 10px;
     }
-    .stepper{
+    .section-title{
+      text-align:center;
+      margin: 0 auto 18px;
+      max-width: 820px;
+    }
+    .section-title h2{
+      font-size: clamp(1.55rem, 2.2vw, 2.2rem);
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+    .section-title p{ color: var(--muted); font-weight: 600; }
+
+    .features-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .feature-card{
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.06);
+      transform: translateY(14px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease, box-shadow .25s ease;
+      position: relative;
+      overflow:hidden;
+    }
+    .feature-card.visible{ transform: translateY(0); opacity: 1; }
+    .feature-card:hover{ box-shadow: 0 18px 34px rgba(0,0,0,.10); transform: translateY(-2px); }
+
+    .feature-icon{
+      width: 54px; height: 54px;
+      border-radius: 16px;
       display:flex;
       align-items:center;
       justify-content:center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.03);
-      border: 1px solid rgba(0,0,0,.05);
-      margin-bottom: 12px;
-      font-weight: 900;
-      color: var(--muted);
+      color:#fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 14px 26px rgba(0,56,147,.18);
+      margin: 0 auto 12px;
+      font-size: 1.3rem;
     }
-    .stepper .s{
-      display:inline-flex; align-items:center; justify-content:center;
-      width: 30px; height: 30px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.9);
-      color: var(--muted);
-      font-weight: 950;
-    }
-    .stepper .active{
-      color: var(--blue);
-    }
-    .stepper .s.active{
-      border-color: rgba(0,56,147,.25);
-      background: rgba(0,56,147,.10);
-      color: var(--blue);
-      box-shadow: 0 10px 20px rgba(0,56,147,.10);
-    }
+    .feature-card:nth-child(2) .feature-icon{ background: linear-gradient(135deg, var(--red), #ff5a5a); }
+    .feature-card:nth-child(3) .feature-icon{ background: linear-gradient(135deg, #0ea5e9, var(--blue)); }
+    .feature-card:nth-child(4) .feature-icon{ background: linear-gradient(135deg, var(--yellow), #ffd24d); color:#111827; }
 
-    .panel{
-      display:none;
-      animation: fadeIn .18s ease-out;
-    }
-    .panel.show{ display:block; }
-
-    @keyframes fadeIn{
-      from{ opacity:0; transform: translateY(6px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
-
-    .hint{
-      margin-top: 8px;
-      color: var(--muted);
-      font-weight: 700;
+    .feature-card h3{
       text-align:center;
-      font-size: .92rem;
+      margin-bottom: 6px;
+      color: #0f172a;
+      letter-spacing: -0.2px;
     }
+    .feature-card p{ text-align:center; color: var(--muted); font-weight: 600; }
 
-    .actions{
+    /* Testimonials */
+    .testimonials{
+      margin: 28px 0 0;
+      padding: 34px 0 22px;
+      background: linear-gradient(135deg, rgba(0,56,147,.06), rgba(255,255,255,.35));
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .testimonials-container{
       display:flex;
-      gap: 10px;
-      margin-top: 12px;
+      flex-wrap: wrap;
+      justify-content:center;
+      gap: 16px;
     }
-    .actions .btn{ padding: 12px 12px; font-size: .95rem; }
-
-    .ghost{
-      background: rgba(0,0,0,.04);
-      color: var(--ink);
+    .testimonial-card{
+      width: min(420px, 100%);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(0,0,0,.06);
-      box-shadow: none;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+      transform: translateY(14px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease, box-shadow .25s ease;
+      position: relative;
+      overflow:hidden;
     }
-    .ghost::after{ display:none; }
+    .testimonial-card.visible{ transform: translateY(0); opacity: 1; }
+    .testimonial-card:hover{ transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.12); }
+
+    .rating{ color: var(--yellow); font-size: 1.05rem; margin-bottom: 10px; }
+    .testimonial-text{
+      color: #111827;
+      font-weight: 650;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .testimonial-author{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .testimonial-author img{
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(206,17,38,.45);
+    }
+    .author-info h4{
+      color: var(--blue);
+      margin-bottom: 2px;
+      font-size: 1rem;
+    }
+    .author-info p{ color: var(--muted); font-weight: 650; font-size: .92rem; }
 
     /* Footer */
     footer{
@@ -610,7 +626,7 @@
     .footer-links{ list-style:none; display:grid; gap: 8px; }
     .footer-links a{
       color:#cbd5e1;
-      font-weight: 750;
+      font-weight: 650;
       transition: color .2s ease, transform .2s ease;
       display:inline-flex;
       align-items:center;
@@ -644,7 +660,7 @@
       padding-top: 14px;
       border-top: 1px solid rgba(255,255,255,.12);
       color:#9ca3af;
-      font-weight: 750;
+      font-weight: 650;
       font-size: .92rem;
     }
 
@@ -657,7 +673,7 @@
       cursor: pointer;
       padding: 12px 16px;
       border-radius: 999px;
-      font-weight: 950;
+      font-weight: 900;
       color:#fff;
       background: linear-gradient(135deg, var(--blue), #2a63ff);
       box-shadow: 0 18px 38px rgba(0,0,0,.28);
@@ -684,7 +700,7 @@
       animation: slideUp .35s ease-out;
     }
     #ios-modal h3{ color: var(--blue); margin-bottom: 8px; }
-    #ios-modal ul{ padding-left: 18px; color: var(--ink); font-weight: 750; }
+    #ios-modal ul{ padding-left: 18px; color: var(--ink); font-weight: 650; }
     #ios-modal li{ margin-bottom: 6px; }
     #ios-modal button{
       margin-top: 10px;
@@ -693,7 +709,7 @@
       cursor: pointer;
       padding: 10px 12px;
       border-radius: 12px;
-      font-weight: 950;
+      font-weight: 900;
       color:#fff;
       background: linear-gradient(135deg, var(--blue), #2a63ff);
     }
@@ -707,10 +723,7 @@
       .logo{ min-width: unset; }
       .country-pills span{ display:none; }
       .calculator-card{ padding: 18px; }
-      .result-amount{ font-size: 2.05rem; }
-      .row{ grid-template-columns: 1fr; }
-      .btn-row{ grid-template-columns: 1fr; }
-      .actions{ flex-direction: column; }
+      .result-amount{ font-size: 2.1rem; }
     }
   </style>
 </head>
@@ -725,7 +738,9 @@
         <img src="https://lupo.lat/img/lupo01.png" alt="LUPO Envía" />
       </div>
 
+      <!-- Selector simple (identidad + navegación) -->
       <nav class="country-pills" aria-label="Ruta">
+        <!-- En esta página: BO -> CO, por eso CO activo (destino) -->
         <a class="pill active" href="https://co.lupo.lat/cop/" aria-current="page" aria-label="Destino Colombia">
           <img src="https://flagcdn.com/w40/co.png" alt="Colombia" />
           <span>Colombia</span>
@@ -746,72 +761,56 @@
     <div class="hero-inner">
       <div class="kicker">
         <span class="kdot" aria-hidden="true"></span>
+        <small>Ruta:</small>
         <strong>Bolivia → Colombia</strong>
         <span aria-hidden="true">•</span>
         <strong>0% comisiones</strong>
-        <span aria-hidden="true">•</span>
-        <span id="live-badge">Tasa en vivo</span>
       </div>
 
-      <h1>Envía <span>BOB</span> y recibe <span>COP</span> 🇨🇴</h1>
-      <p>Cotiza en segundos, bloquea tu tasa por 5 minutos y envía por WhatsApp con datos listos para el asesor.</p>
+      <h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span> 🇨🇴</h1>
+      <p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado.</p>
     </div>
   </section>
 
   <main class="container">
-    <!-- CALCULADORA -->
     <div class="calculator-card" id="calculator-card" aria-label="Calculadora">
       <div class="calc-title">
-        <i class="fa-solid fa-calculator"></i> Cotiza tu envío
+        <i class="fa-solid fa-calculator"></i> Calculadora de envío
       </div>
 
       <div class="submeta">
         <span class="chip"><span class="dot" aria-hidden="true"></span> Activo</span>
-        <span id="cotiz-datetime"></span>
+        <span id="cotiz-datetime" aria-label="Fecha y hora de cotización"></span>
       </div>
 
-      <div class="row">
-        <div class="form-group">
-          <label for="amount">Tú envías (BOB)</label>
-          <div class="currency-input-container">
-            <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/bo.png')" aria-hidden="true"></div>
-            <input type="number" id="amount" class="form-control" placeholder="Ej. 500" min="1" inputmode="numeric" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="received-amount">Recibe (COP)</label>
-          <div class="currency-input-container">
-            <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/co.png')" aria-hidden="true"></div>
-            <input type="text" id="received-amount" class="form-control" placeholder="0" readonly aria-readonly="true" />
-          </div>
+      <div class="form-group">
+        <label for="amount">Tú envías (BOB)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/bo.png')" aria-hidden="true"></div>
+          <input type="number" id="amount" class="form-control" placeholder="Ej. 500" min="1" inputmode="numeric" />
         </div>
       </div>
 
-      <div class="btn-row">
-        <button class="btn btn-secondary" id="lock-btn" type="button">
-          <i class="fa-solid fa-lock"></i> Bloquear tasa 5 min
-        </button>
-
-        <button class="btn btn-primary" id="checkout-btn" type="button">
-          <i class="fa-solid fa-bag-shopping"></i> Continuar (checkout)
-        </button>
+      <div class="form-group">
+        <label for="received-amount">Recibe (COP)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/co.png')" aria-hidden="true"></div>
+          <input type="text" id="received-amount" class="form-control" placeholder="0" readonly aria-readonly="true" />
+        </div>
       </div>
+
+      <button class="btn-primary" id="calculate-btn" type="button">
+        <i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp
+      </button>
 
       <div class="exchange-pill" id="exchange-pill" aria-label="Tipo de cambio">
         <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
         <span>Tipo de cambio: <strong id="rate-text">—</strong></span>
-        <span aria-hidden="true">•</span>
-        <span id="rate-age">actualizando…</span>
-      </div>
-
-      <div class="mini" id="lock-info" style="display:none;">
-        <strong>Tasa bloqueada</strong> por <strong id="lock-remaining">05:00</strong> • Ref: <strong id="lock-ref">—</strong>
       </div>
 
       <div class="result-card" id="result-card" aria-live="polite">
         <div class="result-header">
-          <span>Estimación</span>
+          <span>Detalles del envío</span>
           <i class="fa-solid fa-circle-check" style="color: var(--yellow);" aria-hidden="true"></i>
         </div>
 
@@ -821,95 +820,105 @@
 
         <div class="result-details">
           <p><i class="fa-solid fa-percent" style="color: var(--blue);" aria-hidden="true"></i> <strong>Sin comisiones</strong> – 0% de tarifa</p>
-          <p><i class="fa-regular fa-clock" style="color: var(--red);" aria-hidden="true"></i> Tiempo estimado: 10–20 minutos</p>
+          <p id="delivery-time"><i class="fa-regular fa-clock" style="color: var(--red);" aria-hidden="true"></i> Tiempo estimado: 10–20 minutos</p>
         </div>
       </div>
     </div>
 
-    <!-- CHECKOUT 3 PASOS -->
-    <section class="checkout" aria-label="Checkout">
-      <div class="stepper" aria-label="Progreso">
-        <span class="s active" id="s1">1</span><span class="active" id="t1">Monto</span>
-        <span aria-hidden="true">→</span>
-        <span class="s" id="s2">2</span><span id="t2">Destino</span>
-        <span aria-hidden="true">→</span>
-        <span class="s" id="s3">3</span><span id="t3">Confirmar</span>
+    <section class="features-section" aria-label="Beneficios">
+      <div class="section-title">
+        <h2>¿Por qué enviar con LUPO?</h2>
+        <p>Servicio confiable para enviar dinero a Colombia desde Bolivia: rápido, seguro y sin letra pequeña.</p>
       </div>
 
-      <!-- Paso 1 -->
-      <div class="panel show" id="p1">
-        <div class="hint">Confirma el monto. Puedes bloquear la tasa antes si quieres.</div>
-        <div class="actions">
-          <button class="btn ghost" id="p1-edit" type="button">
-            <i class="fa-solid fa-pen-to-square"></i> Editar monto arriba
-          </button>
-          <button class="btn btn-primary" id="p1-next" type="button">
-            <i class="fa-solid fa-arrow-right"></i> Siguiente
-          </button>
-        </div>
+      <div class="features-grid">
+        <article class="feature-card" id="feature1">
+          <div class="feature-icon"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i></div>
+          <h3>Mejor tasa de cambio</h3>
+          <p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
+        </article>
+
+        <article class="feature-card" id="feature2">
+          <div class="feature-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+          <h3>Envíos rápidos</h3>
+          <p>El dinero llega en minutos según el método acordado.</p>
+        </article>
+
+        <article class="feature-card" id="feature3">
+          <div class="feature-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+          <h3>Seguridad garantizada</h3>
+          <p>Tus transferencias están protegidas de inicio a fin.</p>
+        </article>
+
+        <article class="feature-card" id="feature4">
+          <div class="feature-icon"><i class="fa-solid fa-circle-dollar-to-slot" aria-hidden="true"></i></div>
+          <h3>0% comisión</h3>
+          <p>Pagas lo justo: sin recargos, sin sorpresas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials" aria-label="Testimonios">
+      <div class="section-title">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Miles de personas confían en LUPO para enviar dinero a Colombia.</p>
       </div>
 
-      <!-- Paso 2 -->
-      <div class="panel" id="p2">
-        <div class="row">
-          <div class="form-group">
-            <label for="city">Ciudad destino (CO)</label>
-            <input id="city" class="form-control" placeholder="Ej. Cali" />
+      <div class="testimonials-container">
+        <article class="testimonial-card" id="testimonial1">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
           </div>
-          <div class="form-group">
-            <label for="method">Método</label>
-            <select id="method" class="form-control" style="padding-left:14px;">
-              <option value="Banco">Banco</option>
-              <option value="Nequi">Nequi</option>
-              <option value="Daviplata">Daviplata</option>
-              <option value="Efectivo">Efectivo</option>
-              <option value="Otro">Otro</option>
-            </select>
+          <p class="testimonial-text">“Envío dinero para pagar a mis proveedores y todo fue muy fácil y rápido.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/yiya.jpg" alt="Yiya Muñoz" />
+            <div class="author-info">
+              <h4>Yiya Muñoz</h4>
+              <p>Santa Cruz, Bolivia</p>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="receiver">Nombre del receptor (opcional)</label>
-          <input id="receiver" class="form-control" placeholder="Ej. Juan Pérez" style="padding-left:14px;" />
-        </div>
+        </article>
 
-        <div class="actions">
-          <button class="btn ghost" id="p2-back" type="button">
-            <i class="fa-solid fa-arrow-left"></i> Atrás
-          </button>
-          <button class="btn btn-primary" id="p2-next" type="button">
-            <i class="fa-solid fa-arrow-right"></i> Siguiente
-          </button>
-        </div>
-      </div>
-
-      <!-- Paso 3 -->
-      <div class="panel" id="p3">
-        <div class="result-card show" style="margin-top:0;">
-          <div class="result-header">
-            <span>Resumen</span>
-            <i class="fa-solid fa-badge-check" style="color: var(--yellow);" aria-hidden="true"></i>
+        <article class="testimonial-card" id="testimonial2">
+          <div class="rating" aria-label="4 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
           </div>
-
-          <div class="result-details" style="margin-top:8px;">
-            <p><i class="fa-solid fa-money-bill" style="color: var(--blue);"></i> Envías: <strong id="sum-bob">—</strong> BOB</p>
-            <p><i class="fa-solid fa-coins" style="color: var(--red);"></i> Recibe: <strong id="sum-cop">—</strong> COP</p>
-            <p><i class="fa-solid fa-chart-line" style="color: var(--blue);"></i> Tasa: <strong id="sum-rate">—</strong></p>
-            <p><i class="fa-solid fa-location-dot" style="color: var(--red);"></i> Ciudad: <strong id="sum-city">—</strong></p>
-            <p><i class="fa-solid fa-route" style="color: var(--blue);"></i> Método: <strong id="sum-method">—</strong></p>
-            <p><i class="fa-solid fa-tag" style="color: var(--red);"></i> Ref: <strong id="sum-ref">—</strong></p>
+          <p class="testimonial-text">“Ningún problema: ya hice 2 envíos y todo súper bien. Rápidos y profesionales.”</p>
+          <div class="testimonial-author">
+            <a href="https://www.facebook.com/khatia.valentina.morales" target="_blank" rel="noopener">
+              <img src="https://co.lupo.lat/img/kathia.jpg" alt="Khatia Valentina Morales" />
+            </a>
+            <div class="author-info">
+              <h4>Khatia Valentina Morales</h4>
+              <p>Cochabamba, Bolivia</p>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <div class="actions">
-          <button class="btn ghost" id="p3-back" type="button">
-            <i class="fa-solid fa-arrow-left"></i> Atrás
-          </button>
-          <button class="btn btn-primary" id="send-wa" type="button">
-            <i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp
-          </button>
-        </div>
-
-        <div class="hint">El mensaje saldrá listo con tu referencia y (si aplica) tasa bloqueada.</div>
+        <article class="testimonial-card" id="testimonial3">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Envío dinero cada mes a mi familia en Cali y siempre llega en minutos. Proceso sencillo y buena tasa.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/oscar.jpg" alt="Oscar Uriel Bustos Garcia" />
+            <div class="author-info">
+              <h4>Oscar Uriel Bustos Garcia</h4>
+              <p>Cali, Colombia</p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </main>
@@ -918,7 +927,7 @@
     <div class="footer-container">
       <div class="footer-column">
         <h3>LUPO</h3>
-        <p style="color:#cbd5e1;font-weight:750;">El puente financiero entre Bolivia y Colombia.</p>
+        <p style="color:#cbd5e1;font-weight:650;">El puente financiero entre Bolivia y Colombia.</p>
         <div class="social-links" aria-label="Redes sociales">
           <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
           <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
@@ -964,7 +973,7 @@
   <!-- Botón de instalación PWA -->
   <button id="install-btn" type="button">📲 Instalar App</button>
 
-  <!-- Modal iOS -->
+  <!-- Modal iOS (se muestra automáticamente cuando aplica) -->
   <div id="ios-modal" role="dialog" aria-label="Instalar en iPhone">
     <h3>¿Cómo instalar esta App?</h3>
     <ul>
@@ -977,441 +986,126 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ===================== CONFIG =====================
+      // ====== CONFIG editable (solo cambias aquí) ======
       const CONFIG = {
-        FALLBACK_RATE: 240,          // si rate.json no existe o falla
-        MIN_AMOUNT: 10,
-        MAX_AMOUNT: 50000,
-        WHATSAPP_NUMBER: '59171077231',
-        RATE_ENDPOINT: './rate.json', // mismo directorio
-        RATE_REFRESH_MS: 60000,       // 60s
-        LOCK_MS: 5 * 60 * 1000        // 5 min
+        EXCHANGE_RATE: 240,          // 1 BOB = 240 COP
+        MIN_AMOUNT: 10,              // mínimo BOB
+        MAX_AMOUNT: 50000,           // máximo BOB
+        WHATSAPP_NUMBER: '59171077231'
       };
 
-      // ===================== ELEMENTS =====================
+      // ====== Elements ======
       const amountInput = document.getElementById('amount');
       const receivedInput = document.getElementById('received-amount');
       const resultCard = document.getElementById('result-card');
-      const resultAmountEl = document.getElementById('result-amount');
-
+      const calculateBtn = document.getElementById('calculate-btn');
+      const calculatorCard = document.getElementById('calculator-card');
       const rateText = document.getElementById('rate-text');
-      const rateAge = document.getElementById('rate-age');
       const cotizDatetime = document.getElementById('cotiz-datetime');
 
-      const lockBtn = document.getElementById('lock-btn');
-      const lockInfo = document.getElementById('lock-info');
-      const lockRemaining = document.getElementById('lock-remaining');
-      const lockRef = document.getElementById('lock-ref');
+      // Pill rate
+      rateText.textContent = `1 BOB = ${CONFIG.EXCHANGE_RATE.toLocaleString('es-CO')} COP`;
 
-      const checkoutBtn = document.getElementById('checkout-btn');
+      // Date/time
+      const now = new Date();
+      cotizDatetime.textContent = now.toLocaleString('es-BO', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
 
-      // Checkout panels
-      const p1 = document.getElementById('p1');
-      const p2 = document.getElementById('p2');
-      const p3 = document.getElementById('p3');
-      const s1 = document.getElementById('s1');
-      const s2 = document.getElementById('s2');
-      const s3 = document.getElementById('s3');
-      const t1 = document.getElementById('t1');
-      const t2 = document.getElementById('t2');
-      const t3 = document.getElementById('t3');
-
-      const p1Next = document.getElementById('p1-next');
-      const p1Edit = document.getElementById('p1-edit');
-
-      const p2Back = document.getElementById('p2-back');
-      const p2Next = document.getElementById('p2-next');
-
-      const p3Back = document.getElementById('p3-back');
-      const sendWA = document.getElementById('send-wa');
-
-      const cityInput = document.getElementById('city');
-      const methodSelect = document.getElementById('method');
-      const receiverInput = document.getElementById('receiver');
-
-      // Summary
-      const sumBob = document.getElementById('sum-bob');
-      const sumCop = document.getElementById('sum-cop');
-      const sumRate = document.getElementById('sum-rate');
-      const sumCity = document.getElementById('sum-city');
-      const sumMethod = document.getElementById('sum-method');
-      const sumRef = document.getElementById('sum-ref');
-
-      // ===================== STATE =====================
-      let currentRate = CONFIG.FALLBACK_RATE;
-      let rateUpdatedAt = null; // Date
-      let rateSource = 'Fallback';
-
-      let lockState = {
-        active: false,
-        rate: null,
-        expiresAt: null, // timestamp
-        ref: null
-      };
-      let lockTimer = null;
-      let rateAgeTimer = null;
-
-      // ===================== HELPERS =====================
-      const pad2 = (n) => String(n).padStart(2, '0');
-      const formatCOP = (n) => Number(n).toLocaleString('es-CO');
-      const formatBOB = (n) => Number(n).toLocaleString('es-BO');
-      const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
-
-      function nowLocalString(){
-        return new Date().toLocaleString('es-BO', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
-      }
-
-      function randomRef(){
-        // LUPO-XXXX (base32 friendly)
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let out = '';
-        for (let i=0;i<4;i++) out += chars[Math.floor(Math.random()*chars.length)];
-        return `LUPO-${out}`;
-      }
-
-      function setStep(step){
-        // panels
-        [p1,p2,p3].forEach(p => p.classList.remove('show'));
-        document.getElementById(`p${step}`).classList.add('show');
-
-        // stepper
-        [s1,s2,s3].forEach(s => s.classList.remove('active'));
-        [t1,t2,t3].forEach(t => t.classList.remove('active'));
-        document.getElementById(`s${step}`).classList.add('active');
-        document.getElementById(`t${step}`).classList.add('active');
-      }
-
-      function validateAmount(showToastOnButtons = false){
-        const amount = parseFloat(amountInput.value);
-        if (!Number.isFinite(amount) || amount <= 0) return { ok:false, reason:'Monto inválido' };
-        if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
-          return { ok:false, reason:`Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB` };
-        }
-        return { ok:true, amount };
-      }
-
-      function effectiveRate(){
-        return lockState.active ? lockState.rate : currentRate;
-      }
-
-      function recalc(){
-        const amount = parseFloat(amountInput.value);
-
-        if (!Number.isFinite(amount) || amount <= 0) {
-          receivedInput.value = '';
-          resultCard.classList.remove('show');
-          resultAmountEl.textContent = '0';
-          return;
-        }
-
-        const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
-        const received = Math.round(safeAmount * effectiveRate());
-
-        receivedInput.value = formatCOP(received);
-        resultAmountEl.textContent = formatCOP(received);
-        resultCard.classList.add('show');
-      }
-
-      function updateRateUI(){
-        const r = effectiveRate();
-        rateText.textContent = `1 BOB = ${formatCOP(r)} COP`;
-
-        // show lock info if active
-        if (lockState.active){
-          lockInfo.style.display = 'block';
-          lockRef.textContent = lockState.ref;
-        } else {
-          lockInfo.style.display = 'none';
-        }
-      }
-
-      function updateRateAgeUI(){
-        if (!rateUpdatedAt) {
-          rateAge.textContent = 'sin actualización';
-          return;
-        }
-        const diffMs = Date.now() - rateUpdatedAt.getTime();
-        const mins = Math.floor(diffMs / 60000);
-        const secs = Math.floor((diffMs % 60000)/1000);
-        if (mins <= 0) rateAge.textContent = `actualizada hace ${secs}s`;
-        else rateAge.textContent = `actualizada hace ${mins}m`;
-      }
-
-      async function fetchRate(){
-        try {
-          const res = await fetch(`${CONFIG.RATE_ENDPOINT}?t=${Date.now()}`, { cache: 'no-store' });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-
-          const parsedRate = Number(data.rate);
-          if (!Number.isFinite(parsedRate) || parsedRate <= 0) throw new Error('rate inválida');
-
-          currentRate = parsedRate;
-          rateSource = data.source || 'LUPO';
-
-          // updated_at opcional
-          if (data.updated_at) {
-            const d = new Date(data.updated_at);
-            if (!isNaN(d.getTime())) rateUpdatedAt = d;
-            else rateUpdatedAt = new Date();
-          } else {
-            rateUpdatedAt = new Date();
-          }
-        } catch (e) {
-          // fallback, sin romper
-          if (!rateUpdatedAt) rateUpdatedAt = new Date();
-          currentRate = currentRate || CONFIG.FALLBACK_RATE;
-        }
-
-        updateRateUI();
-        updateRateAgeUI();
-        recalc();
-      }
-
-      function startRateTimers(){
-        if (rateAgeTimer) clearInterval(rateAgeTimer);
-        rateAgeTimer = setInterval(updateRateAgeUI, 1000);
-        setInterval(fetchRate, CONFIG.RATE_REFRESH_MS);
-      }
-
-      function lockRate(){
-        // Si ya hay lock activo, lo “renueva” con la tasa actual
-        lockState.active = true;
-        lockState.rate = currentRate;
-        lockState.expiresAt = Date.now() + CONFIG.LOCK_MS;
-        lockState.ref = lockState.ref || randomRef();
-
-        // persist
-        localStorage.setItem('lupo_lock', JSON.stringify(lockState));
-
-        // UI
-        updateRateUI();
-        recalc();
-
-        if (lockTimer) clearInterval(lockTimer);
-        lockTimer = setInterval(() => {
-          const remaining = lockState.expiresAt - Date.now();
-          if (remaining <= 0){
-            unlockRate();
-            return;
-          }
-          const mm = Math.floor(remaining / 60000);
-          const ss = Math.floor((remaining % 60000)/1000);
-          lockRemaining.textContent = `${pad2(mm)}:${pad2(ss)}`;
-        }, 250);
-
-        // set initial
-        lockRemaining.textContent = '05:00';
-      }
-
-      function unlockRate(){
-        lockState.active = false;
-        lockState.rate = null;
-        lockState.expiresAt = null;
-        // ref se puede mantener para tracking del usuario; aquí la mantenemos
-        // lockState.ref = null;
-
-        localStorage.setItem('lupo_lock', JSON.stringify(lockState));
-
-        if (lockTimer) clearInterval(lockTimer);
-        lockTimer = null;
-
-        updateRateUI();
-        recalc();
-      }
-
-      function restoreLock(){
-        try{
-          const raw = localStorage.getItem('lupo_lock');
-          if (!raw) return;
-          const saved = JSON.parse(raw);
-
-          if (saved && saved.active && saved.expiresAt && saved.rate) {
-            // válido si no expiró
-            if (Date.now() < saved.expiresAt) {
-              lockState = saved;
-              updateRateUI();
-              recalc();
-
-              // rearmar timer
-              if (lockTimer) clearInterval(lockTimer);
-              lockTimer = setInterval(() => {
-                const remaining = lockState.expiresAt - Date.now();
-                if (remaining <= 0){
-                  unlockRate();
-                  return;
-                }
-                const mm = Math.floor(remaining / 60000);
-                const ss = Math.floor((remaining % 60000)/1000);
-                lockRemaining.textContent = `${pad2(mm)}:${pad2(ss)}`;
-              }, 250);
-            } else {
-              // expiró
-              unlockRate();
-            }
-          } else if (saved && saved.ref) {
-            lockState.ref = saved.ref;
-          }
-        } catch(_) {}
-      }
-
-      function ensureRef(){
-        if (!lockState.ref) lockState.ref = randomRef();
-        localStorage.setItem('lupo_lock', JSON.stringify(lockState));
-        return lockState.ref;
-      }
-
-      function fillSummary(){
-        const v = validateAmount();
-        const amount = v.ok ? v.amount : 0;
-        const rate = effectiveRate();
-        const received = v.ok ? Math.round(amount * rate) : 0;
-
-        const ref = ensureRef();
-        const city = (cityInput.value || '').trim() || '—';
-        const method = methodSelect.value || 'Banco';
-
-        sumBob.textContent = v.ok ? formatBOB(amount) : '—';
-        sumCop.textContent = v.ok ? formatCOP(received) : '—';
-        sumRate.textContent = `1 BOB = ${formatCOP(rate)} COP`;
-        sumCity.textContent = city;
-        sumMethod.textContent = method;
-        sumRef.textContent = ref;
-      }
-
-      function openWhatsApp(){
-        const v = validateAmount();
-        if (!v.ok) return { ok:false, reason: v.reason };
-
-        const amount = v.amount;
-        const rate = effectiveRate();
-        const received = Math.round(amount * rate);
-
-        const city = (cityInput.value || '').trim() || 'No indicado';
-        const method = methodSelect.value || 'Banco';
-        const receiver = (receiverInput.value || '').trim();
-        const ref = ensureRef();
-        const lockedText = lockState.active ? 'Sí (5 min)' : 'No';
-
-        const msg =
-`Hola LUPO 👋
-Quiero enviar dinero a Colombia.
-
-• Envía: ${formatBOB(amount)} BOB
-• Recibe aprox: ${formatCOP(received)} COP
-• Tasa: 1 BOB = ${formatCOP(rate)} COP
-• Bloqueo: ${lockedText}
-• Ciudad: ${city}
-• Método: ${method}${receiver ? `\n• Receptor: ${receiver}` : ''}
-
-• Ref: ${ref}
-• Hora: ${nowLocalString()}
-
-¿Me ayudan con el envío?`;
-
-        const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-        window.open(url, '_blank', 'noopener');
-        return { ok:true };
-      }
-
-      // ===================== INIT =====================
-      cotizDatetime.textContent = nowLocalString();
-
-      // Reveal
+      // Reveal animation
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       }, { threshold: 0.12 });
-      observer.observe(document.getElementById('calculator-card'));
 
-      // Restore lock/ref if any
-      restoreLock();
-      ensureRef();
+      const observeIds = [
+        'calculator-card','feature1','feature2','feature3','feature4',
+        'testimonial1','testimonial2','testimonial3'
+      ];
+      observeIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
 
-      // Rate fetch
-      fetchRate();
-      startRateTimers();
-      updateRateUI();
+      // Helpers
+      const formatCOP = (n) => Number(n).toLocaleString('es-CO');
+      const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
 
-      // calc events
-      amountInput.addEventListener('input', () => { recalc(); });
+      function calculateTransfer() {
+        const amount = parseFloat(amountInput.value);
 
-      // lock button
-      lockBtn.addEventListener('click', () => {
-        const v = validateAmount();
-        if (!v.ok){
-          lockBtn.classList.add('error');
-          lockBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${v.reason}`;
-          setTimeout(() => {
-            lockBtn.classList.remove('error');
-            lockBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Bloquear tasa 5 min';
-          }, 1500);
+        if (!Number.isFinite(amount) || amount <= 0) {
+          receivedInput.value = '';
+          resultCard.classList.remove('show');
+          document.getElementById('result-amount').textContent = '0';
           return;
         }
 
-        // toggle lock: si está activo, lo renueva; si no, lo activa
-        lockRate();
+        const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
+        const receivedAmount = Math.round(safeAmount * CONFIG.EXCHANGE_RATE);
 
-        lockBtn.classList.add('success');
-        lockBtn.innerHTML = '<i class="fa-solid fa-check"></i> Tasa bloqueada';
+        receivedInput.value = formatCOP(receivedAmount);
+        document.getElementById('result-amount').textContent = formatCOP(receivedAmount);
+        resultCard.classList.add('show');
+      }
+
+      // Auto calculate
+      amountInput.addEventListener('input', calculateTransfer);
+
+      // WhatsApp
+      calculateBtn.addEventListener('click', () => {
+        const amount = parseFloat(amountInput.value);
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+          calculateBtn.classList.add('error');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Monto inválido';
+          setTimeout(() => {
+            calculateBtn.classList.remove('error');
+            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+          }, 1400);
+          return;
+        }
+
+        if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
+          calculateBtn.classList.add('error');
+          calculateBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB`;
+          setTimeout(() => {
+            calculateBtn.classList.remove('error');
+            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+          }, 1600);
+          return;
+        }
+
+        calculateBtn.classList.add('calculating');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
+
         setTimeout(() => {
-          lockBtn.classList.remove('success');
-          lockBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Bloquear tasa 5 min';
-        }, 1200);
-      });
+          const receivedAmount = Math.round(amount * CONFIG.EXCHANGE_RATE);
+          const message =
+            `Hola LUPO 👋\n` +
+            `Quiero enviar *${amount} BOB* a Colombia.\n` +
+            `Recibe aprox: *${formatCOP(receivedAmount)} COP*.\n` +
+            `¿Me ayudan con el envío?`;
 
-      // checkout start
-      checkoutBtn.addEventListener('click', () => {
-        const v = validateAmount();
-        if (!v.ok){
-          checkoutBtn.classList.add('error');
-          checkoutBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${v.reason}`;
+          const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+          calculateBtn.classList.remove('calculating');
+          calculateBtn.classList.add('success');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Listo!';
+
           setTimeout(() => {
-            checkoutBtn.classList.remove('error');
-            checkoutBtn.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Continuar (checkout)';
-          }, 1600);
-          return;
-        }
-        setStep(1);
-        // scroll suave al checkout
-        document.querySelector('.checkout').scrollIntoView({ behavior:'smooth', block:'center' });
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => {
+              calculateBtn.classList.remove('success');
+              calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+            }, 1200);
+          }, 450);
+        }, 650);
       });
 
-      // step controls
-      p1Edit.addEventListener('click', () => {
-        amountInput.focus();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      // Calculate on load if prefilled
+      if (amountInput.value) calculateTransfer();
 
-      p1Next.addEventListener('click', () => {
-        const v = validateAmount();
-        if (!v.ok) return;
-        setStep(2);
-      });
-
-      p2Back.addEventListener('click', () => setStep(1));
-      p2Next.addEventListener('click', () => {
-        const v = validateAmount();
-        if (!v.ok) return;
-        fillSummary();
-        setStep(3);
-      });
-
-      p3Back.addEventListener('click', () => setStep(2));
-      sendWA.addEventListener('click', () => {
-        const r = openWhatsApp();
-        if (!r.ok){
-          sendWA.classList.add('error');
-          sendWA.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${r.reason}`;
-          setTimeout(() => {
-            sendWA.classList.remove('error');
-            sendWA.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp';
-          }, 1600);
-        }
-      });
-
-      // ===================== PWA INSTALL =====================
+      // ====== PWA installation ======
       let deferredPrompt;
       const installBtn = document.getElementById('install-btn');
 
@@ -1433,7 +1127,7 @@ Quiero enviar dinero a Colombia.
         installBtn.style.display = 'none';
       });
 
-      // ===================== iOS INSTALL (FIX) =====================
+      // ====== iOS installation (FIX: sin id inexistente) ======
       const iosModal = document.getElementById('ios-modal');
       const iosClose = document.getElementById('ios-close');
 
@@ -1444,6 +1138,7 @@ Quiero enviar dinero a Colombia.
       if (isIOS && isSafari && !isInStandaloneMode) {
         iosModal.style.display = 'block';
       }
+
       iosClose.addEventListener('click', () => {
         iosModal.style.display = 'none';
       });
