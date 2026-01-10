@@ -1,214 +1,1148 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LUPO | Enviar dinero a Colombia</title>
-  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Calcula y envía en minutos con LUPO." />
+  <!-- Base -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- PWA (mantén tus rutas si ya existen) -->
-  <link rel="manifest" href="/icons/manifest.json" />
+  <title>LUPO | Envía dinero de Bolivia a Colombia sin comisiones</title>
+  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Cotiza en segundos y recibe en minutos con LUPO." />
+  <meta name="keywords" content="envío dinero, remesas, Bolivia, Colombia, tipo de cambio, sin comisiones, LUPO" />
+  <link rel="canonical" href="https://co.lupo.lat/bo/" />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LUPO | Envía dinero de Bolivia a Colombia" />
+  <meta property="og:description" content="Envía sin comisiones. Cotiza al instante y recibe en minutos con la mejor tasa." />
+  <meta property="og:url" content="https://co.lupo.lat/bo/" />
+  <meta property="og:image" content="https://lupo.lat/img/og-lupo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- PWA -->
   <meta name="theme-color" content="#003893" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="LUPO" />
+  <meta name="color-scheme" content="light" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="manifest" href="/icons/manifest.json" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
   <!-- Icons -->
-  <link rel="icon" sizes="16x16" type="image/png" href="/icons/favicon-16x16.png" />
-  <link rel="icon" sizes="32x32" type="image/png" href="/icons/favicon-32x32.png" />
-  <link rel="icon" sizes="192x192" type="image/png" href="/icons/icon-192.png" />
-  <link rel="icon" sizes="512x512" type="image/png" href="/icons/icon-512.png" />
+  <link rel="icon" href="https://lupo.lat/img/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+
+  <!-- Perf: fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
 
-  <link rel="stylesheet" href="app.css?v=3" />
+  <style>
+    :root{
+      --yellow:#FCD116;
+      --blue:#003893;
+      --red:#CE1126;
+
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --bg:#f6f7fb;
+
+      --glass: rgba(255,255,255,.75);
+      --glass2: rgba(255,255,255,.55);
+
+      --shadow: 0 18px 50px rgba(0,0,0,.14);
+      --shadow2: 0 12px 30px rgba(0,0,0,.10);
+
+      --radius: 18px;
+    }
+
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 700px at 80% 10%, rgba(0,56,147,.08), transparent 55%),
+                  radial-gradient(900px 500px at 10% 30%, rgba(252,209,22,.10), transparent 55%),
+                  var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x:hidden;
+    }
+
+    h1,h2,h3,h4{ font-family:Poppins, Inter, sans-serif; }
+    a{ color: inherit; text-decoration:none; }
+
+    /* Tricolor premium */
+    .co-stripe{
+      height: 12px;
+      border-radius: 999px;
+      margin: 10px 20px 0;
+      background: linear-gradient(90deg, var(--yellow) 0 50%, var(--blue) 50% 75%, var(--red) 75% 100%);
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .co-stripe::after{
+      content:"";
+      position:absolute; inset:-45%;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,.35), transparent 42%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,.18), transparent 48%);
+      filter: blur(10px);
+    }
+
+    /* Header */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 1000;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-container{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 240px;
+    }
+    .logo img{
+      height: 54px;
+      transition: transform .25s ease;
+    }
+    .logo:hover img{ transform: scale(1.03); }
+
+    .country-pills{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.03);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--ink);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .pill img{
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.8); }
+    .pill.active{
+      background: rgba(0,56,147,.10);
+      border: 1px solid rgba(0,56,147,.20);
+      box-shadow: 0 8px 18px rgba(0,56,147,.10);
+    }
+
+    .login-btn{
+      border: 0;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 10px 24px rgba(0,56,147,.22);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      transition: transform .2s ease, box-shadow .2s ease;
+      white-space: nowrap;
+    }
+    .login-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0,56,147,.28);
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      padding: 52px 0 28px;
+      background:
+        radial-gradient(1100px 520px at 18% 8%, rgba(252,209,22,.25), transparent 56%),
+        radial-gradient(900px 500px at 90% 35%, rgba(206,17,38,.18), transparent 56%),
+        linear-gradient(135deg, #003893, #002b7a, #001a52);
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: radial-gradient(circle at 40% 30%, black 0 55%, transparent 80%);
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .kdot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--yellow);
+      box-shadow: 0 0 0 4px rgba(252,209,22,.18);
+    }
+    .kicker small{ opacity:.9; font-weight:700; }
+
+    .hero h1{
+      font-size: clamp(2rem, 3.1vw, 3rem);
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      text-shadow: 0 12px 32px rgba(0,0,0,.25);
+      margin-bottom: 10px;
+    }
+    .hero h1 span{
+      color: var(--yellow);
+      text-shadow: 0 10px 26px rgba(252,209,22,.18);
+    }
+    .hero p{
+      max-width: 780px;
+      margin: 0 auto;
+      opacity: .92;
+      font-weight: 500;
+    }
+
+    /* Layout */
+    .container{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Calculator card */
+    .calculator-card{
+      margin: -46px auto 26px;
+      max-width: 520px;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.35);
+      position: relative;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease;
+    }
+    .calculator-card.visible{
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .calculator-card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius: var(--radius);
+      padding: 1px;
+      background: linear-gradient(120deg, rgba(252,209,22,.95), rgba(0,56,147,.70), rgba(206,17,38,.75));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+    }
+
+    .calc-title{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .submeta{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin: 10px 0 16px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,56,147,.08);
+      border: 1px solid rgba(0,56,147,.18);
+      color: var(--blue);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .chip .dot{
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 4px rgba(22,163,74,.16);
+    }
+
+    .form-group{ margin-bottom: 14px; }
+    label{
+      display:block;
+      margin-bottom: 7px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .currency-input-container{
+      position: relative;
+      transition: transform .2s ease;
+    }
+    .currency-input-container:focus-within{ transform: translateY(-1px); }
+
+    .currency-flag{
+      position:absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 8px 14px rgba(0,0,0,.08);
+    }
+
+    .form-control{
+      width: 100%;
+      padding: 14px 14px 14px 50px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(245,248,255,.55);
+      font-size: 1rem;
+      outline: none;
+      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+      font-weight: 700;
+    }
+    .form-control:focus{
+      border-color: rgba(0,56,147,.35);
+      box-shadow: 0 0 0 4px rgba(0,56,147,.10);
+      background: rgba(255,255,255,.85);
+    }
+
+    .btn-primary{
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      padding: 15px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 1rem;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 14px 28px rgba(0,56,147,.22);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      position: relative;
+      overflow:hidden;
+    }
+    .btn-primary::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(380px 180px at 30% 30%, rgba(255,255,255,.18), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .btn-primary:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(0,56,147,.28);
+      filter: saturate(1.05);
+    }
+    .btn-primary.success{ background: linear-gradient(135deg, #16a34a, #22c55e); }
+    .btn-primary.error{ background: linear-gradient(135deg, #dc2626, #ef4444); }
+
+    .calculating{ animation: pulse 1s infinite; }
+    @keyframes pulse{
+      0% { transform: translateY(-2px) scale(1); }
+      50% { transform: translateY(-2px) scale(1.03); }
+      100% { transform: translateY(-2px) scale(1); }
+    }
+
+    .exchange-pill{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,56,147,.08);
+      border: 1px solid rgba(0,56,147,.18);
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:center;
+      color: var(--blue);
+      font-weight: 800;
+      text-align:center;
+    }
+    .exchange-pill i{ color: var(--red); }
+
+    /* Result */
+    .result-card{
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,245,245,.85));
+      border: 1px solid rgba(0,0,0,.06);
+      border-left: 4px solid var(--blue);
+      box-shadow: var(--shadow2);
+      transform: scale(.96);
+      opacity: 0;
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .45s ease;
+    }
+    .result-card.show{
+      transform: scale(1);
+      opacity: 1;
+    }
+    .result-header{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      color: var(--blue);
+      font-weight: 900;
+    }
+    .result-amount{
+      text-align:center;
+      font-size: 2.35rem;
+      font-weight: 900;
+      letter-spacing: -0.6px;
+      margin: 10px 0 6px;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .result-details{
+      text-align:center;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .95rem;
+      display:grid;
+      gap: 6px;
+    }
+    .result-details p{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+    }
+
+    /* Sections */
+    .features-section{
+      margin: 34px 0 10px;
+    }
+    .section-title{
+      text-align:center;
+      margin: 0 auto 18px;
+      max-width: 820px;
+    }
+    .section-title h2{
+      font-size: clamp(1.55rem, 2.2vw, 2.2rem);
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+    .section-title p{ color: var(--muted); font-weight: 600; }
+
+    .features-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .feature-card{
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.06);
+      transform: translateY(14px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease, box-shadow .25s ease;
+      position: relative;
+      overflow:hidden;
+    }
+    .feature-card.visible{ transform: translateY(0); opacity: 1; }
+    .feature-card:hover{ box-shadow: 0 18px 34px rgba(0,0,0,.10); transform: translateY(-2px); }
+
+    .feature-icon{
+      width: 54px; height: 54px;
+      border-radius: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 14px 26px rgba(0,56,147,.18);
+      margin: 0 auto 12px;
+      font-size: 1.3rem;
+    }
+    .feature-card:nth-child(2) .feature-icon{ background: linear-gradient(135deg, var(--red), #ff5a5a); }
+    .feature-card:nth-child(3) .feature-icon{ background: linear-gradient(135deg, #0ea5e9, var(--blue)); }
+    .feature-card:nth-child(4) .feature-icon{ background: linear-gradient(135deg, var(--yellow), #ffd24d); color:#111827; }
+
+    .feature-card h3{
+      text-align:center;
+      margin-bottom: 6px;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+    }
+    .feature-card p{ text-align:center; color: var(--muted); font-weight: 600; }
+
+    /* Testimonials */
+    .testimonials{
+      margin: 28px 0 0;
+      padding: 34px 0 22px;
+      background: linear-gradient(135deg, rgba(0,56,147,.06), rgba(255,255,255,.35));
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .testimonials-container{
+      display:flex;
+      flex-wrap: wrap;
+      justify-content:center;
+      gap: 16px;
+    }
+    .testimonial-card{
+      width: min(420px, 100%);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+      transform: translateY(14px);
+      opacity: 0;
+      transition: transform .5s ease, opacity .5s ease, box-shadow .25s ease;
+      position: relative;
+      overflow:hidden;
+    }
+    .testimonial-card.visible{ transform: translateY(0); opacity: 1; }
+    .testimonial-card:hover{ transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.12); }
+
+    .rating{ color: var(--yellow); font-size: 1.05rem; margin-bottom: 10px; }
+    .testimonial-text{
+      color: #111827;
+      font-weight: 650;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .testimonial-author{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .testimonial-author img{
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(206,17,38,.45);
+    }
+    .author-info h4{
+      color: var(--blue);
+      margin-bottom: 2px;
+      font-size: 1rem;
+    }
+    .author-info p{ color: var(--muted); font-weight: 650; font-size: .92rem; }
+
+    /* Footer */
+    footer{
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 34px 0 18px;
+      position: relative;
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--yellow) 0 33%, var(--blue) 33% 66%, var(--red) 66% 100%);
+    }
+    .footer-container{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+    .footer-column h3{
+      color:#fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+    .footer-links{ list-style:none; display:grid; gap: 8px; }
+    .footer-links a{
+      color:#cbd5e1;
+      font-weight: 650;
+      transition: color .2s ease, transform .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .footer-links a:hover{ color:#fff; transform: translateX(2px); }
+
+    .social-links{
+      display:flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social-links a{
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .social-links a:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.14);
+      color: var(--yellow);
+    }
+    .copyright{
+      text-align:center;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      color:#9ca3af;
+      font-weight: 650;
+      font-size: .92rem;
+    }
+
+    /* PWA install button */
+    #install-btn{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      border: 0;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+      color:#fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+      box-shadow: 0 18px 38px rgba(0,0,0,.28);
+      display: none;
+      z-index: 9999;
+      transition: transform .2s ease;
+    }
+    #install-btn:hover{ transform: translateY(-2px); }
+
+    /* iOS modal */
+    #ios-modal{
+      display:none;
+      position: fixed;
+      right: 18px;
+      bottom: 86px;
+      max-width: 320px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.22);
+      z-index: 9999;
+      animation: slideUp .35s ease-out;
+    }
+    #ios-modal h3{ color: var(--blue); margin-bottom: 8px; }
+    #ios-modal ul{ padding-left: 18px; color: var(--ink); font-weight: 650; }
+    #ios-modal li{ margin-bottom: 6px; }
+    #ios-modal button{
+      margin-top: 10px;
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 900;
+      color:#fff;
+      background: linear-gradient(135deg, var(--blue), #2a63ff);
+    }
+
+    @keyframes slideUp{
+      from{ transform: translateY(18px); opacity: 0; }
+      to{ transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px){
+      .logo{ min-width: unset; }
+      .country-pills span{ display:none; }
+      .calculator-card{ padding: 18px; }
+      .result-amount{ font-size: 2.1rem; }
+    }
+  </style>
 </head>
 
 <body>
   <!-- Firma CO -->
   <div class="co-stripe" aria-hidden="true"></div>
 
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#" aria-label="Inicio LUPO">
-        <img class="brand-logo" src="https://lupo.lat/img/lupo01.png" alt="LUPO" />
-      </a>
+  <header>
+    <div class="nav-container">
+      <div class="logo" aria-label="LUPO Inicio">
+        <img src="https://lupo.lat/img/lupo01.png" alt="LUPO Envía" />
+      </div>
 
-      <nav class="country-switch" aria-label="País">
-        <a class="pill" href="https://co.lupo.lat/cop/" aria-label="Colombia">
-          <img src="https://flagcdn.com/w40/co.png" alt="Colombia">
+      <!-- Selector simple (identidad + navegación) -->
+      <nav class="country-pills" aria-label="Ruta">
+        <!-- En esta página: BO -> CO, por eso CO activo (destino) -->
+        <a class="pill active" href="https://co.lupo.lat/cop/" aria-current="page" aria-label="Destino Colombia">
+          <img src="https://flagcdn.com/w40/co.png" alt="Colombia" />
           <span>Colombia</span>
         </a>
-        <a class="pill active" href="#" aria-current="page" aria-label="Bolivia">
-          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia">
+        <a class="pill" href="https://co.lupo.lat/" aria-label="Origen Bolivia">
+          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia" />
           <span>Bolivia</span>
         </a>
       </nav>
+
+      <button class="login-btn" type="button" aria-label="Iniciar sesión">
+        <i class="fa-solid fa-user"></i> Iniciar Sesión
+      </button>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- HERO ORDENADO: Calculadora arriba + texto compacto -->
-    <section class="hero">
-      <!-- Calculadora: protagonista -->
-      <section class="card calc-card" aria-label="Calculadora">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="iconbox"><i class="fa-solid fa-calculator"></i></span>
-            <div>
-              <strong>Calculadora</strong>
-              <small>cotiza antes de enviar</small>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker">
+        <span class="kdot" aria-hidden="true"></span>
+        <small>Ruta:</small>
+        <strong>Bolivia → Colombia</strong>
+        <span aria-hidden="true">•</span>
+        <strong>0% comisiones</strong>
+      </div>
+
+      <h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span> 🇨🇴</h1>
+      <p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="calculator-card" id="calculator-card" aria-label="Calculadora">
+      <div class="calc-title">
+        <i class="fa-solid fa-calculator"></i> Calculadora de envío
+      </div>
+
+      <div class="submeta">
+        <span class="chip"><span class="dot" aria-hidden="true"></span> Activo</span>
+        <span id="cotiz-datetime" aria-label="Fecha y hora de cotización"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Tú envías (BOB)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/bo.png')" aria-hidden="true"></div>
+          <input type="number" id="amount" class="form-control" placeholder="Ej. 500" min="1" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="received-amount">Recibe (COP)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/co.png')" aria-hidden="true"></div>
+          <input type="text" id="received-amount" class="form-control" placeholder="0" readonly aria-readonly="true" />
+        </div>
+      </div>
+
+      <button class="btn-primary" id="calculate-btn" type="button">
+        <i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp
+      </button>
+
+      <div class="exchange-pill" id="exchange-pill" aria-label="Tipo de cambio">
+        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+        <span>Tipo de cambio: <strong id="rate-text">—</strong></span>
+      </div>
+
+      <div class="result-card" id="result-card" aria-live="polite">
+        <div class="result-header">
+          <span>Detalles del envío</span>
+          <i class="fa-solid fa-circle-check" style="color: var(--yellow);" aria-hidden="true"></i>
+        </div>
+
+        <div class="result-amount">
+          $<span id="result-amount">0</span> <small>COP</small>
+        </div>
+
+        <div class="result-details">
+          <p><i class="fa-solid fa-percent" style="color: var(--blue);" aria-hidden="true"></i> <strong>Sin comisiones</strong> – 0% de tarifa</p>
+          <p id="delivery-time"><i class="fa-regular fa-clock" style="color: var(--red);" aria-hidden="true"></i> Tiempo estimado: 10–20 minutos</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="features-section" aria-label="Beneficios">
+      <div class="section-title">
+        <h2>¿Por qué enviar con LUPO?</h2>
+        <p>Servicio confiable para enviar dinero a Colombia desde Bolivia: rápido, seguro y sin letra pequeña.</p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card" id="feature1">
+          <div class="feature-icon"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i></div>
+          <h3>Mejor tasa de cambio</h3>
+          <p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
+        </article>
+
+        <article class="feature-card" id="feature2">
+          <div class="feature-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+          <h3>Envíos rápidos</h3>
+          <p>El dinero llega en minutos según el método acordado.</p>
+        </article>
+
+        <article class="feature-card" id="feature3">
+          <div class="feature-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+          <h3>Seguridad garantizada</h3>
+          <p>Tus transferencias están protegidas de inicio a fin.</p>
+        </article>
+
+        <article class="feature-card" id="feature4">
+          <div class="feature-icon"><i class="fa-solid fa-circle-dollar-to-slot" aria-hidden="true"></i></div>
+          <h3>0% comisión</h3>
+          <p>Pagas lo justo: sin recargos, sin sorpresas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials" aria-label="Testimonios">
+      <div class="section-title">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Miles de personas confían en LUPO para enviar dinero a Colombia.</p>
+      </div>
+
+      <div class="testimonials-container">
+        <article class="testimonial-card" id="testimonial1">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Envío dinero para pagar a mis proveedores y todo fue muy fácil y rápido.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/yiya.jpg" alt="Yiya Muñoz" />
+            <div class="author-info">
+              <h4>Yiya Muñoz</h4>
+              <p>Santa Cruz, Bolivia</p>
             </div>
           </div>
-
-          <span class="status"><span class="dot"></span> Activo</span>
-        </div>
-
-        <div class="field">
-          <label for="amount">Tú envías (BOB)</label>
-          <div class="money">
-            <span class="flag bo" aria-hidden="true"></span>
-            <input id="amount" class="input" type="number" min="1" placeholder="Ej. 500" inputmode="numeric" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="received-amount">Recibe (COP)</label>
-          <div class="money">
-            <span class="flag co" aria-hidden="true"></span>
-            <input id="received-amount" class="input" type="text" readonly aria-readonly="true" placeholder="0" />
-          </div>
-        </div>
-
-        <!-- Botón impactante -->
-        <button class="cta" id="calculate-btn">
-          <span class="cta-bg" aria-hidden="true"></span>
-          <span class="cta-glow" aria-hidden="true"></span>
-          <span class="cta-content">
-            <i class="fa-solid fa-paper-plane"></i>
-            Enviar dinero
-          </span>
-        </button>
-
-        <div class="meta">
-          <div class="meta-left"><i class="fa-solid fa-lock"></i> Transferencias protegidas</div>
-          <div class="meta-right" id="cotiz-datetime"></div>
-        </div>
-
-        <div class="result" id="result-card">
-          <div class="result-top">
-            <span>Recibirás</span>
-            <span class="badge">0 comisiones</span>
-          </div>
-          <div class="result-amount">
-            $<span id="result-amount">0</span> <small>COP</small>
-          </div>
-          <div class="result-bottom">
-            <span><i class="fa-regular fa-clock"></i> 10–20 min</span>
-            <span><i class="fa-solid fa-check-circle"></i> Confirmación</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Texto compacto (para reducir scroll) -->
-      <section class="hero-text" aria-label="Info">
-        <div class="kicker">
-          <span class="kdot"></span>
-          <span>Destino: Colombia</span>
-          <span class="sep">•</span>
-          <span class="zero">0% comisiones</span>
-        </div>
-
-        <h1>
-          Envía de <span class="hl">Bolivia</span> a <span class="hl2">Colombia</span>
-          <span class="break">en minutos</span>
-        </h1>
-
-        <div class="trust-row" role="list">
-          <div class="trust" role="listitem"><i class="fa-solid fa-shield-halved"></i> Seguridad</div>
-          <div class="trust" role="listitem"><i class="fa-solid fa-bolt"></i> Velocidad</div>
-          <div class="trust" role="listitem"><i class="fa-solid fa-percent"></i> 0 comisiones</div>
-        </div>
-
-        <div class="rate-pill" aria-label="Tipo de cambio">
-          <i class="fa-solid fa-chart-line"></i>
-          <span><strong>Tipo de cambio</strong> <span id="rate-pill-value">—</span></span>
-        </div>
-      </section>
-    </section>
-
-    <!-- Carrusel logos (bancos/empresas) -->
-    <section class="logos" aria-label="Bancos y empresas">
-      <div class="logos-head">
-        <h2>Depositamos en</h2>
-        <p>Bancos/empresas donde realizamos depósitos</p>
-      </div>
-
-      <div class="logo-track" id="logoTrack" tabindex="0" aria-label="Carrusel de logos">
-        <!-- Cambia los src por tus logos reales (png/svg/webp) -->
-        <div class="logo-item"><img src="https://co.lupo.lat/img/banco1.png" alt="Banco 1" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+1'"></div>
-        <div class="logo-item"><img src="https://co.lupo.lat/img/banco2.png" alt="Banco 2" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+2'"></div>
-        <div class="logo-item"><img src="https://co.lupo.lat/img/banco3.png" alt="Banco 3" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+3'"></div>
-        <div class="logo-item"><img src="https://co.lupo.lat/img/banco4.png" alt="Banco 4" onerror="this.src='https://via.placeholder.com/160x70?text=Banco+4'"></div>
-
-      </div>
-    </section>
-
-    <!-- Cómo funciona (2 por fila en móvil) -->
-    <section class="steps" aria-label="Cómo funciona">
-      <div class="section-title">
-        <h2>Cómo funciona</h2>
-        <p>En 3 pasos simples. Minimalista, directo y sin letras pequeñas.</p>
-      </div>
-
-      <div class="step-grid">
-        <article class="step">
-          <div class="num">1</div>
-          <h3>Cotiza</h3>
-          <p>Ingresa el monto y mira cuánto llega en COP al instante.</p>
         </article>
 
-        <article class="step">
-          <div class="num">2</div>
-          <h3>Envía</h3>
-          <p>Presiona “Enviar dinero” y un asesor te guía por WhatsApp.</p>
+        <article class="testimonial-card" id="testimonial2">
+          <div class="rating" aria-label="4 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Ningún problema: ya hice 2 envíos y todo súper bien. Rápidos y profesionales.”</p>
+          <div class="testimonial-author">
+            <a href="https://www.facebook.com/khatia.valentina.morales" target="_blank" rel="noopener">
+              <img src="https://co.lupo.lat/img/kathia.jpg" alt="Khatia Valentina Morales" />
+            </a>
+            <div class="author-info">
+              <h4>Khatia Valentina Morales</h4>
+              <p>Cochabamba, Bolivia</p>
+            </div>
+          </div>
         </article>
 
-        <article class="step">
-          <div class="num">3</div>
-          <h3>Recibe</h3>
-          <p>El dinero se acredita en minutos según el método acordado.</p>
+        <article class="testimonial-card" id="testimonial3">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Envío dinero cada mes a mi familia en Cali y siempre llega en minutos. Proceso sencillo y buena tasa.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/oscar.jpg" alt="Oscar Uriel Bustos Garcia" />
+            <div class="author-info">
+              <h4>Oscar Uriel Bustos Garcia</h4>
+              <p>Cali, Colombia</p>
+            </div>
+          </div>
         </article>
       </div>
     </section>
   </main>
 
-  <!-- Footer con GPS/dirección (mantener) -->
-  <footer class="foot">
-    <div class="wrap foot-inner">
-      <div class="foot-left">
-        <strong>LUPO</strong>
-        <span>Remesas BO → CO</span>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>LUPO</h3>
+        <p style="color:#cbd5e1;font-weight:650;">El puente financiero entre Bolivia y Colombia.</p>
+        <div class="social-links" aria-label="Redes sociales">
+          <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
       </div>
 
-      <div class="foot-mid">
-        <i class="fa-solid fa-location-dot"></i>
-        <a class="gps" href="https://maps.google.com/?q=Santa+Cruz+Bolivia" target="_blank" rel="noopener">
-          Ver ubicación (GPS)
-        </a>
+      <div class="footer-column">
+        <h3>Servicios</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fa-solid fa-paper-plane"></i> Envío de dinero</a></li>
+          <li><a href="#"><i class="fa-solid fa-chart-line"></i> Tasas de cambio</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Puntos de pago</a></li>
+          <li><a href="#"><i class="fa-solid fa-building"></i> Empresas</a></li>
+        </ul>
       </div>
 
-      <div class="foot-right">
-        <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <div class="footer-column">
+        <h3>Ayuda</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fa-regular fa-circle-question"></i> Preguntas frecuentes</a></li>
+          <li><a href="#"><i class="fa-solid fa-book"></i> Guías</a></li>
+          <li><a href="#"><i class="fa-solid fa-file-contract"></i> Términos</a></li>
+          <li><a href="#"><i class="fa-solid fa-shield"></i> Privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Contacto</h3>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/59171077231" target="_blank" rel="noopener"><i class="fa-solid fa-phone"></i> +591 71077231</a></li>
+          <li><a href="mailto:hola@lupo.lat"><i class="fa-solid fa-envelope"></i> hola@lupo.lat</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Centro Comercial Cañoto #k2</a></li>
+        </ul>
       </div>
     </div>
-    <div class="foot-copy">© 2026 LUPO. Todos los derechos reservados.</div>
+
+    <div class="copyright">
+      <p>© 2026 LUPO. Todos los derechos reservados.</p>
+    </div>
   </footer>
 
-  <script src="app.js?v=3" defer></script>
+  <!-- Botón de instalación PWA -->
+  <button id="install-btn" type="button">📲 Instalar App</button>
+
+  <!-- Modal iOS (se muestra automáticamente cuando aplica) -->
+  <div id="ios-modal" role="dialog" aria-label="Instalar en iPhone">
+    <h3>¿Cómo instalar esta App?</h3>
+    <ul>
+      <li>1. Toca <strong>Compartir</strong> (cuadro con flecha ↑)</li>
+      <li>2. Elige <strong>“Agregar a pantalla de inicio”</strong></li>
+      <li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
+    </ul>
+    <button type="button" id="ios-close">Entendido</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ====== CONFIG editable (solo cambias aquí) ======
+      const CONFIG = {
+        EXCHANGE_RATE: 240,          // 1 BOB = 240 COP
+        MIN_AMOUNT: 10,              // mínimo BOB
+        MAX_AMOUNT: 50000,           // máximo BOB
+        WHATSAPP_NUMBER: '59171077231'
+      };
+
+      // ====== Elements ======
+      const amountInput = document.getElementById('amount');
+      const receivedInput = document.getElementById('received-amount');
+      const resultCard = document.getElementById('result-card');
+      const calculateBtn = document.getElementById('calculate-btn');
+      const calculatorCard = document.getElementById('calculator-card');
+      const rateText = document.getElementById('rate-text');
+      const cotizDatetime = document.getElementById('cotiz-datetime');
+
+      // Pill rate
+      rateText.textContent = `1 BOB = ${CONFIG.EXCHANGE_RATE.toLocaleString('es-CO')} COP`;
+
+      // Date/time
+      const now = new Date();
+      cotizDatetime.textContent = now.toLocaleString('es-BO', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+      // Reveal animation
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12 });
+
+      const observeIds = [
+        'calculator-card','feature1','feature2','feature3','feature4',
+        'testimonial1','testimonial2','testimonial3'
+      ];
+      observeIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      // Helpers
+      const formatCOP = (n) => Number(n).toLocaleString('es-CO');
+      const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+
+      function calculateTransfer() {
+        const amount = parseFloat(amountInput.value);
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+          receivedInput.value = '';
+          resultCard.classList.remove('show');
+          document.getElementById('result-amount').textContent = '0';
+          return;
+        }
+
+        const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
+        const receivedAmount = Math.round(safeAmount * CONFIG.EXCHANGE_RATE);
+
+        receivedInput.value = formatCOP(receivedAmount);
+        document.getElementById('result-amount').textContent = formatCOP(receivedAmount);
+        resultCard.classList.add('show');
+      }
+
+      // Auto calculate
+      amountInput.addEventListener('input', calculateTransfer);
+
+      // WhatsApp
+      calculateBtn.addEventListener('click', () => {
+        const amount = parseFloat(amountInput.value);
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+          calculateBtn.classList.add('error');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Monto inválido';
+          setTimeout(() => {
+            calculateBtn.classList.remove('error');
+            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+          }, 1400);
+          return;
+        }
+
+        if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
+          calculateBtn.classList.add('error');
+          calculateBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB`;
+          setTimeout(() => {
+            calculateBtn.classList.remove('error');
+            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+          }, 1600);
+          return;
+        }
+
+        calculateBtn.classList.add('calculating');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
+
+        setTimeout(() => {
+          const receivedAmount = Math.round(amount * CONFIG.EXCHANGE_RATE);
+          const message =
+            `Hola LUPO 👋\n` +
+            `Quiero enviar *${amount} BOB* a Colombia.\n` +
+            `Recibe aprox: *${formatCOP(receivedAmount)} COP*.\n` +
+            `¿Me ayudan con el envío?`;
+
+          const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+          calculateBtn.classList.remove('calculating');
+          calculateBtn.classList.add('success');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Listo!';
+
+          setTimeout(() => {
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => {
+              calculateBtn.classList.remove('success');
+              calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+            }, 1200);
+          }, 450);
+        }, 650);
+      });
+
+      // Calculate on load if prefilled
+      if (amountInput.value) calculateTransfer();
+
+      // ====== PWA installation ======
+      let deferredPrompt;
+      const installBtn = document.getElementById('install-btn');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'block';
+      });
+
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+
+      window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+      });
+
+      // ====== iOS installation (FIX: sin id inexistente) ======
+      const iosModal = document.getElementById('ios-modal');
+      const iosClose = document.getElementById('ios-close');
+
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+
+      if (isIOS && isSafari && !isInStandaloneMode) {
+        iosModal.style.display = 'block';
+      }
+
+      iosClose.addEventListener('click', () => {
+        iosModal.style.display = 'none';
+      });
+    });
+  </script>
 </body>
 </html>
