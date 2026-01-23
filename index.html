@@ -984,165 +984,171 @@
     <button type="button" id="ios-close">Entendido</button>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // ====== CONFIG editable (solo cambias aquí) ======
-      const CONFIG = {
-        EXCHANGE_RATE: 384,          // 1 BOB = 240 COP
-        MIN_AMOUNT: 10,              // mínimo BOB
-        MAX_AMOUNT: 50000,           // máximo BOB
-        WHATSAPP_NUMBER: '591775333489'
-      };
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ====== CONFIG editable (solo cambias aquí) ======
+    const CONFIG = {
+      EXCHANGE_RATE: 384,          // 1 BOB = 384 COP
+      DISCOUNT: 0.10,              // ✅ 10% descuento
+      MIN_AMOUNT: 10,              // mínimo BOB
+      MAX_AMOUNT: 50000,           // máximo BOB
+      WHATSAPP_NUMBER: '591775333489'
+    };
 
-      // ====== Elements ======
-      const amountInput = document.getElementById('amount');
-      const receivedInput = document.getElementById('received-amount');
-      const resultCard = document.getElementById('result-card');
-      const calculateBtn = document.getElementById('calculate-btn');
-      const calculatorCard = document.getElementById('calculator-card');
-      const rateText = document.getElementById('rate-text');
-      const cotizDatetime = document.getElementById('cotiz-datetime');
+    // ====== Elements ======
+    const amountInput = document.getElementById('amount');
+    const receivedInput = document.getElementById('received-amount');
+    const resultCard = document.getElementById('result-card');
+    const calculateBtn = document.getElementById('calculate-btn');
+    const calculatorCard = document.getElementById('calculator-card');
+    const rateText = document.getElementById('rate-text');
+    const cotizDatetime = document.getElementById('cotiz-datetime');
 
-      // Pill rate
-      rateText.textContent = `1 BOB = ${CONFIG.EXCHANGE_RATE.toLocaleString('es-CO')} COP`;
+    // Pill rate
+    rateText.textContent = `1 BOB = ${CONFIG.EXCHANGE_RATE.toLocaleString('es-CO')} COP`;
 
-      // Date/time
-      const now = new Date();
-      cotizDatetime.textContent = now.toLocaleString('es-BO', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    // Date/time
+    const now = new Date();
+    cotizDatetime.textContent = now.toLocaleString('es-BO', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
 
-      // Reveal animation
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.12 });
-
-      const observeIds = [
-        'calculator-card','feature1','feature2','feature3','feature4',
-        'testimonial1','testimonial2','testimonial3'
-      ];
-      observeIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) observer.observe(el);
+    // Reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
+    }, { threshold: 0.12 });
 
-      // Helpers
-      const formatCOP = (n) => Number(n).toLocaleString('es-CO');
-      const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+    const observeIds = [
+      'calculator-card','feature1','feature2','feature3','feature4',
+      'testimonial1','testimonial2','testimonial3'
+    ];
+    observeIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-      function calculateTransfer() {
-        const amount = parseFloat(amountInput.value);
+    // Helpers
+    const formatCOP = (n) => Number(n).toLocaleString('es-CO');
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
 
-        if (!Number.isFinite(amount) || amount <= 0) {
-          receivedInput.value = '';
-          resultCard.classList.remove('show');
-          document.getElementById('result-amount').textContent = '0';
-          return;
-        }
+    // ✅ Cálculo único con descuento (para UI y WhatsApp)
+    const computeCOP = (bob) =>
+      Math.round(bob * CONFIG.EXCHANGE_RATE * (1 - (Number(CONFIG.DISCOUNT) || 0)));
 
-        const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
-        const receivedAmount = Math.round(safeAmount * CONFIG.EXCHANGE_RATE);
+    function calculateTransfer() {
+      const amount = parseFloat(amountInput.value);
 
-        receivedInput.value = formatCOP(receivedAmount);
-        document.getElementById('result-amount').textContent = formatCOP(receivedAmount);
-        resultCard.classList.add('show');
+      if (!Number.isFinite(amount) || amount <= 0) {
+        receivedInput.value = '';
+        resultCard.classList.remove('show');
+        document.getElementById('result-amount').textContent = '0';
+        return;
       }
 
-      // Auto calculate
-      amountInput.addEventListener('input', calculateTransfer);
+      const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
+      const receivedAmount = computeCOP(safeAmount); // ✅ con descuento
 
-      // WhatsApp
-      calculateBtn.addEventListener('click', () => {
-        const amount = parseFloat(amountInput.value);
+      receivedInput.value = formatCOP(receivedAmount);
+      document.getElementById('result-amount').textContent = formatCOP(receivedAmount);
+      resultCard.classList.add('show');
+    }
 
-        if (!Number.isFinite(amount) || amount <= 0) {
-          calculateBtn.classList.add('error');
-          calculateBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Monto inválido';
-          setTimeout(() => {
-            calculateBtn.classList.remove('error');
-            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
-          }, 1400);
-          return;
-        }
+    // Auto calculate
+    amountInput.addEventListener('input', calculateTransfer);
 
-        if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
-          calculateBtn.classList.add('error');
-          calculateBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB`;
-          setTimeout(() => {
-            calculateBtn.classList.remove('error');
-            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
-          }, 1600);
-          return;
-        }
+    // WhatsApp
+    calculateBtn.addEventListener('click', () => {
+      const amount = parseFloat(amountInput.value);
 
-        calculateBtn.classList.add('calculating');
-        calculateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
+      if (!Number.isFinite(amount) || amount <= 0) {
+        calculateBtn.classList.add('error');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Monto inválido';
+        setTimeout(() => {
+          calculateBtn.classList.remove('error');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+        }, 1400);
+        return;
+      }
+
+      if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
+        calculateBtn.classList.add('error');
+        calculateBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB`;
+        setTimeout(() => {
+          calculateBtn.classList.remove('error');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+        }, 1600);
+        return;
+      }
+
+      calculateBtn.classList.add('calculating');
+      calculateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
+
+      setTimeout(() => {
+        const receivedAmount = computeCOP(amount); // ✅ con descuento
+        const message =
+          `Hola LUPO 👋\n` +
+          `Quiero enviar *${amount} BOB* a Colombia.\n` +
+          `Recibe aprox: *${formatCOP(receivedAmount)} COP*.\n` +
+          `¿Me ayudan con el envío?`;
+
+        const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+        calculateBtn.classList.remove('calculating');
+        calculateBtn.classList.add('success');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Listo!';
 
         setTimeout(() => {
-          const receivedAmount = Math.round(amount * CONFIG.EXCHANGE_RATE);
-          const message =
-            `Hola LUPO 👋\n` +
-            `Quiero enviar *${amount} BOB* a Colombia.\n` +
-            `Recibe aprox: *${formatCOP(receivedAmount)} COP*.\n` +
-            `¿Me ayudan con el envío?`;
-
-          const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-          calculateBtn.classList.remove('calculating');
-          calculateBtn.classList.add('success');
-          calculateBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Listo!';
-
+          window.open(url, '_blank', 'noopener');
           setTimeout(() => {
-            window.open(url, '_blank', 'noopener');
-            setTimeout(() => {
-              calculateBtn.classList.remove('success');
-              calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
-            }, 1200);
-          }, 450);
-        }, 650);
-      });
-
-      // Calculate on load if prefilled
-      if (amountInput.value) calculateTransfer();
-
-      // ====== PWA installation ======
-      let deferredPrompt;
-      const installBtn = document.getElementById('install-btn');
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'block';
-      });
-
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-      });
-
-      window.addEventListener('appinstalled', () => {
-        installBtn.style.display = 'none';
-      });
-
-      // ====== iOS installation (FIX: sin id inexistente) ======
-      const iosModal = document.getElementById('ios-modal');
-      const iosClose = document.getElementById('ios-close');
-
-      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
-
-      if (isIOS && isSafari && !isInStandaloneMode) {
-        iosModal.style.display = 'block';
-      }
-
-      iosClose.addEventListener('click', () => {
-        iosModal.style.display = 'none';
-      });
+            calculateBtn.classList.remove('success');
+            calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+          }, 1200);
+        }, 450);
+      }, 650);
     });
-  </script>
+
+    // Calculate on load if prefilled
+    if (amountInput.value) calculateTransfer();
+
+    // ====== PWA installation ======
+    let deferredPrompt;
+    const installBtn = document.getElementById('install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBtn.style.display = 'none';
+    });
+
+    // ====== iOS installation ======
+    const iosModal = document.getElementById('ios-modal');
+    const iosClose = document.getElementById('ios-close');
+
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+
+    if (isIOS && isSafari && !isInStandaloneMode) {
+      iosModal.style.display = 'block';
+    }
+
+    iosClose.addEventListener('click', () => {
+      iosModal.style.display = 'none';
+    });
+  });
+</script>
+
 </body>
 </html>
