@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Base -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>LUPO | Envía dinero de Bolivia a Colombia sin comisiones</title>
+  <meta name="description" content="Envía dinero de Bolivia a Colombia sin comisiones. Cotiza en segundos y recibe en minutos con LUPO." />
+  <meta name="keywords" content="envío dinero, remesas, Bolivia, Colombia, tipo de cambio, sin comisiones, LUPO" />
+  <link rel="canonical" href="https://co.lupo.lat/bo/" />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LUPO | Envía dinero de Bolivia a Colombia" />
+  <meta property="og:description" content="Envía sin comisiones. Cotiza al instante y recibe en minutos con la mejor tasa." />
+  <meta property="og:url" content="https://co.lupo.lat/bo/" />
+  <meta property="og:image" content="https://lupo.lat/img/og-lupo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#003893" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LUPO" />
+  <meta name="color-scheme" content="light" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="manifest" href="/icons/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <!-- Icons -->
+  <link rel="icon" href="https://lupo.lat/img/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+
+  <!-- Perf: fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- ✅ CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Firma CO -->
+  <div class="co-stripe" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo" aria-label="LUPO Inicio">
+        <img src="https://lupo.lat/img/lupo01.png" alt="LUPO Envía" />
+      </div>
+
+      <!-- Selector simple (identidad + navegación) -->
+      <nav class="country-pills" aria-label="Ruta">
+        <!-- En esta página: BO -> CO, por eso CO activo (destino) -->
+        <a class="pill active" href="https://co.lupo.lat/cop/" aria-current="page" aria-label="Destino Colombia">
+          <img src="https://flagcdn.com/w40/co.png" alt="Colombia" />
+          <span>Colombia</span>
+        </a>
+        <a class="pill" href="https://co.lupo.lat/" aria-label="Origen Bolivia">
+          <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia" />
+          <span>Bolivia</span>
+        </a>
+      </nav>
+
+      <button class="login-btn" type="button" aria-label="Iniciar sesión">
+        <i class="fa-solid fa-user"></i> Iniciar Sesión
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker">
+        <span class="kdot" aria-hidden="true"></span>
+        <small>Ruta:</small>
+        <strong>Bolivia → Colombia</strong>
+        <span aria-hidden="true">•</span>
+        <strong>0% comisiones</strong>
+      </div>
+
+      <h1>Envía <span>Bolivianos</span> a <span>pesos Colombianos</span> 🇨🇴</h1>
+      <p>La forma más rápida y segura de enviar dinero de Bolivia a Colombia con las mejores tasas del mercado.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="calculator-card" id="calculator-card" aria-label="Calculadora">
+      <div class="calc-title">
+        <i class="fa-solid fa-calculator"></i> Calculadora de envío
+      </div>
+
+      <div class="submeta">
+        <span class="chip"><span class="dot" aria-hidden="true"></span> Activo</span>
+        <span id="cotiz-datetime" aria-label="Fecha y hora de cotización"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Tú envías (BOB)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/bo.png')" aria-hidden="true"></div>
+          <input type="number" id="amount" class="form-control" placeholder="Ej. 500" min="1" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="received-amount">Recibe (COP)</label>
+        <div class="currency-input-container">
+          <div class="currency-flag" style="background-image:url('https://flagcdn.com/w40/co.png')" aria-hidden="true"></div>
+          <input type="text" id="received-amount" class="form-control" placeholder="0" readonly aria-readonly="true" />
+        </div>
+      </div>
+
+      <button class="btn-primary" id="calculate-btn" type="button">
+        <i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp
+      </button>
+
+      <!-- ✅ Eliminado: exchange-pill -->
+
+      <div class="result-card" id="result-card" aria-live="polite">
+        <div class="result-header">
+          <span>Detalles del envío</span>
+          <i class="fa-solid fa-circle-check" style="color: var(--yellow);" aria-hidden="true"></i>
+        </div>
+
+        <div class="result-amount">
+          $<span id="result-amount">0</span> <small>COP</small>
+        </div>
+
+        <div class="result-details">
+          <p><i class="fa-solid fa-percent" style="color: var(--blue);" aria-hidden="true"></i> <strong>Sin comisiones</strong> – 0% de tarifa</p>
+          <p id="delivery-time"><i class="fa-regular fa-clock" style="color: var(--red);" aria-hidden="true"></i> Tiempo estimado: 10–20 minutos</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="features-section" aria-label="Beneficios">
+      <div class="section-title">
+        <h2>¿Por qué enviar con LUPO?</h2>
+        <p>Servicio confiable para enviar dinero a Colombia desde Bolivia: rápido, seguro y sin letra pequeña.</p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card" id="feature1">
+          <div class="feature-icon"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i></div>
+          <h3>Mejor tasa de cambio</h3>
+          <p>Ofrecemos tasas competitivas sin comisiones ocultas.</p>
+        </article>
+
+        <article class="feature-card" id="feature2">
+          <div class="feature-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+          <h3>Envíos rápidos</h3>
+          <p>El dinero llega en minutos según el método acordado.</p>
+        </article>
+
+        <article class="feature-card" id="feature3">
+          <div class="feature-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+          <h3>Seguridad garantizada</h3>
+          <p>Tus transferencias están protegidas de inicio a fin.</p>
+        </article>
+
+        <article class="feature-card" id="feature4">
+          <div class="feature-icon"><i class="fa-solid fa-circle-dollar-to-slot" aria-hidden="true"></i></div>
+          <h3>0% comisión</h3>
+          <p>Pagas lo justo: sin recargos, sin sorpresas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials" aria-label="Testimonios">
+      <div class="section-title">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Miles de personas confían en LUPO para enviar dinero a Colombia.</p>
+      </div>
+
+      <div class="testimonials-container">
+        <article class="testimonial-card" id="testimonial1">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Envío dinero para pagar a mis proveedores y todo fue muy fácil y rápido.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/yiya.jpg" alt="Yiya Muñoz" />
+            <div class="author-info">
+              <h4>Yiya Muñoz</h4>
+              <p>Santa Cruz, Bolivia</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card" id="testimonial2">
+          <div class="rating" aria-label="4 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Ningún problema: ya hice 2 envíos y todo súper bien. Rápidos y profesionales.”</p>
+          <div class="testimonial-author">
+            <a href="https://www.facebook.com/khatia.valentina.morales" target="_blank" rel="noopener">
+              <img src="https://co.lupo.lat/img/kathia.jpg" alt="Khatia Valentina Morales" />
+            </a>
+            <div class="author-info">
+              <h4>Khatia Valentina Morales</h4>
+              <p>Cochabamba, Bolivia</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card" id="testimonial3">
+          <div class="rating" aria-label="5 estrellas">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <p class="testimonial-text">“Envío dinero cada mes a mi familia en Cali y siempre llega en minutos. Proceso sencillo y buena tasa.”</p>
+          <div class="testimonial-author">
+            <img src="https://co.lupo.lat/img/oscar.jpg" alt="Oscar Uriel Bustos Garcia" />
+            <div class="author-info">
+              <h4>Oscar Uriel Bustos Garcia</h4>
+              <p>Cali, Colombia</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>LUPO</h3>
+        <p style="color:#cbd5e1;font-weight:650;">El puente financiero entre Bolivia y Colombia.</p>
+        <div class="social-links" aria-label="Redes sociales">
+          <a href="https://www.facebook.com/Lupo.envia" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/59171077231" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Servicios</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fa-solid fa-paper-plane"></i> Envío de dinero</a></li>
+          <li><a href="#"><i class="fa-solid fa-chart-line"></i> Tasas de cambio</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Puntos de pago</a></li>
+          <li><a href="#"><i class="fa-solid fa-building"></i> Empresas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Ayuda</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fa-regular fa-circle-question"></i> Preguntas frecuentes</a></li>
+          <li><a href="#"><i class="fa-solid fa-book"></i> Guías</a></li>
+          <li><a href="#"><i class="fa-solid fa-file-contract"></i> Términos</a></li>
+          <li><a href="#"><i class="fa-solid fa-shield"></i> Privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Contacto</h3>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/591775333489" target="_blank" rel="noopener"><i class="fa-solid fa-phone"></i> +591 775333489</a></li>
+          <li><a href="mailto:hola@lupo.lat"><i class="fa-solid fa-envelope"></i> hola@lupo.lat</a></li>
+          <li><a href="https://maps.app.goo.gl/xwgt9poeDwe6ffWG9" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Centro Comercial Cañoto #k2</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>© 2026 LUPO. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Botón de instalación PWA -->
+  <button id="install-btn" type="button">📲 Instalar App</button>
+
+  <!-- Modal iOS (se muestra automáticamente cuando aplica) -->
+  <div id="ios-modal" role="dialog" aria-label="Instalar en iPhone">
+    <h3>¿Cómo instalar esta App?</h3>
+    <ul>
+      <li>1. Toca <strong>Compartir</strong> (cuadro con flecha ↑)</li>
+      <li>2. Elige <strong>“Agregar a pantalla de inicio”</strong></li>
+      <li>3. Presiona <strong>Agregar</strong> y listo 🎉</li>
+    </ul>
+    <button type="button" id="ios-close">Entendido</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

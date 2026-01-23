@@ -1,195 +1,160 @@
-(() => {
-  // ===== CONFIG =====
-  const WHATSAPP_NUMBER = "59175333489";
-  const COP_PER_BOB = 384;        // 1 BOB = 384 COP (ejemplo)
-  const FRONTEND_DISCOUNT = 0.10; // 10% (ajústalo si quieres)
-  const MULT = 1 - FRONTEND_DISCOUNT;
+document.addEventListener('DOMContentLoaded', () => {
+  // ====== CONFIG editable (solo cambias aquí) ======
+  const CONFIG = {
+    EXCHANGE_RATE: 384,          // 1 BOB = 384 COP
+    DISCOUNT: 0.10,              // ✅ 10% descuento
+    MIN_AMOUNT: 10,              // mínimo BOB
+    MAX_AMOUNT: 50000,           // máximo BOB
+    WHATSAPP_NUMBER: '591775333489'
+  };
 
-  // ===== HELPERS =====
-  const fmtCOP = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
-  const fmtBOB = new Intl.NumberFormat("es-BO", { maximumFractionDigits: 0 });
-  const $ = (id) => document.getElementById(id);
+  // ====== Elements ======
+  const amountInput = document.getElementById('amount');
+  const receivedInput = document.getElementById('received-amount');
+  const resultCard = document.getElementById('result-card');
+  const calculateBtn = document.getElementById('calculate-btn');
+  const cotizDatetime = document.getElementById('cotiz-datetime');
 
-  function nowStamp() {
-    const d = new Date();
-    const hh = String(d.getHours()).padStart(2, "0");
-    const mm = String(d.getMinutes()).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    const mo = String(d.getMonth() + 1).padStart(2, "0");
-    const yy = d.getFullYear();
-    return `${hh}:${mm} · ${dd}/${mo}/${yy}`;
-  }
+  // Date/time
+  const now = new Date();
+  cotizDatetime.textContent = now.toLocaleString('es-BO', {
+    day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'
+  });
 
-  function computeCOP(bob) {
-    return Math.round(bob * COP_PER_BOB * MULT);
-  }
-
-  function animateNumber(el, from, to, duration = 520) {
-    if (!el) return;
-    const start = performance.now();
-    const diff = to - from;
-
-    const tick = (t) => {
-      const p = Math.min(1, (t - start) / duration);
-      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-      const value = Math.round(from + diff * eased);
-      el.textContent = fmtCOP.format(value);
-      if (p < 1) requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-  }
-
-  function addRipple(btn, ev) {
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = (ev?.clientX ?? rect.left + rect.width / 2) - rect.left - size / 2;
-    const y = (ev?.clientY ?? rect.top + rect.height / 2) - rect.top - size / 2;
-
-    const ripple = document.createElement("span");
-    ripple.className = "ripple";
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-
-    btn.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 650);
-  }
-
-  // ===== LOGOS AUTOPLAY (4 visibles, infinito) =====
-  function setupAutoLogoCarousel() {
-    const track = document.getElementById("logoTrack");
-    if (!track) return;
-
-    const SPEED = 0.35; // más lento: 0.25 | más rápido: 0.45
-    let paused = false;
-
-    // Quitar snap para movimiento fluido
-    track.style.scrollSnapType = "none";
-
-    // Duplicar solo una vez para loop
-    if (!track.dataset.cloned) {
-      const originals = Array.from(track.children);
-      originals.forEach((el) => track.appendChild(el.cloneNode(true)));
-      track.dataset.cloned = "1";
-    }
-
-    function measureHalfWidth() {
-      const items = Array.from(track.children);
-      const half = Math.floor(items.length / 2);
-      const gap = parseFloat(getComputedStyle(track).gap || "0") || 0;
-
-      let w = 0;
-      for (let i = 0; i < half; i++) w += items[i].getBoundingClientRect().width;
-      w += gap * Math.max(0, half - 1);
-      return w;
-    }
-
-    let halfWidth = measureHalfWidth();
-    window.addEventListener("resize", () => {
-      halfWidth = measureHalfWidth();
+  // Reveal animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
+  }, { threshold: 0.12 });
 
-    function tick() {
-      if (!paused && halfWidth > 0) {
-        track.scrollLeft += SPEED;
-        if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth; // loop sin salto
-      }
-      requestAnimationFrame(tick);
-    }
+  const observeIds = [
+    'calculator-card','feature1','feature2','feature3','feature4',
+    'testimonial1','testimonial2','testimonial3'
+  ];
+  observeIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
 
-    // Pausa al hover / touch
-    track.addEventListener("mouseenter", () => (paused = true));
-    track.addEventListener("mouseleave", () => (paused = false));
-    track.addEventListener("touchstart", () => (paused = true), { passive: true });
-    track.addEventListener("touchend", () => (paused = false), { passive: true });
+  // Helpers
+  const formatCOP = (n) => Number(n).toLocaleString('es-CO');
+  const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
 
-    requestAnimationFrame(tick);
-  }
+  // ✅ Cálculo único con descuento (para UI y WhatsApp)
+  const computeCOP = (bob) =>
+    Math.round(bob * CONFIG.EXCHANGE_RATE * (1 - (Number(CONFIG.DISCOUNT) || 0)));
 
-  // ===== MAIN CALC =====
-  function calculate({ animate = true } = {}) {
-    const amount = $("amount");
-    const received = $("received-amount");
-    const resultCard = $("result-card");
-    const resultAmount = $("result-amount");
-    const meta = $("cotiz-datetime");
-    const ratePill = $("rate-pill-value");
+  function calculateTransfer() {
+    const amount = parseFloat(amountInput.value);
 
-    if (!amount || !received || !resultCard || !resultAmount) return;
-
-    const bob = Number(amount.value);
-
-    if (!Number.isFinite(bob) || bob <= 0) {
-      received.value = "";
-      resultAmount.textContent = "0";
-      resultCard.style.display = "none";
-      if (meta) meta.textContent = "";
-      if (ratePill) ratePill.textContent = "—";
+    if (!Number.isFinite(amount) || amount <= 0) {
+      receivedInput.value = '';
+      resultCard.classList.remove('show');
+      document.getElementById('result-amount').textContent = '0';
       return;
     }
 
-    const cop = computeCOP(bob);
+    const safeAmount = clamp(amount, 0, CONFIG.MAX_AMOUNT);
+    const receivedAmount = computeCOP(safeAmount);
 
-    received.value = fmtCOP.format(cop);
-    resultCard.style.display = "block";
-
-    const prev = Number(String(resultAmount.textContent).replace(/[^\d]/g, "")) || 0;
-    if (animate) animateNumber(resultAmount, prev, cop);
-    else resultAmount.textContent = fmtCOP.format(cop);
-
-    if (meta) meta.textContent = `Destino: Colombia · TC ${fmtCOP.format(COP_PER_BOB)} COP/BOB · ${nowStamp()}`;
-    if (ratePill) ratePill.textContent = `${fmtCOP.format(COP_PER_BOB)} COP/BOB`;
+    receivedInput.value = formatCOP(receivedAmount);
+    document.getElementById('result-amount').textContent = formatCOP(receivedAmount);
+    resultCard.classList.add('show');
   }
 
-  // ===== SEND (WhatsApp) =====
-  function setupSend() {
-    const amount = $("amount");
-    const btn = $("calculate-btn");
-    if (!amount || !btn) return;
+  // Auto calculate
+  amountInput.addEventListener('input', calculateTransfer);
 
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      addRipple(btn, e);
+  // WhatsApp
+  calculateBtn.addEventListener('click', () => {
+    const amount = parseFloat(amountInput.value);
 
-      const bob = Number(amount.value);
-      if (!Number.isFinite(bob) || bob <= 0) {
-        alert("Por favor ingresa un monto válido en BOB.");
-        amount.focus();
-        return;
-      }
+    if (!Number.isFinite(amount) || amount <= 0) {
+      calculateBtn.classList.add('error');
+      calculateBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Monto inválido';
+      setTimeout(() => {
+        calculateBtn.classList.remove('error');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+      }, 1400);
+      return;
+    }
 
-      calculate({ animate: true });
+    if (amount < CONFIG.MIN_AMOUNT || amount > CONFIG.MAX_AMOUNT) {
+      calculateBtn.classList.add('error');
+      calculateBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Rango: ${CONFIG.MIN_AMOUNT}–${CONFIG.MAX_AMOUNT} BOB`;
+      setTimeout(() => {
+        calculateBtn.classList.remove('error');
+        calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+      }, 1600);
+      return;
+    }
 
-      const cop = computeCOP(bob);
-      const msg = `Hola, quiero enviar ${fmtBOB.format(bob)} BOB (${fmtCOP.format(cop)} COP) a Colombia. ¿Me ayudan con el envío?`;
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    calculateBtn.classList.add('calculating');
+    calculateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
 
-      btn.classList.add("is-loading");
-      btn.querySelector(".cta-content").innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Procesando...`;
+    setTimeout(() => {
+      const receivedAmount = computeCOP(amount);
+      const message =
+        `Hola LUPO 👋\n` +
+        `Quiero enviar *${amount} BOB* a Colombia.\n` +
+        `Recibe aprox: *${formatCOP(receivedAmount)} COP*.\n` +
+        `¿Me ayudan con el envío?`;
 
-      try { navigator.vibrate?.(18); } catch {}
+      const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+      calculateBtn.classList.remove('calculating');
+      calculateBtn.classList.add('success');
+      calculateBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Listo!';
 
       setTimeout(() => {
-        window.open(url, "_blank", "noopener,noreferrer");
-        btn.classList.remove("is-loading");
-        btn.querySelector(".cta-content").innerHTML = `<i class="fa-solid fa-check"></i> Enviado`;
-
+        window.open(url, '_blank', 'noopener');
         setTimeout(() => {
-          btn.querySelector(".cta-content").innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar dinero`;
-        }, 1400);
-      }, 420);
-    });
+          calculateBtn.classList.remove('success');
+          calculateBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar dinero por WhatsApp';
+        }, 1200);
+      }, 450);
+    }, 650);
+  });
+
+  // Calculate on load if prefilled
+  if (amountInput.value) calculateTransfer();
+
+  // ====== PWA installation ======
+  let deferredPrompt;
+  const installBtn = document.getElementById('install-btn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installBtn.style.display = 'none';
+  });
+
+  // ====== iOS installation ======
+  const iosModal = document.getElementById('ios-modal');
+  const iosClose = document.getElementById('ios-close');
+
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+
+  if (isIOS && isSafari && !isInStandaloneMode) {
+    iosModal.style.display = 'block';
   }
 
-  // ===== INIT =====
-  document.addEventListener("DOMContentLoaded", () => {
-    const amount = $("amount");
-    if (amount) amount.addEventListener("input", () => calculate({ animate: false }));
-    calculate({ animate: false });
-    setupSend();
-
-    setupAutoLogoCarousel(); // ✅ autoplay logos
+  iosClose.addEventListener('click', () => {
+    iosModal.style.display = 'none';
   });
-})();
+});
