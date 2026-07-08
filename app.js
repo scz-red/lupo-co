@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ====== CONFIG editable (solo cambias aquí) ======
   const CONFIG = {
-    EXCHANGE_RATE: 370,          // 1 BOB = 384 COP
+    EXCHANGE_RATE: 350,          // 1 BOB = 384 COP
     DISCOUNT: 0.16,              // ✅ 15% descuento
     MIN_AMOUNT: 10,              // mínimo BOB
     MAX_AMOUNT: 50000,           // máximo BOB
