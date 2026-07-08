@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     DISCOUNT: 0.14,              // ✅ 15% descuento
     MIN_AMOUNT: 10,              // mínimo BOB
     MAX_AMOUNT: 50000,           // máximo BOB
-    WHATSAPP_NUMBER: '591775333489'
+    WHATSAPP_NUMBER: '59175333489'
   };
 
   // ====== Elements ======
